@@ -1,0 +1,20 @@
+.board-background {
+  
+    background-color: #018f94;
+    
+    margin: 0px;
+/*     width: 100vw;
+    height: 100vh; */
+    border: 1px solid black;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#title {
+    margin: 0 auto;
+    padding: 0px;
+    font-size: 65px;
+    color: rgb(233, 255, 255);
+    text-align: center;
+}

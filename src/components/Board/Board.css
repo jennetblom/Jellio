@@ -1,0 +1,24 @@
+.boardContainer {
+    width: 80vw;
+    height: 100vh;
+    background-color: rgb(62, 175, 175);
+    
+    
+}
+
+#title {
+
+}
+
+#btnAdd {
+    background-color: rgba(95, 157, 157, 0.834);
+}
+
+#btnAdd:hover {
+    background-color: rgba(84, 139, 139, 0.834);
+}
+
+.boardFlex {
+    display: flex;
+    flex-direction: row;
+}
