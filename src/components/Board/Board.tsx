@@ -15,10 +15,7 @@ type Card = {
 
 type List = {
     id: number;
-    title?: string;
-
-
-    /*     content: string; */
+    title: string;
     /* cards: Card[]; */
 }
 const Board: React.FC = () => {
@@ -58,7 +55,7 @@ const Board: React.FC = () => {
                 </div>
                 {!isAdding ? (
                     <>
-                        <button onClick={handleAdd} id='btnAdd'><IoAdd size={30}/> Add another list</button>
+                        <button onClick={handleAdd} id='handleAddBtn'><IoAdd size={18}/> Add another list</button>
                     </>
                 ) : (
                     <div className='listContainer'>
@@ -70,7 +67,7 @@ const Board: React.FC = () => {
                      placeholder='Enter your listname...'
                    />
                  </form>
-                 <button className='btnAddToList' onClick={addList}>Add list</button>
+                 <button className='btnAdd' onClick={addList}>Add list</button>
                 </div>
                 )}
 
@@ -82,52 +79,3 @@ const Board: React.FC = () => {
 
 export default Board
 
-
-/* 
-
-type List = {
-    id: number;
-    title?: string;
- */
-
-/*     content: string; */
-/* cards: Card[]; */
-
-/* const Board: React.FC = () => {
-
-
-    const [lists, setLists] = useState<List[]>([]);
-
-    const addList = (title: string) => {
-
-        if(!title.trim()) return;
-
-        const newList: List = {
-            id: lists.length+1,
-            title: title
-        }
-
-        setLists([...lists, newList]);
-        console.log(lists);
-    }
-
-
-
-    return (
-        <div className='boardContainer'>
-            <div className='boardColumn'>
-                <div className='boardFlex'>
-       
-                    {lists.map((list) => (
-                        <List key={list.id} list={list}  />
-                    ))}
-                             <List onAddList={addList} />
-                </div>
-                <button onClick={() => addList} id='btnAdd'  >+ Add another list in board</button> 
-            </div>
-        </div>
-    )
-}
-
-
-export default Board */

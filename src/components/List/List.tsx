@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './List.css'
-
+import { IoAdd } from "react-icons/io5";
+import { BsThreeDots } from "react-icons/bs";
 type ListProps = {
   list: { id: number, title: string };
 };
@@ -27,6 +28,7 @@ const List: React.FC<ListProps> = ({ list }) => {
 
       {
         isTitleClicked ? (
+          <div className='listTitleContainer'>
           <form onSubmit={handleSubmit}>
             <input
               className='input'
@@ -35,72 +37,24 @@ const List: React.FC<ListProps> = ({ list }) => {
               placeholder='Enter your listname...'
             />
           </form>
+          <button className="icon-button">
+          <BsThreeDots />
+          </button>
+          </div>
         ) : (
-          <p onClick={handleTitleClicked}>{list.title}</p>
+          <div className='listTitleContainer'>
+          <p onClick={handleTitleClicked}  className='listTitle'>{list.title}</p>
+          <button className="icon-button">
+          <BsThreeDots />
+          </button>
+          </div >
         )
       }
-      <button className='btnAddToList'>+ Add a card</button>
+      <button className='btnAddToList'><IoAdd size={18}/>Add a card</button>
     </div>
   )
 }
-
-/* return (
-  <div className='listContainer'>
- {/*    <input
-      className='input'
-      value={listTitle}
-      onChange={(e) => setListTitle(e.target.value)}
-      placeholder='Enter your listname...'
-    /> 
-
-
-    
-    <p onClick={handleTitleClicked}>{list.title}</p>
-    <button className='btnAddToList'>+ Add a card</button>
-  </div>
-)
-} */
 
 export default List
 
 
-/* 
-import React, { useState } from 'react'
-import './List.css'
-
-type ListProps = {
-  list?: { id: number, title: string };
-  onAddList: (title: string) => void;
-};
-const List: React.FC<ListProps> = ({ list, onAddList }) => {
-
-  const [listTitle, setListTitle] = useState('');
-
-  if (list) {
-    <div className='listContainer'>
-      <p>{listTitle}</p>
-      <button className='btnAddToList'>+ Add a card</button>
-    </div>
-  }
-
-  const addList = () => {
-    if(onAddList) {
-  onAddList(listTitle);
-    setListTitle('');
-    }
-  
-  }
-  return (
-    <div className='listContainer'>
-      <input
-        className='input'
-        value={listTitle}
-        onChange={(e) => setListTitle(e.target.value)}
-        placeholder='Enter your listname...'
-      />
-      <button className='btnAddToList' onClick={() => addList()}>Add list</button>
-    </div>
-  )
-}
-
-export default List */

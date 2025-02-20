@@ -1,47 +1,75 @@
 .listContainer {
-    width: 350px;
+    width: 250px;
     background-color: rgb(225, 225, 225);
     height: auto;
-    font-size: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 20px;
-    margin: 20px;
-    border-radius: 5%;
-    padding-top: 20px;
+    font-size: 16px;
+    padding:10px;
+    margin: 5px;
+    border-radius: 10px;
+
     display: flex;
     justify-content: center;
     flex-direction: column;
    
-    box-shadow: 5px 5px 5px rgb(92, 92, 92);
-    border: 1px solid rgb(217, 217, 217);
+    box-shadow: 2px  3px 8px rgb(130, 130, 130);
+/*     border: 1px solid rgb(217, 217, 217); */
 }
+
 
 .listTitle {
     color: rgb(76, 76, 76);
-    font-size: 22px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .input {
     color: rgb(54, 54, 54);
-    font-size: 24px;
-    width: 95%;
+    font-size: 16px;
     align-self: center;
-    height: 40px;
+    height: auto;
     font-weight: 600;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+.listTitleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .btnAddToList {
-    padding: 4px;
-    background-color:  #006e96; 
-    color: white;
-    font-size: 20px;
-    border-radius: 10%;
-    width: 100px;
+    padding: 5px;
+    color: rgb(68, 68, 68);
+    font-size: 14px;
+    border-radius: 5px;
+    width: 95%;
     margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color:  rgb(225, 225, 225);
+    border: 1px solid rgb(225, 225, 225);
+
 }
 
 .btnAddToList:hover { 
-    background-color:  #014e6a; 
+    background-color: rgb(188, 188, 188);
+}
+
+.icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(68, 68, 68);
+    border-radius: 10px;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.icon-button:hover {
+    background-color: rgb(188, 188, 188);
+  
 }
