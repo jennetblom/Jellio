@@ -15,10 +15,7 @@ type Card = {
 
 type List = {
     id: number;
-    title?: string;
-
-
-    /*     content: string; */
+    title: string;
     /* cards: Card[]; */
 }
 const Board: React.FC = () => {
@@ -58,7 +55,7 @@ const Board: React.FC = () => {
                 </div>
                 {!isAdding ? (
                     <>
-                        <button onClick={handleAdd} id='btnAdd'><IoAdd size={30}/> Add another list</button>
+                        <button onClick={handleAdd} id='handleAddBtn'><IoAdd size={18}/> Add another list</button>
                     </>
                 ) : (
                     <div className='listContainer'>
@@ -70,7 +67,7 @@ const Board: React.FC = () => {
                      placeholder='Enter your listname...'
                    />
                  </form>
-                 <button className='btnAddToList' onClick={addList}>Add list</button>
+                 <button className='btnAdd' onClick={addList}>Add list</button>
                 </div>
                 )}
 
