@@ -2,8 +2,8 @@
     width: 80vw;
     height: 100vh;
     background-color: rgb(62, 175, 175);
-    
-    
+    display: flex;
+    padding: 20px;
 }
 
 #title {
@@ -12,6 +12,12 @@
 
 #btnAdd {
     background-color: rgba(95, 157, 157, 0.834);
+    padding: 14px;
+    height: 60px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    ;
 }
 
 #btnAdd:hover {
@@ -21,4 +27,11 @@
 .boardFlex {
     display: flex;
     flex-direction: row;
+    
+}
+.boardColumn {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+
 }
