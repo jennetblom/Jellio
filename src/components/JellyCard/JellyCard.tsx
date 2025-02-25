@@ -2,11 +2,14 @@
 import './JellyCard.css';
 
 
-const JellyCard = () => {
+type CardProps = {
+    card: {id: number, content: string};
+}
+
+const JellyCard: React.FC<CardProps> = ({card}) => {
     return (
         <div className="jelly-card">
-            <h2 className="jelly-cardtext">Jelly Card Title</h2>
-            <p className="jelly-cardtext">This is a jelly-like card</p>
+            <p className="jelly-cardtext">{card.content}</p>
         </div>
     )
 }

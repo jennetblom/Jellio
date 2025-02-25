@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
 import './Board.css'
 import List from '../List/List'
-
+import Card from '../Card/Card';
 import { IoAdd } from "react-icons/io5";
 
-/* 
+
 type Card = {
     id: number;
     content: string;
-} */
-
-
-
-
+}
 type List = {
     id: number;
     title: string;
-    /* cards: Card[]; */
+    cards: Card[]; 
 }
 const Board: React.FC = () => {
 
@@ -35,7 +31,8 @@ const Board: React.FC = () => {
 
         const newList: List = {
             id: lists.length + 1,
-            title: listTitle
+            title: listTitle,
+            cards: []
         }
 
         setLists([...lists, newList]);
@@ -79,8 +76,7 @@ const Board: React.FC = () => {
                                 autoFocus
                             />
                         </form>
-                        <button id="addButton" className='btnAdd' onClick={addList}
-                        >Add list</button>
+                        <button id="addButton" className='btnAdd' onClick={addList}>Add list</button>
                     </div>
                 )}
 
