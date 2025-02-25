@@ -12,7 +12,7 @@
     flex-direction: column;
    
     box-shadow: 2px  3px 8px rgb(130, 130, 130);
-/*     border: 1px solid rgb(217, 217, 217); */
+
 }
 
 
@@ -23,6 +23,7 @@
 }
 
 .input {
+    width: 210px;
     color: rgb(54, 54, 54);
     font-size: 16px;
     align-self: center;
@@ -36,6 +37,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.listTitleTextField {
+
+    width: 200px;
 }
 
 .btnAddToList {

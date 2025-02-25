@@ -7,9 +7,9 @@ const Header = () => {
     <header className="header">
 
       <img  id='jellyicon' src={JellyIcon} />
-           <Link to="/home" className='nav-link'><h1 id='appname'>Jellio</h1></Link> 
+           <Link to="/" className='nav-link'><h1 id='appname'>Jellio</h1></Link> 
       <div className='nav-links'>
-      <Link to="/home" className='nav-link'>Home</Link>
+      <Link to="/" className='nav-link'>Home</Link>
       <Link to="/createboard" className='nav-link'>Board</Link>
       </div>
    
