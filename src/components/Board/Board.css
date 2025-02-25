@@ -6,6 +6,7 @@
     padding: 10px;
     border: 0.2px solid rgb(85, 85, 85);
     flex-wrap: wrap;
+    
 }
 
 #title {
@@ -70,7 +71,7 @@
 
 .input {
     color: rgb(54, 54, 54);
-    font-size: 16px;
+    font-size: 14px;
     width: 95%;
     align-self: center;
     height: auto;

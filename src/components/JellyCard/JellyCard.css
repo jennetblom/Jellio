@@ -13,17 +13,22 @@
   }
 
   .jelly-card {
-    width: 200px;
+    width: 95%;
     border-radius: 15px;
-    padding: 150px;
-    height: 100px;
-    filter: blur(2px); /* Suddig glas-effekt */
+    font-size: 16px;
+  
+    height: 30px;
+   /* Suddig glas-effekt */
     box-shadow: 50px 50px 50px rgba(1, 84, 13, 0.271);
     background-image: 
     radial-gradient(circle at 20% 20%, rgba(77, 255, 101, 0.7) 0%, rgba(247, 228, 18, 0.5) 60%), 
     linear-gradient(to top, rgba(199, 22, 226, 0.308), rgba(245, 242, 60, 0.363)),
     conic-gradient(from 45deg, rgba(248, 0, 141, 0.318) 25%, rgb(238, 0, 255) 50%, rgba(25, 253, 238, 0.4) 75%, rgba(255, 136, 16, 0.712) 100%);
-    border-radius: 20%;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    padding: 5px;
+    padding-left: 8px;
+  
 
 /*     mask-image: radial-gradient(circle, rgb(255, 2, 158) 50%, rgba(0, 200, 255, 0.699) 100%); */
 /*     background: radial-gradient(circle, rgba(141, 255, 2, 0.816) 0%, rgba(11, 175, 175, 0.416) 40%, rgb(238, 0, 87) 70%); */
