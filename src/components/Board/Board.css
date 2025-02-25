@@ -21,8 +21,7 @@
     display: flex;
     align-items: center;
     width: 60px;
-    border: 1px solid rgb(70, 70, 70);
-    box-shadow: 2px 2px 2px rgb(70, 70, 70);
+    border: 0.3px solid rgb(130, 130, 130);
 }
 
 #btnAdd:hover {

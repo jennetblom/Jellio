@@ -12,7 +12,7 @@ function App() {
     <HashRouter>
       <Header />
       <Routes>
-        <Route path="/home" element={<HomeScreen />} />
+        <Route path="/" element={<HomeScreen />} />
         <Route path="/createboard" element={<BoardScreen />} />
       </Routes>
     </HashRouter>

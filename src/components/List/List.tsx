@@ -12,49 +12,53 @@ const List: React.FC<ListProps> = ({ list }) => {
 
 
   const handleTitleClicked = () => {
-
+    //When the user clicks the title, the title becomes editable and the texinput for title shows up
     setIsTitleClicked(true);
+    //the state variable listTitle gets the value of title of the list
     setListTitle(list.title);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
+    //when the user clicks enter when typing, and if the new listTitle is 
+    // not empty, the list gets an new title
     e.preventDefault();
     setIsTitleClicked(false);
-
-    list.title = listTitle;
+    if(listTitle.length > 0) {
+      list.title = listTitle;
+    }
+  
   }
   return (
     <div className='listContainer'>
-
-      {
-        isTitleClicked ? (
-          <div className='listTitleContainer'>
-          <form onSubmit={handleSubmit}>
-            <input
-              className='input'
-              value={listTitle}
-              onChange={(e) => setListTitle(e.target.value)}
-              placeholder='Enter your listname...'
-            />
-          </form>
-          <button className="icon-button">
+      <div className='listTitleContainer'>
+        {
+          !isTitleClicked ? (
+            //default value
+            <div onClick={handleTitleClicked} className='listTitleTextField'>
+              <p className='listTitle'>{list.title}</p>
+            </div>
+          ) : (
+            //if title is clicked, then input shows up
+            <form onSubmit={handleSubmit}>
+              <input
+                className='input'
+                value={listTitle}
+                onChange={(e) => setListTitle(e.target.value)}
+                placeholder='Enter your listname...'
+                onBlur={() => setIsTitleClicked(false)}
+                autoFocus
+              />
+            </form>
+          )
+        }
+        <button className="icon-button">
           <BsThreeDots />
-          </button>
-          </div>
-        ) : (
-          <div className='listTitleContainer'>
-          <p onClick={handleTitleClicked}  className='listTitle'>{list.title}</p>
-          <button className="icon-button">
-          <BsThreeDots />
-          </button>
-          </div >
-        )
-      }
-      <button className='btnAddToList'><IoAdd size={18}/>Add a card</button>
+        </button>
+      </div >
+      <button className='btnAddToList'><IoAdd size={18} />Add a card</button>
     </div>
   )
 }
 
 export default List
-
 
