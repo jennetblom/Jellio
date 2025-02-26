@@ -3,7 +3,7 @@ import './Board.css'
 import List from '../List/List'
 import Card from '../Card/Card';
 import { IoAdd } from "react-icons/io5";
-
+import { RxCross2 } from "react-icons/rx";
 
 type Card = {
     id: number;
@@ -12,7 +12,7 @@ type Card = {
 type List = {
     id: number;
     title: string;
-    cards: Card[]; 
+    cards: Card[];
 }
 const Board: React.FC = () => {
 
@@ -23,10 +23,10 @@ const Board: React.FC = () => {
     const [listTitle, setListTitle] = useState('');
 
 
-    const addList = () => {
+    const addList = (e: React.FormEvent) => {
         //Adds an new list to the list of lists
         //If listempty is empty the function returns
-
+    e.preventDefault();
         if (listTitle === '') return setIsAdding(false);
 
         const newList: List = {
@@ -36,7 +36,7 @@ const Board: React.FC = () => {
         }
 
         setLists([...lists, newList]);
-        setIsAdding(false);
+        setIsAdding(true);
         setListTitle('');
         console.log(lists);
     }
@@ -76,7 +76,10 @@ const Board: React.FC = () => {
                                 autoFocus
                             />
                         </form>
-                        <button id="addButton" className='btnAdd' onClick={addList}>Add list</button>
+                        <div className='addOrCancelContainer'>
+                            <button id="addButton" className='btnAdd' onClick={addList}>Add list</button>
+                            <button className='icon-button' onClick={() => setIsAdding(false)}><RxCross2 /></button>
+                        </div>
                     </div>
                 )}
 

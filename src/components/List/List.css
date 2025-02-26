@@ -1,17 +1,17 @@
 .listContainer {
     width: 250px;
-    background-color: rgb(240, 240, 240);
-    height: auto;
+    background-color: rgb(230, 230, 230);
+    height: fit-content;
     font-size: 14px;
-    padding:10px;
+    padding: 10px;
     margin: 5px;
     border-radius: 10px;
 
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-   
-    box-shadow: 2px  3px 8px rgb(130, 130, 130);
+
+    box-shadow: 2px 3px 8px rgb(130, 130, 130);
 
 }
 
@@ -40,9 +40,11 @@
 }
 
 .listTitleTextField {
-
-    width: 200px;
+    border: 200xp solid rgb(238, 4, 4);
+    width: 210px;
 }
+
+
 
 .btnhandleCard {
     padding: 5px;
@@ -54,12 +56,12 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color:  rgb(225, 225, 225);
-    border: 1px solid rgb(225, 225, 225);
+    background-color: rgb(230, 230, 230);
+    border: none;
 
 }
 
-.btnhandleCard:hover{ 
+.btnhandleCard:hover {
     background-color: rgb(188, 188, 188);
 }
 
@@ -69,28 +71,28 @@
     cursor: pointer;
     color: rgb(68, 68, 68);
     border-radius: 10px;
-    padding-top:5px;
-    padding-bottom:5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 8px;
 }
 
 .icon-button:hover {
     background-color: rgb(188, 188, 188);
-  
+
 }
 
 .btnAddCard {
     background-color: rgba(39, 171, 164, 0.834);
     padding: 5px;
     font-size: 14px;
-    margin-top: 10px;
     margin-bottom: 0px;
     display: flex;
     align-items: center;
-   
+
     border: 0.3px solid rgb(130, 130, 130);
 }
+
 .inputCardContent {
     background-color: white;
     width: 95%;
@@ -98,7 +100,7 @@
     margin-left: 0px;
     margin-right: 0px;
     border-radius: 10px;
-    box-shadow: 1px  1px 1px rgb(167, 167, 167);
+    box-shadow: 1px 1px 1px rgb(167, 167, 167);
     margin-bottom: 5px;
 
     font-size: 14px;
@@ -106,5 +108,13 @@
     border: transparent;
     outline: none;
     color: rgb(91, 91, 91);
-     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.addOrCancelContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+
 }

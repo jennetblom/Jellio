@@ -28,3 +28,21 @@ button:hover {
 p {
   margin: 0px;
 }
+
+.icon-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgb(68, 68, 68);
+  border-radius: 1px;
+  padding-top:5px;
+  padding-bottom:5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin: 5px;
+}
+
+.icon-button:hover {
+  background-color: rgb(188, 188, 188);
+
+}

@@ -4,6 +4,7 @@ import { IoAdd } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 import Card from '../Card/Card';
 import JellyCard from '../JellyCard/JellyCard';
+import { RxCross2 } from "react-icons/rx";
 type Card = {
   id: number;
   content: string;
@@ -43,7 +44,8 @@ const List: React.FC<ListProps> = ({ list }) => {
     setIsHandlingCard(true);
     console.log(isHandlingCard);
   }
-  const addCard = () => {
+  const addCard = (e: React.FormEvent) => {
+    e.preventDefault();
     if (cardContent === '') return setIsHandlingCard(false);
 
     const newCard: Card = {
@@ -51,7 +53,7 @@ const List: React.FC<ListProps> = ({ list }) => {
       content: cardContent
     }
     setCards([...cards, newCard]);
-    setIsHandlingCard(false);
+    setIsHandlingCard(true);
     setCardContent('');
 
   }
@@ -108,8 +110,10 @@ const List: React.FC<ListProps> = ({ list }) => {
                 autoFocus
               />
             </form>
-
-            <button id="addCard" className='btnAddCard' onClick={addCard}>Add card </button>
+            <div className='addOrCancelContainer'>
+              <button id="addCard" className='btnAddCard' onClick={addCard}>Add card</button>
+              <button className='icon-button' onClick={() => setIsHandlingCard(false)}><RxCross2 /></button>
+            </div>
           </div>
         )
       }
