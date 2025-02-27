@@ -4,6 +4,22 @@ import List from '../List/List'
 import Card from '../Card/Card';
 import { IoAdd } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import {
+    DndContext,
+    closestCenter,
+    useSensor,
+    useSensors,
+    PointerSensor,
+    MouseSensor,
+    KeyboardSensor,
+} from "@dnd-kit/core";
+import {
+    arrayMove,
+    horizontalListSortingStrategy,
+    SortableContext,
+
+} from "@dnd-kit/sortable";
+
 
 type Card = {
     id: number;
@@ -13,6 +29,7 @@ type List = {
     id: number;
     title: string;
     cards: Card[];
+
 }
 const Board: React.FC = () => {
 
@@ -20,13 +37,13 @@ const Board: React.FC = () => {
     const [lists, setLists] = useState<List[]>([]);
     const [isAdding, setIsAdding] = useState(false);
 
-    const [listTitle, setListTitle] = useState('');
+    const [listTitle, setListTitle] = useState<string>('');
 
 
     const addList = (e: React.FormEvent) => {
         //Adds an new list to the list of lists
         //If listempty is empty the function returns
-    e.preventDefault();
+        e.preventDefault();
         if (listTitle === '') return setIsAdding(false);
 
         const newList: List = {
@@ -51,15 +68,44 @@ const Board: React.FC = () => {
         }
         setIsAdding(false);
     }
+    const removeItem = (id: number) => {
+        setLists((prevLists) => prevLists.filter(list => list.id !== id));
+    }
+    const mouseSensor = useSensor(MouseSensor, {
+        activationConstraint: {
+            distance: 10, // Enable sort function when dragging 10px   💡 here!!!
+        },
+    })
+    const keyboardSensor = useSensor(KeyboardSensor)
+    const sensors = useSensors(mouseSensor, keyboardSensor);
+
+    const handleDragEnd = (event: any) => {
+        const { active, over } = event;
+        if (!over || active.id === over.id) return;
+
+        setLists((prevLists) => {
+            const oldIndex = prevLists.findIndex((list) => list.id === active.id);
+            const newIndex = prevLists.findIndex((list) => list.id === over.id);
+            return arrayMove(prevLists, oldIndex, newIndex);
+        });
+    };
+    
 
     return (
         <div className='boardContainer'>
             <div className='boardColumn'>
+
                 <div className='boardFlex'>
-                    {lists.map((list) => (
-                        <List key={list.id} list={list} />
-                    ))}
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd} >
+                        <SortableContext items={lists.map(list => list.id)} strategy={horizontalListSortingStrategy}>
+                            {lists.map((list) => (
+                                <List key={list.id} list={list} onRemove={removeItem} />
+                            ))}
+                        </SortableContext>
+                    </DndContext>
                 </div>
+
+
                 {!isAdding ? (
                     <>
                         <button onClick={handleAdd} id='handleAddBtn'><IoAdd size={18} /> Add another list</button>
@@ -71,9 +117,10 @@ const Board: React.FC = () => {
                                 className='input'
                                 value={listTitle}
                                 onChange={(e) => setListTitle(e.target.value)}
-                                placeholder='Enter your listname...'
+                                placeholder='Enter list name...'
                                 onBlur={handleBlur}
                                 autoFocus
+                                maxLength={33}
                             />
                         </form>
                         <div className='addOrCancelContainer'>

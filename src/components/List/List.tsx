@@ -3,18 +3,23 @@ import './List.css'
 import { IoAdd } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 import Card from '../Card/Card';
-
+import { MdDelete } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
 type Card = {
   id: number;
   content: string;
 }
 type ListProps = {
   list: { id: number, title: string, cards: Card[] };
+  onRemove: (id: number) => void;
 };
 
 
-const List: React.FC<ListProps> = ({ list }) => {
+const List: React.FC<ListProps> = ({ list, onRemove }) => {
 
   const [listTitle, setListTitle] = useState('');
   const [isTitleClicked, setIsTitleClicked] = useState(false);
@@ -22,6 +27,7 @@ const List: React.FC<ListProps> = ({ list }) => {
   const [isHandlingCard, setIsHandlingCard] = useState(false);
   const [cardContent, setCardContent] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: list.id });
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -77,11 +83,21 @@ const List: React.FC<ListProps> = ({ list }) => {
       addCard(event);
     }
   }
+  const handleTitleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(event)
+    }
+  }
 
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   return (
-    <div className='listContainer'>
-      <div className='listTitleContainer'>
+    <div   className={`listContainer ${isDragging ? "isDragging" : ""}`} ref={setNodeRef} style={style} {...attributes}  {...listeners}>
+      <div className='listTitleContainer' >
         {
           !isTitleClicked ? (
             //default value
@@ -98,12 +114,14 @@ const List: React.FC<ListProps> = ({ list }) => {
                 placeholder='Enter your listname...'
                 onBlur={() => setIsTitleClicked(false)}
                 autoFocus
+                maxLength={33}
+                onKeyDown={handleTitleKeyPress}
               />
             </form>
           )
         }
         <button className="icon-button">
-          <BsThreeDots />
+          <RiDeleteBin6Line onClick={() => onRemove(list.id)} size={18} />
         </button>
       </div >
       {cards.map((card) => (
