@@ -1,18 +1,24 @@
 .listContainer {
-    width: 250px;
+    width: 270px;
     background-color: rgb(230, 230, 230);
     height: fit-content;
     font-size: 14px;
-    padding: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 3px;
     margin: 5px;
     border-radius: 10px;
-
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-
     box-shadow: 2px 3px 8px rgb(130, 130, 130);
-
+}
+.isDragging {
+    opacity: 0.5;
+    width: 270px;
+    z-index: 100;
+    
 }
 
 
@@ -23,13 +29,16 @@
 }
 
 .input {
-    width: 210px;
+    width: 220px;
     color: rgb(54, 54, 54);
     font-size: 14px;
     align-self: center;
     height: auto;
     font-weight: 600;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    outline: none;
+    border: 2px solid  rgba(39, 171, 164, 0.834);
+    border-radius: 5px;
 }
 
 .listTitleContainer {
@@ -95,7 +104,7 @@
 
 .inputCardContent {
     background-color: white;
-    width: 95%;
+    width: 93%;
     padding: 5px;
     margin-left: 0px;
     margin-right: 0px;

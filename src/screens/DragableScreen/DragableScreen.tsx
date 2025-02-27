@@ -10,6 +10,7 @@ import {
 } from "@dnd-kit/core";
 import {
     arrayMove,
+    horizontalListSortingStrategy,
     SortableContext,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
@@ -25,6 +26,8 @@ const DragableScreen = () => {
         useSensor(KeyboardSensor)
     );
 
+    
+
     const handleDragEnd = (event: any) => {
         const { active, over } = event;
         if(active.id != over.id) {
@@ -38,7 +41,7 @@ const DragableScreen = () => {
 
     return (
        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={items} strategy={verticalListSortingStrategy}>
+          <SortableContext items={items} strategy={horizontalListSortingStrategy}>
             {items.map((item)=> (
                 <SortableItem key={item} id={item} />
             ))}

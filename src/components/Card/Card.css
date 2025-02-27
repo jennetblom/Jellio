@@ -1,7 +1,7 @@
 .cardContainer {
     background-color: white;
     width: 93%;
-    padding: 10px;
+    padding: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     margin-left: 0px;
@@ -19,6 +19,6 @@
 }
 
 .cardContainer:hover {
-    border: 2px solid #0C66E4;
+/*     border: 2px solid #0C66E4; */
  }
    

@@ -17,9 +17,11 @@ export default function SortableItem({ id }: { id: string }) {
         cursor: "grab",
     };
 
+    
+
     return (
-        <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+        <button ref={setNodeRef} style={style} {...attributes} {...listeners} onClick={() => console.log('klick')}>
             {id}
-        </div>
+        </button>
     );
 }   
