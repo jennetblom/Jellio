@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './List.css'
 import { IoAdd } from "react-icons/io5";
 import { BsThreeDots } from "react-icons/bs";
 import Card from '../Card/Card';
-import JellyCard from '../JellyCard/JellyCard';
+
 import { RxCross2 } from "react-icons/rx";
 type Card = {
   id: number;
@@ -21,7 +21,14 @@ const List: React.FC<ListProps> = ({ list }) => {
   const [cards, setCards] = useState<Card[]>([]);
   const [isHandlingCard, setIsHandlingCard] = useState(false);
   const [cardContent, setCardContent] = useState('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [cardContent]);
   const handleTitleClicked = () => {
     //When the user clicks the title, the title becomes editable and the texinput for title shows up
     setIsTitleClicked(true);
@@ -57,11 +64,18 @@ const List: React.FC<ListProps> = ({ list }) => {
     setCardContent('');
 
   }
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (e.relatedTarget && e.relatedTarget.id === "addCard") {
       return;
     }
     setIsHandlingCard(false);
+    setCardContent('');
+  }
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addCard(event);
+    }
   }
 
 
@@ -101,17 +115,19 @@ const List: React.FC<ListProps> = ({ list }) => {
         ) : (
           <div>
             <form onSubmit={addCard}>
-              <input
+              <textarea
+                ref={textareaRef}
                 className='inputCardContent'
                 value={cardContent}
                 onChange={(e) => setCardContent(e.target.value)}
                 placeholder='Enter a title...'
                 onBlur={handleBlur}
                 autoFocus
+                onKeyDown={handleKeyPress}
               />
             </form>
             <div className='addOrCancelContainer'>
-              <button id="addCard" className='btnAddCard' onClick={addCard}>Add card</button>
+              <button id="addCard" className='btnAddCard' onClick={addCard} >Add card</button>
               <button className='icon-button' onClick={() => setIsHandlingCard(false)}><RxCross2 /></button>
             </div>
           </div>
