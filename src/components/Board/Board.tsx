@@ -9,7 +9,6 @@ import {
     closestCenter,
     useSensor,
     useSensors,
-    PointerSensor,
     MouseSensor,
     KeyboardSensor,
 } from "@dnd-kit/core";
@@ -73,7 +72,7 @@ const Board: React.FC = () => {
     }
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
-            distance: 10, // Enable sort function when dragging 10px   💡 here!!!
+            distance: 10,
         },
     })
     const keyboardSensor = useSensor(KeyboardSensor)

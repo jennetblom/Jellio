@@ -12,7 +12,7 @@ import {
     arrayMove,
     horizontalListSortingStrategy,
     SortableContext,
-    verticalListSortingStrategy,
+
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
 
