@@ -4,7 +4,7 @@
     height: fit-content;
     font-size: 14px;
     padding-left: 10px;
-    padding-top: 10px;
+
     padding-bottom: 10px;
     padding-right: 3px;
     margin: 5px;
@@ -46,10 +46,13 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+   
+
+  
 }
 
 .listTitleTextField {
-    border: 200xp solid rgb(238, 4, 4);
+ 
     width: 210px;
 }
 

@@ -1,13 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './List.css'
 import { IoAdd } from "react-icons/io5";
-import { BsThreeDots } from "react-icons/bs";
+/* import { BsThreeDots } from "react-icons/bs"; */
 import Card from '../Card/Card';
-import { MdDelete } from "react-icons/md";
+
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSortable } from "@dnd-kit/sortable";
+import { useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import {
+  DndContext,
+  closestCenter,
+  useSensor,
+  useSensors,
+  MouseSensor,
+  KeyboardSensor,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  horizontalListSortingStrategy,
+  SortableContext,
+
+} from "@dnd-kit/sortable";
 
 type Card = {
   id: number;
@@ -94,10 +108,29 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  })
+
+  const keyboardSensor = useSensor(KeyboardSensor)
+  const sensors = useSensors(mouseSensor, keyboardSensor);
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    setCards((prevCards) => {
+      const oldIndex = prevCards.findIndex((card) => card.id === active.id);
+      const newIndex = prevCards.findIndex((card) => card.id === over.id);
+      return arrayMove(prevCards, oldIndex, newIndex);
+    });
+  };
 
   return (
-    <div   className={`listContainer ${isDragging ? "isDragging" : ""}`} ref={setNodeRef} style={style} {...attributes}  {...listeners}>
-      <div className='listTitleContainer' >
+    <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
+      <div className='listTitleContainer' ref={setNodeRef} {...attributes}  {...listeners} >
         {
           !isTitleClicked ? (
             //default value
@@ -124,9 +157,13 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
           <RiDeleteBin6Line onClick={() => onRemove(list.id)} size={18} />
         </button>
       </div >
-      {cards.map((card) => (
-        <Card key={card.id} card={card} />
-      ))}
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
+          {cards.map((card) => (
+            <Card key={card.id} card={card} />
+          ))}
+        </SortableContext>
+      </DndContext>
       {
         !isHandlingCard ? (
           <button className='btnhandleCard' onClick={handleAddCard}><IoAdd size={18} /> Add a card</button>
