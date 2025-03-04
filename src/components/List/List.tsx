@@ -3,10 +3,9 @@ import './List.css'
 import { IoAdd } from "react-icons/io5";
 /* import { BsThreeDots } from "react-icons/bs"; */
 import Card from '../Card/Card';
-
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
+import { useSortable, verticalListSortingStrategy, arrayMove, SortableContext} from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
   DndContext,
@@ -16,12 +15,7 @@ import {
   MouseSensor,
   KeyboardSensor,
 } from "@dnd-kit/core";
-import {
-  arrayMove,
-  horizontalListSortingStrategy,
-  SortableContext,
 
-} from "@dnd-kit/sortable";
 
 type Card = {
   id: number;
@@ -29,18 +23,20 @@ type Card = {
 }
 type ListProps = {
   list: { id: number, title: string, cards: Card[] };
+  addCardToList: (listId: number, content: string) => void;
   onRemove: (id: number) => void;
 };
 
 
-const List: React.FC<ListProps> = ({ list, onRemove }) => {
+const List = ({list, addCardToList, onRemove} : ListProps) => {
 
   const [listTitle, setListTitle] = useState('');
   const [isTitleClicked, setIsTitleClicked] = useState(false);
-  const [cards, setCards] = useState<Card[]>([]);
+/*   const [cards, setCards] = useState<Card[]>([]); */
   const [isHandlingCard, setIsHandlingCard] = useState(false);
   const [cardContent, setCardContent] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: list.id });
 
   useEffect(() => {
@@ -49,6 +45,7 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, [cardContent]);
+
   const handleTitleClicked = () => {
     //When the user clicks the title, the title becomes editable and the texinput for title shows up
     setIsTitleClicked(true);
@@ -66,22 +63,18 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
     }
   }
 
-  const handleAddCard = () => {
-    console.log(isHandlingCard);
-    setIsHandlingCard(true);
-    console.log(isHandlingCard);
-  }
+  const handleAddCard = () => setIsHandlingCard(true);
+
+
   const addCard = (e: React.FormEvent) => {
+
     e.preventDefault();
     if (cardContent === '') return setIsHandlingCard(false);
 
-    const newCard: Card = {
-      id: cards.length + 1,
-      content: cardContent
-    }
-    setCards([...cards, newCard]);
+    addCardToList(list.id, cardContent);
     setIsHandlingCard(true);
     setCardContent('');
+
 
   }
   const handleBlur = (e: React.FocusEvent<HTMLTextAreaElement>) => {
@@ -108,16 +101,16 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  const mouseSensor = useSensor(MouseSensor, {
+/*   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
     },
   })
 
   const keyboardSensor = useSensor(KeyboardSensor)
-  const sensors = useSensors(mouseSensor, keyboardSensor);
+  const sensors = useSensors(mouseSensor, keyboardSensor); */
 
-  const handleDragEnd = (event: any) => {
+/*   const handleDragEnd = (event: any) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
@@ -126,7 +119,7 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
       const newIndex = prevCards.findIndex((card) => card.id === over.id);
       return arrayMove(prevCards, oldIndex, newIndex);
     });
-  };
+  }; */
 
   return (
     <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
@@ -157,13 +150,13 @@ const List: React.FC<ListProps> = ({ list, onRemove }) => {
           <RiDeleteBin6Line onClick={() => onRemove(list.id)} size={18} />
         </button>
       </div >
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
-          {cards.map((card) => (
+
+        <SortableContext items={list.cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
+          {list.cards.map((card) => (
             <Card key={card.id} card={card} />
           ))}
-        </SortableContext>
-      </DndContext>
+         </SortableContext>
+
       {
         !isHandlingCard ? (
           <button className='btnhandleCard' onClick={handleAddCard}><IoAdd size={18} /> Add a card</button>
