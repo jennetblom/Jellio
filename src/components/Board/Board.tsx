@@ -14,12 +14,10 @@ import {
     KeyboardSensor,
 } from "@dnd-kit/core";
 import {
-    arrayMove,
-    horizontalListSortingStrategy,
     SortableContext,
 
 } from "@dnd-kit/sortable";
-import {handleDragEnd} from "../../functions/handleDragEnd";
+import { handleDragEnd } from "../../functions/handleDragEnd";
 
 type Card = {
     id: number;
@@ -85,8 +83,6 @@ const Board: React.FC = () => {
     const keyboardSensor = useSensor(KeyboardSensor)
     const sensors = useSensors(mouseSensor, keyboardSensor);
 
-
-
     return (
         <div className='boardContainer'>
             <div className='boardColumn'>
@@ -130,7 +126,6 @@ const Board: React.FC = () => {
         </div>
     )
 }
-
 
 
 export default Board

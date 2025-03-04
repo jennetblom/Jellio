@@ -5,16 +5,8 @@ import { IoAdd } from "react-icons/io5";
 import Card from '../Card/Card';
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSortable, verticalListSortingStrategy, arrayMove, SortableContext} from "@dnd-kit/sortable";
+import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  DndContext,
-  closestCenter,
-  useSensor,
-  useSensors,
-  MouseSensor,
-  KeyboardSensor,
-} from "@dnd-kit/core";
 
 
 type Card = {
@@ -28,11 +20,11 @@ type ListProps = {
 };
 
 
-const List = ({list, addCardToList, onRemove} : ListProps) => {
+const List = ({ list, addCardToList, onRemove }: ListProps) => {
 
   const [listTitle, setListTitle] = useState('');
   const [isTitleClicked, setIsTitleClicked] = useState(false);
-/*   const [cards, setCards] = useState<Card[]>([]); */
+
   const [isHandlingCard, setIsHandlingCard] = useState(false);
   const [cardContent, setCardContent] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -101,25 +93,6 @@ const List = ({list, addCardToList, onRemove} : ListProps) => {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-/*   const mouseSensor = useSensor(MouseSensor, {
-    activationConstraint: {
-      distance: 10,
-    },
-  })
-
-  const keyboardSensor = useSensor(KeyboardSensor)
-  const sensors = useSensors(mouseSensor, keyboardSensor); */
-
-/*   const handleDragEnd = (event: any) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-
-    setCards((prevCards) => {
-      const oldIndex = prevCards.findIndex((card) => card.id === active.id);
-      const newIndex = prevCards.findIndex((card) => card.id === over.id);
-      return arrayMove(prevCards, oldIndex, newIndex);
-    });
-  }; */
 
   return (
     <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
@@ -150,12 +123,14 @@ const List = ({list, addCardToList, onRemove} : ListProps) => {
           <RiDeleteBin6Line onClick={() => onRemove(list.id)} size={18} />
         </button>
       </div >
-
+      <div className='listsFlex'>
         <SortableContext items={list.cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
           {list.cards.map((card) => (
             <Card key={card.id} card={card} />
           ))}
-         </SortableContext>
+        </SortableContext>
+      </div>
+
 
       {
         !isHandlingCard ? (
