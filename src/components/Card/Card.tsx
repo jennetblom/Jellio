@@ -10,7 +10,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({ card }) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: card.id });
   const [isCardClicked, setIsCardClicked] = useState(false);
-  const [cardContent, setCardContent] = useState("");
+  const [cardContent, setCardContent] = useState(card.content);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -38,11 +38,14 @@ const Card: React.FC<CardProps> = ({ card }) => {
     }
   }
   useEffect(() => {
+    console.log("useEffect", textareaRef.current?.scrollHeight);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
-  }, [cardContent]);
+  }, [cardContent, isCardClicked]);
+
+
   return (
     <div className='cardContainer' style={style} ref={setNodeRef} {...attributes} {...listeners}>
       {!isCardClicked ? (
@@ -55,6 +58,8 @@ const Card: React.FC<CardProps> = ({ card }) => {
             className='inputCard'
             onChange={(e) => setCardContent(e.target.value)}
             onKeyDown={handleCardKeyPress}
+            onBlur={() => setIsCardClicked(false)}
+            autoFocus
           />
         </form>
       )
