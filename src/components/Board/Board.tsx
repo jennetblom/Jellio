@@ -65,6 +65,16 @@ const Board: React.FC = () => {
         ));
 
     };
+    const removeList = (listId: number) => {
+        setLists((prevLists) => prevLists.filter(list => list.id !== listId));
+    }
+    const removeCard = (listId : number, cardId : number) => {
+        setLists(lists.map(list => 
+            list.id === listId
+             ? {...list, cards: list.cards.filter(card => card.id !== cardId)} 
+             : list
+        ));
+    }
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         if (e.relatedTarget && e.relatedTarget.id === "addButton") {
@@ -72,9 +82,8 @@ const Board: React.FC = () => {
         }
         setIsAdding(false);
     }
-    const removeItem = (id: number) => {
-        setLists((prevLists) => prevLists.filter(list => list.id !== id));
-    }
+
+
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
             distance: 10,
@@ -91,7 +100,7 @@ const Board: React.FC = () => {
                     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}> 
                         <SortableContext items={lists.map(list => list.id)} >
                             {lists.map((list) => (
-                                <List key={list.id} list={list} addCardToList={addCard} onRemove={removeItem} />
+                                <List key={list.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
                             ))}
                         </SortableContext>
                     </DndContext>

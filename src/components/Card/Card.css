@@ -18,6 +18,10 @@
     overflow-y: auto;
 }
 
+.cardContainer:hover {
+    border: 1px solid rgb(0, 238, 255);
+}
+
 .inputCard {
     background-color: white;
     width: 93%;
@@ -38,8 +42,20 @@
     overflow: hidden;
 
 }
+.cardContentPlacement {
+    display: flex;
+    flex-direction: column;
+}
+.cardContentBottom {
+    display: flex;
+    justify-content: flex-end;
+}
 .cardContent {
     height: auto;
     padding-bottom: 10px;
 }
-   
+#trashIcon {
+    padding-right: 5px;
+}
+
+

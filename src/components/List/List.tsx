@@ -9,6 +9,7 @@ import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd
 import { CSS } from "@dnd-kit/utilities";
 
 
+
 type Card = {
   id: number;
   content: string;
@@ -16,11 +17,12 @@ type Card = {
 type ListProps = {
   list: { id: number, title: string, cards: Card[] };
   addCardToList: (listId: number, content: string) => void;
-  onRemove: (id: number) => void;
+  onRemove: (listId: number) => void;
+  removeCard: (listId: number, cardId: number) => void;
 };
 
 
-const List = ({ list, addCardToList, onRemove }: ListProps) => {
+const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
 
   const [listTitle, setListTitle] = useState('');
   const [isTitleClicked, setIsTitleClicked] = useState(false);
@@ -94,6 +96,8 @@ const List = ({ list, addCardToList, onRemove }: ListProps) => {
     transition,
   };
 
+
+
   return (
     <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
       <div className='listTitleContainer' ref={setNodeRef} {...attributes}  {...listeners} >
@@ -126,12 +130,10 @@ const List = ({ list, addCardToList, onRemove }: ListProps) => {
       <div className='listsFlex'>
         <SortableContext items={list.cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
           {list.cards.map((card) => (
-            <Card key={card.id} card={card} />
+            <Card key={card.id} card={card} removeCard={() => removeCard(list.id, card.id)} />
           ))}
         </SortableContext>
       </div>
-
-
       {
         !isHandlingCard ? (
           <button className='btnhandleCard' onClick={handleAddCard}><IoAdd size={18} /> Add a card</button>

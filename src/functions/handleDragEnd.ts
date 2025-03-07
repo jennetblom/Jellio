@@ -21,58 +21,34 @@ export const handleDragEnd = (event: any, lists: List[], setLists: (lists: List[
   }
 
 
-  let sourceList: List | undefined;
-  let destinationList: List | undefined;
-  let movedCard;
-
-  lists.forEach((list) => {
-    if (list.cards.some((card) => card.id === activeId)) {
-      sourceList = list;
-      movedCard = list.cards.find((card) => card.id === activeId);
-    }
-    if (list.cards.some((card) => card.id === overId) || list.id === overId) {
-      destinationList = list;
-    }
-  });
+  let sourceList = lists.find((list) => list.cards.some((card) => card.id === activeId));
+  let destinationList = lists.find((list) => list.cards.some((card) => card.id === overId)) || lists.find((list) => list.id === overId);
+  if (!sourceList) return;
 
 
-  if (!sourceList || !movedCard) return;
-  if (!destinationList) destinationList = sourceList; 
+  const movedCard = sourceList.cards.find((card) => card.id === activeId);
+  if (!movedCard) return;
 
-
-  if (sourceList.id === destinationList.id) {
+  if (sourceList.id === destinationList?.id) {
     const oldIndex = sourceList.cards.findIndex((card) => card.id === activeId);
-    const newIndex = overId ? destinationList.cards.findIndex((card) => card.id === overId) : destinationList.cards.length - 1;
+    const newIndex = destinationList.cards.findIndex((card) => card.id === overId);
 
-    if (oldIndex === -1 || newIndex === -1) return;
-
-    const updatedCards = arrayMove(sourceList.cards, oldIndex, newIndex);
-
-    setLists(
-      lists.map((list) =>
-        list.id === sourceList!.id ? { ...list, cards: updatedCards } : list
-      )
-    );
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const updatedCards = arrayMove(sourceList.cards, oldIndex, newIndex);
+      setLists(lists.map((list) => (list.id === sourceList.id ? { ...list, cards: updatedCards } : list)));
+    }
     return;
   }
-
+  
   const newSourceCards = sourceList.cards.filter((card) => card.id !== activeId);
-  const newDestinationCards = destinationList ? [...destinationList.cards] : [];
-
-  let overCardIndex;
-  if(destinationList.cards.length === 0 || !overId) {
-    overCardIndex = 0
-  } else {
-    overCardIndex = overId ? destinationList.cards.findIndex((card) => card.id === overId) :
-    destinationList.cards.length;
-  }
+  const newDestinationCards = [...(destinationList?.cards || [])];
 
 
-  if (overCardIndex === -1) return;
+  const overCardIndex = overId ? newDestinationCards.findIndex((card) => card.id === overId) : newDestinationCards.length;
+  newDestinationCards.splice(overCardIndex === -1 ? newDestinationCards.length : overCardIndex, 0, movedCard);
+
 
   
-  newDestinationCards.splice(overCardIndex, 0, movedCard);
-
   setLists(
     lists.map((list) => {
       if (list.id === sourceList!.id) return { ...list, cards: newSourceCards };

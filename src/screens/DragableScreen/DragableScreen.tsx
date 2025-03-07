@@ -15,7 +15,7 @@ import {
 
 } from "@dnd-kit/sortable";
 import SortableItem from "./SortableItem";
-
+import { addData } from "../../firebase/addData"
 const initialItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
 
 const DragableScreen = () => {
@@ -38,15 +38,22 @@ const DragableScreen = () => {
            });
         }
     };
+    const addDataToDb = () => {
+        addData()
+    }
 
     return (
-       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <div>
+  <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={items} strategy={horizontalListSortingStrategy}>
             {items.map((item)=> (
                 <SortableItem key={item} id={item} />
             ))}
           </SortableContext>
        </DndContext>
+       <button onClick={addDataToDb}></button>
+        </div>
+     
     )
 }
 

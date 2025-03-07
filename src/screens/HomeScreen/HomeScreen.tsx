@@ -11,7 +11,7 @@ const HomeScreen = () => {
                         <h1 className='title'>Jellio brings all your tasks, teammates, and tools together</h1>
                         <p id='description'>The best way to organize your workflow in a simple and visual way</p>
                         <Link to="/createboard" >
-                        <button className='button'>Get Started</button>
+                        <button className='getStartedButton'>Get Started</button>
                         </Link>
                     </div>
                 </div>

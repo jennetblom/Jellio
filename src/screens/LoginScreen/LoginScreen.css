@@ -1,0 +1,49 @@
+.loginScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    
+    
+    background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+}
+
+.loginCardContainer {
+    margin-top: 50px;
+   width: 500px;
+   height: 70%;
+   background-color: white;
+
+   box-shadow: 2px 1px 15px 1px rgb(139, 139, 139);
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 30px;
+   
+}
+.heading {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+}
+.loginButton {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    border: 0.4px solid gray;
+    width: 300px;
+    justify-content: center;
+
+}
+
+.loginButton:hover {
+    background-color: rgb(237, 237, 237);
+}
+
+#loginInput {
+
+}
