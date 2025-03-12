@@ -3,47 +3,141 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    
+
     
     background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
 }
 
 .loginCardContainer {
-    margin-top: 50px;
+    margin-top: 30px;
    width: 500px;
-   height: 70%;
-   background-color: white;
+   height: fit-content;
+    padding-bottom: 20px;
 
-   box-shadow: 2px 1px 15px 1px rgb(139, 139, 139);
+   box-shadow: 2px 1px 15px 1px rgb(18, 0, 0);
    display: flex;
    align-items: center;
    flex-direction: column;
-   gap: 30px;
+   gap: 5px;
+   border: 1px solid rgb(8, 0, 0);
+   background-color: #011c3a;
+  
+   color: rgb(219, 226, 226);
    
 }
 .heading {
     display: flex;
-    flex-direction: row;
-    margin-top: 40px;
+    flex-direction: column;
+    margin: 0px;
+    margin-top: 30px;
+    text-align: center;
+    border: 1px solid rgb(37, 37, 37);
+    width: 80%;
+    align-items: center;
+    background: linear-gradient(360deg, #39f3e6,   #acf1e8);
+    font-family: 'Tiny5';
+    color: black;
+    font-size: 18px;
+    padding-top: 5px;
+    border-radius: 10px;
+    height: fit-content;
+    padding-bottom: 0px;
 }
+.heading > * {
+    margin: 0px;
+    
+}
+
+.cardSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  
+    height: fit-content;
+    width: 100%;
+    align-items: center;
+    height: 50%;
+   
+    
+}
+.cardSection > * {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: #034b6a;
+    border-radius: 10px;
+    border: 1px solid rgb(3, 131, 136);
+    font-size: 15px;
+}
+
+.loginEmail {
+
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+}
+
+.loginGoogle {
+  
+    padding-top: 5px;
+    padding-bottom: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .loginButton {
-    background-color: white;
+    background: linear-gradient(180deg, #00ffee,   #71f468);
     color: black;
     font-weight: 600;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    border: 0.4px solid gray;
-    width: 300px;
+    outline: none;
+    border: none;
+    width: 60%;
     justify-content: center;
+    box-shadow: 2px 1px 4px 1px rgb(61, 61, 61);
 
 }
 
 .loginButton:hover {
-    background-color: rgb(237, 237, 237);
+    background: linear-gradient(180deg, #03dcce,  #5fd057);
 }
 
 #loginInput {
-
+    height:30px;
+    width: 60%;
+    border: 1px solid rgb(2, 182, 214);
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding:4px;
 }
+
+
+#jellyicon {
+    width: 90px;
+    height: auto;
+    object-fit: cover;
+    margin-top: 0px;
+    
+}
+
+#jellyiconMiddle {
+    width: 110px;
+    height: auto;
+    object-fit: cover;
+    margin-top: 0px;
+    
+}
+#jellyiconMiddle:hover {
+    animation: jelly 0.6s ease-in-out;
+}
+

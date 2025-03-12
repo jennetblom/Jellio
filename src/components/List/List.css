@@ -95,7 +95,7 @@
 }
 
 .btnAddCard {
-    background-color: rgba(39, 171, 164, 0.834);
+    background: linear-gradient(180deg, rgb(39, 171, 164), #18f0a1 );
     padding: 5px;
     font-size: 14px;
     margin-bottom: 0px;
@@ -103,6 +103,9 @@
     align-items: center;
 
     border: 0.3px solid rgb(130, 130, 130);
+}
+.btnAddCard:hover {
+    background: linear-gradient(180deg, rgb(24, 110, 106), #11b478 );
 }
 .listsFlex {
     overflow-y: auto;

@@ -9,7 +9,6 @@ import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd
 import { CSS } from "@dnd-kit/utilities";
 
 
-
 type Card = {
   id: number;
   content: string;

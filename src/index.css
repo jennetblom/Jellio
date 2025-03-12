@@ -42,7 +42,23 @@ p {
   margin: 5px;
 }
 
+h3 { 
+  margin: 10px;
+}
+
 .icon-button:hover {
   background-color: rgb(188, 188, 188);
 
+}
+@font-face {
+  font-family: 'Tiny5';
+  src: url('../assets/fonts/Tiny5.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'BlockCraft';
+  src: url('../assets/fonts/BlockCraft.otf') format('truetype');
 }
