@@ -4,7 +4,7 @@ import { onAuthStateChanged, User } from 'firebase/auth';
 import { auth } from '../../firebaseConfig'
 import { useAuth } from '../../context/AuthContext'
 import { FcGoogle } from "react-icons/fc";
-import JellyIcon from '../../../src/assets/images/jellyfish.png';
+import JellyIcon from '../../../src/assets/images/jelly96-right.png';
 
 import './LoginScreen.css'
 const LoginScreen = () => {
@@ -13,25 +13,37 @@ const LoginScreen = () => {
 
     return (
         <div className='loginScreen'>
-          {/*   <img src={JellyIcon} style={{width:100, height:100}}></img> */}
             <div className='loginCardContainer'>
+                
                 <div className='heading'>
-                    <img id='jellyicon' src={JellyIcon} />
                     <h1>Jellio</h1>
+                    <div>
+                        <img id='jellyicon' src={JellyIcon} />
+                        <img id='jellyiconMiddle' src={JellyIcon} />
+                        <img id='jellyicon' src={JellyIcon} />
+                    </div>
+                </div>
+                <div className='cardSection'>
+                    <div className='loginEmail'>
+                        <h3>Logga in för att fortsätta</h3>
+                        <input
+                            id='loginInput'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='Ange din e-postadress'
+                        />
+                        <button className='loginButton'>Logga in</button>
+                    </div>
+                    <div className='loginGoogle'>
+                        <h3>Eller fortsätt med</h3>
+                        <button onClick={signInWithGoogle} className='loginButton'>
+                            <FcGoogle size={30} />
+                            <p>Logga in med Google</p>
+                        </button>
+                    </div>
+
                 </div>
 
-                <h3>Logga in dig för att fortsätta</h3>
-                <button>Logga in</button>
-                <input
-                id='loginInput'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                ></input>
-                <p>Eller fortsätt med</p>
-                <button onClick={signInWithGoogle} className='loginButton'>
-                    <FcGoogle size={30} />
-                    <p>Google</p>
-                </button>
             </div>
         </div>
     )

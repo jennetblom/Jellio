@@ -22,7 +22,8 @@ header {
 .nav-links {
 
   padding-left: 20px;
-
+  display: flex;
+  gap: 10px;
 
 }
 
@@ -30,7 +31,7 @@ header {
   color: rgb(213, 255, 246);
   text-decoration: none;
   font-size: 16px;
-  padding-left: 16px;
+  padding-left: 0px;
 
 }
 
@@ -53,7 +54,12 @@ header {
 }
 
 #appname {
-  font-size: 24px;
+  font-size: 36px;
+  font-family: 'Tiny5', sans-serif;
+  letter-spacing: 2px;
+  color: rgb(213, 255, 246);
+  text-decoration: none;
+
 }
 
 #appname:hover {
@@ -63,6 +69,8 @@ header {
 
 #jellyicon {
   width: 70px;
+  
+  
 }
 
 #jellyicon:hover {

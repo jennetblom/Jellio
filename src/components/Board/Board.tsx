@@ -94,6 +94,7 @@ const Board: React.FC = () => {
 
     return (
         <div className='boardContainer'>
+            <p></p>
             <div className='boardColumn'>
 
                 <div className='boardFlex'>

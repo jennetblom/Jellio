@@ -5,8 +5,9 @@ import './App.css'
 import Header from './components/Header/Header'
 import HomeScreen from './screens/HomeScreen/HomeScreen'
 import BoardScreen from './screens/BoardScreen/BoardScreen'
-import DragableScreen from './screens/DragableScreen/DragableScreen'
 import LoginScreen from './screens/LoginScreen/LoginScreen'
+import WorkspaceScreen from './screens/WorkspaceScreen/WorkspaceScreen'
+
 function App() {
 
 
@@ -15,6 +16,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<HomeScreen />} />
+        <Route path='/workspaces' element={<WorkspaceScreen />} />
         <Route path="/createboard" element={<BoardScreen />} />
         <Route path="/login" element={<LoginScreen />} />
       </Routes>

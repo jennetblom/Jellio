@@ -8,3 +8,9 @@ export type List = {
     cards: Card[];
 
 }
+export type Board = {
+    id: string;
+    title: string;
+    color: string;
+    lists: List[];
+}
