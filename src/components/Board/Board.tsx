@@ -18,6 +18,7 @@ import {
 
 } from "@dnd-kit/sortable";
 import { handleDragEnd } from "../../functions/handleDragEnd";
+import { BoardType } from '../../types';
 
 type Card = {
     id: number;
@@ -27,9 +28,13 @@ type List = {
     id: number;
     title: string;
     cards: Card[];
-
 }
-const Board: React.FC = () => {
+
+type BoardProps = {
+    board: BoardType;
+    setBoard: React.Dispatch<React.SetStateAction<any>>;
+}
+const Board = ({board, setBoard} : BoardProps) => {
 
 
     const [lists, setLists] = useState<List[]>([]);
@@ -94,20 +99,17 @@ const Board: React.FC = () => {
 
     return (
         <div className='boardContainer'>
-            <p></p>
             <div className='boardColumn'>
 
                 <div className='boardFlex'>
                     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}> 
-                        <SortableContext items={lists.map(list => list.id)} >
-                            {lists.map((list) => (
+                        <SortableContext items={board.lists.map(list => list.id)} >
+                            {board.lists.map((list) => (
                                 <List key={list.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
                             ))}
                         </SortableContext>
                     </DndContext>
                 </div>
-
-
                 {!isAdding ? (
                     <>
                         <button onClick={handleAddList} id='handleAddBtn'><IoAdd size={18} /> Add another list</button>
@@ -136,7 +138,6 @@ const Board: React.FC = () => {
         </div>
     )
 }
-
 
 export default Board
 

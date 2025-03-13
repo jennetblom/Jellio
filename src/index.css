@@ -46,13 +46,17 @@ h3 {
   margin: 10px;
 }
 
+.titleGray {
+  color: rgb(69, 69, 69);
+}
+
 .icon-button:hover {
   background-color: rgb(188, 188, 188);
 
 }
 @font-face {
   font-family: 'Tiny5';
-  src: url('../assets/fonts/Tiny5.ttf') format('truetype');
+  src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Minecraft';
@@ -60,5 +64,5 @@ h3 {
 }
 @font-face {
   font-family: 'BlockCraft';
-  src: url('../assets/fonts/BlockCraft.otf') format('truetype');
+  src: url('/fonts/BlockCraft.otf') format('truetype');
 }
