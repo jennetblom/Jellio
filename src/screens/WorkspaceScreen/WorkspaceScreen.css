@@ -1,0 +1,54 @@
+.workSpaceContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    gap: 100px;
+    background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+}
+
+.workSpaceCard {
+    width: 60%;
+    background-color: white;
+    margin-top: 50px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+
+    height: 70%;
+    box-shadow: 2px 2px 5px 1px rgb(93, 93, 93);
+    padding: 20px;
+    padding-left: 50px;
+}
+
+.createBoard {
+    width: 250px;
+    background-color: rgb(236, 236, 236);
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 1px rgb(204, 204, 204);
+}
+
+.createInput {
+    width: 90%;
+    padding: 4px;
+}
+.createBtn {
+    background: linear-gradient(180deg, rgb(39, 171, 164), #18f0a1 );
+    padding: 4px;
+    outline: none;
+    border: 1px solid rgb(132, 132, 132);
+    box-shadow: 1px 1px 3px 1px rgb(134, 134, 134);
+}
+.createBtn:hover {
+    background: linear-gradient(180deg, rgb(24, 110, 106), #11b478 );
+
+}
+ 
+

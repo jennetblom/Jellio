@@ -1,16 +1,20 @@
-export type Card = {
+export type CardType = {
     id: number;
     content: string;
 }
-export type List = {
+
+export type ListType = {
     id: number;
     title: string;
-    cards: Card[];
-
+    cards: CardType[];
 }
-export type Board = {
+
+export type BoardType = {
     id: string;
     title: string;
     color: string;
-    lists: List[];
+    userId: string;
+    lists: ListType[];
+    createdAt: Date,
+    updatedAt: Date,
 }

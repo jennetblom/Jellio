@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path='/workspaces' element={<WorkspaceScreen />} />
-        <Route path="/createboard" element={<BoardScreen />} />
+        <Route path="/board/:id" element={<BoardScreen />} />
         <Route path="/login" element={<LoginScreen />} />
       </Routes>
     </HashRouter>
