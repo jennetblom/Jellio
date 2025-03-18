@@ -45,6 +45,12 @@ const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
     //the state variable listTitle gets the value of title of the list
     setListTitle(list.title);
   };
+  const handleTitleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(event)
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     //when the user clicks enter when typing, and if the new listTitle is 
@@ -83,12 +89,7 @@ const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
       addCard(event);
     }
   }
-  const handleTitleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleSubmit(event)
-    }
-  }
+
 
   const style = {
     transform: CSS.Transform.toString(transform),

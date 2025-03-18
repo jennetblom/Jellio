@@ -14,11 +14,15 @@ import {
     KeyboardSensor,
 } from "@dnd-kit/core";
 import {
+    rectSortingStrategy,
     SortableContext,
 
 } from "@dnd-kit/sortable";
 import { handleDragEnd } from "../../functions/handleDragEnd";
 import { BoardType } from '../../types';
+import { addListToDb } from '../../firebase/addListToDb';
+import { addCardToDb } from '../../firebase/addCardToDb';
+import { deleteList } from '../../firebase/deleteList';
 
 type Card = {
     id: number;
@@ -34,7 +38,7 @@ type BoardProps = {
     board: BoardType;
     setBoard: React.Dispatch<React.SetStateAction<any>>;
 }
-const Board = ({board, setBoard} : BoardProps) => {
+const Board = ({ board, setBoard }: BoardProps) => {
 
 
     const [lists, setLists] = useState<List[]>([]);
@@ -43,10 +47,10 @@ const Board = ({board, setBoard} : BoardProps) => {
     const [listTitle, setListTitle] = useState<string>('');
 
     const handleAddList = () => setIsAdding(true);
-        //When user clicks the handleAdd button, setisAdding is true and the input for listTitle 
-        // and another button for adding a new list shows up
-     
-    const addList = (e: React.FormEvent) => {
+    //When user clicks the handleAdd button, setisAdding is true and the input for listTitle 
+    // and another button for adding a new list shows up
+
+    const addList = async (e: React.FormEvent) => {
         //Adds an new list to the list of lists
         //If listempty is empty the function returns
         e.preventDefault();
@@ -57,27 +61,62 @@ const Board = ({board, setBoard} : BoardProps) => {
             title: listTitle,
             cards: []
         }
-
-        setLists([...lists, newList]);
+        const success = await addListToDb(board.id, newList);
+        if (success) {
+            setBoard((prevBoard: BoardType | null) => {
+                if (!prevBoard) {
+                    return prevBoard;
+                }
+                return {
+                    ...prevBoard,
+                    lists: [...prevBoard.lists, newList]
+                }
+            });
+        }
         setIsAdding(true);
         setListTitle('');
         console.log(lists);
     }
-    const addCard = (listId: number, content: string) => {
+    const addCard = async (listId: number, content: string) => {
         const newCard: Card = { id: Date.now(), content: content };
-        setLists(lists.map(list =>
-            list.id === listId ? { ...list, cards: [...list.cards, newCard] } : list
-        ));
 
+        const success = await addCardToDb(board.id, listId, newCard);
+
+        if (success) {
+            setBoard((prevBoard: BoardType | null) => {
+                if (!prevBoard) return prevBoard;
+
+                return {
+                    ...prevBoard,
+                    lists: prevBoard.lists.map((list) =>
+                        list.id === listId
+                            ? { ...list, cards: [...list.cards, newCard] }
+                            : list
+                    )
+                }
+            });
+        }
     };
-    const removeList = (listId: number) => {
-        setLists((prevLists) => prevLists.filter(list => list.id !== listId));
+
+    const removeList = async (listId: number) => {
+        const success = await deleteList(board.id, listId);
+
+        if (success) {
+            setBoard((prevBoard: BoardType | null) => {
+                if (!prevBoard) return prevBoard;
+
+                return {
+                    ...prevBoard,
+                    lists: prevBoard.lists.filter(list => list.id !== listId)
+                }
+            })
+        }
     }
-    const removeCard = (listId : number, cardId : number) => {
-        setLists(lists.map(list => 
+    const removeCard = (listId: number, cardId: number) => {
+        setLists(lists.map(list =>
             list.id === listId
-             ? {...list, cards: list.cards.filter(card => card.id !== cardId)} 
-             : list
+                ? { ...list, cards: list.cards.filter(card => card.id !== cardId) }
+                : list
         ));
     }
 
@@ -100,9 +139,8 @@ const Board = ({board, setBoard} : BoardProps) => {
     return (
         <div className='boardContainer'>
             <div className='boardColumn'>
-
                 <div className='boardFlex'>
-                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}> 
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}>
                         <SortableContext items={board.lists.map(list => list.id)} >
                             {board.lists.map((list) => (
                                 <List key={list.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
@@ -140,4 +178,5 @@ const Board = ({board, setBoard} : BoardProps) => {
 }
 
 export default Board
+
 
