@@ -7,7 +7,7 @@ import HomeScreen from './screens/HomeScreen/HomeScreen'
 import BoardScreen from './screens/BoardScreen/BoardScreen'
 import LoginScreen from './screens/LoginScreen/LoginScreen'
 import WorkspaceScreen from './screens/WorkspaceScreen/WorkspaceScreen'
-
+/* import JellioGardenScreen from './screens/JellioGardenScreen/JellioGardenScreen' */
 function App() {
 
 
@@ -19,6 +19,7 @@ function App() {
         <Route path='/workspaces' element={<WorkspaceScreen />} />
         <Route path="/board/:id" element={<BoardScreen />} />
         <Route path="/login" element={<LoginScreen />} />
+{/*         <Route path="/jelliogarden" element={<JellioGardenScreen />} /> */}
       </Routes>
     </HashRouter>
   )
