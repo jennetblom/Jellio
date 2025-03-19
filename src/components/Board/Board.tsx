@@ -24,16 +24,8 @@ import { addCardToDb } from '../../firebase/addCardToDb';
 import { deleteListInDb } from '../../firebase/deleteListInDb';
 import { CardType, ListType } from '../../types';
 import { getUserLists } from '../../firebase/getUserLists';
+import { deleteCardInDb } from '../../firebase/deleteCardInDb';
 
-/* type Card = {
-    id: number;
-    content: string;
-}
-type List = {
-    id: number;
-    title: string;
-    cards: Card[];
-} */
 
 type BoardProps = {
     board: BoardType;
@@ -65,13 +57,7 @@ const Board = ({ board, setBoard }: BoardProps) => {
         if (listTitle === '') return setIsAdding(false);
 
         const newList = await addListToDb(board.id, listTitle, lists);
-        
-        if (newList) {
-            setLists((prevLists) => [
-                ...prevLists,
-                newList
-            ]);
-        }
+
         setIsAdding(true);
         setListTitle('');
     }
@@ -80,40 +66,21 @@ const Board = ({ board, setBoard }: BoardProps) => {
         const newCard: CardType = { id: Date.now(), content: content };
 
         const success = await addCardToDb(board.id, listId, newCard);
-
-        if (success) {
-            setLists((prevLists) => {
-                return prevLists.map((list) => {
-                    if (list.id === listId) {
-                        return { ...list, cards: [...list.cards, newCard] }
-                    }
-                    return list;
-                }
-                )
-            });
-        }
     };
 
-    const removeList = async (listId: number) => {
-        /*         const success = await deleteListInDb(board.id, listId);
-        
-                if (success) {
-                    setBoard((prevBoard: BoardType | null) => {
-                        if (!prevBoard) return prevBoard;
-        
-                        return {
-                            ...prevBoard,
-                            lists: prevBoard.lists.filter(list => list.id !== listId)
-                        }
-                    })
-                } */
+    const removeList = async (listId: string) => {
+            const success = await deleteListInDb(board.id, listId);
+            if(!success) {
+                console.log('Error deleting list');
+                return;
+            }
     }
-    const removeCard = (listId: number, cardId: number) => {
-        /*        setLists(lists.map(list =>
-                   list.id === listId
-                       ? { ...list, cards: list.cards.filter(card => card.id !== cardId) }
-                       : list
-               )); */
+    const removeCard = (listId: string, cardId: number) => {
+        const success = deleteCardInDb(board.id, listId, lists, cardId);
+        if(!success) {
+            console.log('Error deleting card');
+            return;
+        }
     }
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -167,7 +134,6 @@ const Board = ({ board, setBoard }: BoardProps) => {
                         </div>
                     </div>
                 )}
-
             </div>
         </div>
     )
