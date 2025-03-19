@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Board.css'
 import List from '../List/List'
-import Card from '../Card/Card';
 import { IoAdd } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 
@@ -22,9 +21,11 @@ import { handleDragEnd } from "../../functions/handleDragEnd";
 import { BoardType } from '../../types';
 import { addListToDb } from '../../firebase/addListToDb';
 import { addCardToDb } from '../../firebase/addCardToDb';
-import { deleteList } from '../../firebase/deleteList';
+import { deleteListInDb } from '../../firebase/deleteListInDb';
+import { CardType, ListType } from '../../types';
+import { getUserLists } from '../../firebase/getUserLists';
 
-type Card = {
+/* type Card = {
     id: number;
     content: string;
 }
@@ -32,7 +33,7 @@ type List = {
     id: number;
     title: string;
     cards: Card[];
-}
+} */
 
 type BoardProps = {
     board: BoardType;
@@ -41,10 +42,17 @@ type BoardProps = {
 const Board = ({ board, setBoard }: BoardProps) => {
 
 
-    const [lists, setLists] = useState<List[]>([]);
+    const [lists, setLists] = useState<ListType[]>([]);
     const [isAdding, setIsAdding] = useState(false);
 
     const [listTitle, setListTitle] = useState<string>('');
+
+    useEffect(() => {
+        if (!board.id) return;
+
+        const unsubscribe = getUserLists(board.id, setLists);
+        return () => unsubscribe();
+    }, [board.id]);
 
     const handleAddList = () => setIsAdding(true);
     //When user clicks the handleAdd button, setisAdding is true and the input for listTitle 
@@ -56,68 +64,56 @@ const Board = ({ board, setBoard }: BoardProps) => {
         e.preventDefault();
         if (listTitle === '') return setIsAdding(false);
 
-        const newList: List = {
-            id: Date.now(),
-            title: listTitle,
-            cards: []
-        }
-        const success = await addListToDb(board.id, newList);
-        if (success) {
-            setBoard((prevBoard: BoardType | null) => {
-                if (!prevBoard) {
-                    return prevBoard;
-                }
-                return {
-                    ...prevBoard,
-                    lists: [...prevBoard.lists, newList]
-                }
-            });
+        const newList = await addListToDb(board.id, listTitle, lists);
+        
+        if (newList) {
+            setLists((prevLists) => [
+                ...prevLists,
+                newList
+            ]);
         }
         setIsAdding(true);
         setListTitle('');
-        console.log(lists);
     }
-    const addCard = async (listId: number, content: string) => {
-        const newCard: Card = { id: Date.now(), content: content };
+
+    const addCard = async (listId: string, content: string) => {
+        const newCard: CardType = { id: Date.now(), content: content };
 
         const success = await addCardToDb(board.id, listId, newCard);
 
         if (success) {
-            setBoard((prevBoard: BoardType | null) => {
-                if (!prevBoard) return prevBoard;
-
-                return {
-                    ...prevBoard,
-                    lists: prevBoard.lists.map((list) =>
-                        list.id === listId
-                            ? { ...list, cards: [...list.cards, newCard] }
-                            : list
-                    )
+            setLists((prevLists) => {
+                return prevLists.map((list) => {
+                    if (list.id === listId) {
+                        return { ...list, cards: [...list.cards, newCard] }
+                    }
+                    return list;
                 }
+                )
             });
         }
     };
 
     const removeList = async (listId: number) => {
-        const success = await deleteList(board.id, listId);
-
-        if (success) {
-            setBoard((prevBoard: BoardType | null) => {
-                if (!prevBoard) return prevBoard;
-
-                return {
-                    ...prevBoard,
-                    lists: prevBoard.lists.filter(list => list.id !== listId)
-                }
-            })
-        }
+        /*         const success = await deleteListInDb(board.id, listId);
+        
+                if (success) {
+                    setBoard((prevBoard: BoardType | null) => {
+                        if (!prevBoard) return prevBoard;
+        
+                        return {
+                            ...prevBoard,
+                            lists: prevBoard.lists.filter(list => list.id !== listId)
+                        }
+                    })
+                } */
     }
     const removeCard = (listId: number, cardId: number) => {
-        setLists(lists.map(list =>
-            list.id === listId
-                ? { ...list, cards: list.cards.filter(card => card.id !== cardId) }
-                : list
-        ));
+        /*        setLists(lists.map(list =>
+                   list.id === listId
+                       ? { ...list, cards: list.cards.filter(card => card.id !== cardId) }
+                       : list
+               )); */
     }
 
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -141,8 +137,8 @@ const Board = ({ board, setBoard }: BoardProps) => {
             <div className='boardColumn'>
                 <div className='boardFlex'>
                     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}>
-                        <SortableContext items={board.lists.map(list => list.id)} >
-                            {board.lists.map((list) => (
+                        <SortableContext items={lists.map(list => list.id)} >
+                            {lists.map((list) => (
                                 <List key={list.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
                             ))}
                         </SortableContext>

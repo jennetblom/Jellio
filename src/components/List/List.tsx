@@ -14,8 +14,8 @@ type Card = {
   content: string;
 }
 type ListProps = {
-  list: { id: number, title: string, cards: Card[] };
-  addCardToList: (listId: number, content: string) => void;
+  list: { id: string, title: string, cards: Card[] };
+  addCardToList: (listId: string, content: string) => void;
   onRemove: (listId: number) => void;
   removeCard: (listId: number, cardId: number) => void;
 };

@@ -18,7 +18,6 @@ export const getUserBoards = async (user: User) => {
                 title: data.title || "Unnamed board", 
                 color: data.color || "",
                 userId: data.userId || "",
-                lists: data.lists || [],
                 createdAt: data.createdAt || new Date(),
                 updatedAt: data.updatedAt || new Date(), 
             };

@@ -2,7 +2,7 @@
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-export const deleteList = async (boardId: string, listId: number) => {
+export const deleteListInDb = async (boardId: string, listId: number) => {
     try {
 
         const listRef = doc(db, "boards", boardId, "lists", listId.toString());
