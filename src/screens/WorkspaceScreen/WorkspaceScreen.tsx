@@ -5,7 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getUserBoards } from '../../firebase/getUserBoards';
 import { useNavigate } from 'react-router-dom';
 import './WorkSpaceScreen.css'
-import { createBoard } from '../../firebase/createBoard';
+import { createBoardInDb } from '../../firebase/createBoardInDb';
 import { boardColors, getBoardBackground } from '../../styles/colors';
 import { IoIosCheckmark } from "react-icons/io";
 const WorkspaceScreen = () => {
@@ -36,7 +36,7 @@ const WorkspaceScreen = () => {
     console.log(boardTitle, boardColor);
     if (boardTitle === '' || boardColor === '') return;
     if (!user) return;
-    await createBoard(user.uid, boardTitle, boardColor);
+    await createBoardInDb(user.uid, boardTitle, boardColor);
     const userBoards = await getUserBoards(user);
     setBoards(userBoards);
     setBoardTitle('');

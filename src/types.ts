@@ -4,7 +4,8 @@ export type CardType = {
 }
 
 export type ListType = {
-    id: number;
+    id: string;
+    index: number;
     title: string;
     cards: CardType[];
 }
@@ -14,7 +15,17 @@ export type BoardType = {
     title: string;
     color: string;
     userId: string;
-    lists: ListType[];
     createdAt: Date,
     updatedAt: Date,
 }
+
+
+/* export type BoardType = {
+    id: string;
+    title: string;
+    color: string;
+    userId: string;
+    lists: ListType[];
+    createdAt: Date,
+    updatedAt: Date,
+} */

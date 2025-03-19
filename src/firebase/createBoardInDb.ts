@@ -2,7 +2,7 @@ import { collection, doc, documentId, setDoc } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 
 
-export const createBoard = async (userId: string, title: string, color: string) => {
+export const createBoardInDb = async (userId: string, title: string, color: string) => {
     const boardsref = collection(db, 'boards');
     const newBoardRef = doc(boardsref);
     const newBoardId = newBoardRef.id;
@@ -12,7 +12,7 @@ export const createBoard = async (userId: string, title: string, color: string) 
             title: title,
             color: color,
             userId: userId,
-            lists: [],
+/*             lists: [], */
             createdAt: new Date(),
             updatedAt: new Date(),
         });

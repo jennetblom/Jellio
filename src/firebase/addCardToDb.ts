@@ -2,6 +2,21 @@ import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { CardType, ListType } from "../types";
 
+export const addCardToDb = async (boardId: string, listId: string, newCard: CardType) => {
+    try {
+        const listRef = doc(db, "boards", boardId, "lists", listId);
+        console.log("listRef", listId);
+        await updateDoc(listRef, {
+            cards: arrayUnion(newCard)
+        });
+        console.log("Card added to list");
+        return true; 
+    } catch (error) {
+        console.error("Error adding card to Firestore:", error);
+        return false; 
+    }
+}
+/* 
 export const addCardToDb = async (boardId: string, listId: number, newCard: CardType) => {
     try {
         const cardRef = doc(db, "boards", boardId, "lists", listId.toString(), "cards", newCard.id.toString());
@@ -13,7 +28,8 @@ export const addCardToDb = async (boardId: string, listId: number, newCard: Card
         console.error("Error adding card to Firestore:", error);
         return false; 
     }
-}
+} */
+
 
 
 
