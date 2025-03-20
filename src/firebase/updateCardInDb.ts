@@ -2,7 +2,7 @@ import { CardType } from '../types';
 import { db } from '../firebaseConfig';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
-export const updateCardInDb = async (boardId: string, listId: number, updatedCard: CardType) => {
+export const updateCardInDb = async (boardId: string, listId: string, updatedCard: CardType) => {
     try {
         const listRef = doc(db, 'boards', boardId, 'lists', listId.toString());
         const listSnap = await getDoc(listRef);
@@ -19,7 +19,7 @@ export const updateCardInDb = async (boardId: string, listId: number, updatedCar
         );
 
         await updateDoc(listRef, { cards: updatedCards });
-
+        console.log("Card updated successfully");
         return true;
 
 

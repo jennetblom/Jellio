@@ -7,6 +7,7 @@ import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { updateListInDb } from '../../firebase/updateListInDb';
 
 
 type Card = {
@@ -14,14 +15,15 @@ type Card = {
   content: string;
 }
 type ListProps = {
+  boardId: string;
   list: { id: string, title: string, cards: Card[] };
   addCardToList: (listId: string, content: string) => void;
-  onRemove: (listId: number) => void;
-  removeCard: (listId: number, cardId: number) => void;
+  onRemove: (listId: string) => void;
+  removeCard: (listId: string, cardId: number) => void;
 };
 
 
-const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
+const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps) => {
 
   const [listTitle, setListTitle] = useState('');
   const [isTitleClicked, setIsTitleClicked] = useState(false);
@@ -52,13 +54,14 @@ const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     //when the user clicks enter when typing, and if the new listTitle is 
     // not empty, the list gets an new title
     e.preventDefault();
     setIsTitleClicked(false);
     if (listTitle.length > 0) {
       list.title = listTitle;
+      await updateListInDb(boardId, list.id, { title: listTitle });
     }
   }
 
@@ -100,7 +103,7 @@ const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
 
   return (
     <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
-      <div className='listTitleContainer' ref={setNodeRef} {...attributes}  {...listeners} >
+      <div className='listTitleContainer' /* ref={setNodeRef} {...attributes}  {...listeners} */ >
         {
           !isTitleClicked ? (
             //default value
@@ -130,7 +133,7 @@ const List = ({ list, addCardToList, onRemove, removeCard }: ListProps) => {
       <div className='listsFlex'>
         <SortableContext items={list.cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
           {list.cards.map((card) => (
-            <Card key={card.id} card={card} removeCard={() => removeCard(list.id, card.id)} />
+            <Card key={card.id} card={card} removeCard={() => removeCard(list.id, card.id)} boardId={boardId} listId={list.id}/>
           ))}
         </SortableContext>
       </div>

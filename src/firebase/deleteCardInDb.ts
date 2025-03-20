@@ -1,6 +1,6 @@
 import { CardType, ListType } from '../types';
 import { db } from '../firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc,  updateDoc } from 'firebase/firestore';
 
 export const deleteCardInDb = async (boardId: string, listId: string, lists: ListType[], cardId: number) => {
     try {
