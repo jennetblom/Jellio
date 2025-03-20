@@ -1,0 +1,86 @@
+.signUpScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+    
+    background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+}
+
+.signUpCardContainer {
+    margin-top: 30px;
+   width: 500px;
+   height: fit-content;
+    padding-bottom: 20px;
+
+   box-shadow: 2px 1px 15px 1px rgb(18, 0, 0);
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   gap: 5px;
+   border: 1px solid rgb(8, 0, 0);
+    
+   background: linear-gradient(180deg, #028682,  #066785, #023a58);
+  
+   color: rgb(219, 226, 226);
+   border-radius: 20px;
+   
+}
+
+.signUpContainer {
+    width: 80%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+
+
+#headingInSign {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.signUpField {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 80%;
+    font-size: 13px;
+}
+
+#input {
+    height:30px;
+    width: 90%;
+    border: 1px solid rgb(2, 182, 214);
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    padding:4px;
+}
+
+#profilePic {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+
+#profilePic:hover {
+    width: 155px;
+    height: 155px;
+
+}
+
+

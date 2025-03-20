@@ -23,6 +23,7 @@
    background-color: #011c3a;
   
    color: rgb(219, 226, 226);
+   border-radius: 20px;
    
 }
 .heading {
@@ -89,7 +90,15 @@
     flex-direction: column;
     align-items: center;
 }
-
+.signUpSection {
+  
+    padding-top: 5px;
+    padding-bottom: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .loginButton {
     background: linear-gradient(180deg, #00ffee,   #71f468);
     color: black;
@@ -103,13 +112,16 @@
     width: 60%;
     justify-content: center;
     box-shadow: 2px 1px 4px 1px rgb(61, 61, 61);
+    height: 45px;
 
 }
 
 .loginButton:hover {
     background: linear-gradient(180deg, #03dcce,  #5fd057);
 }
-
+#signUpBtn {
+    margin-top: 20px;
+}
 #loginInput {
     height:30px;
     width: 60%;
