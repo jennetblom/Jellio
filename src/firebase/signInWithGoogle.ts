@@ -17,11 +17,10 @@ export const signInWithGoogle = async () => {
         if(!userSnap.exists()) {
             await setDoc(userRef, {
                 userId: user.uid,
+                username: user.displayName || "No username",
                 email: user.email || "No email",
                 profilePic: user.photoURL || "",
-                boards: [],
                 createdAt: new Date(),
-
             })
         }
     } catch (error) {

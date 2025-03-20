@@ -22,6 +22,7 @@ const Header = () => {
           <Link to="/workspaces" className='nav-link'>Workspaces</Link>
           <Link to="/jelliogarden" className='nav-link'>Jellio Garden</Link>
           <Link to="/login" className='nav-link'>Login</Link>
+          <Link to="/signup" className='nav-link'>Sign up</Link>
         </div>
       </div>
       <div className='headerRight'>
