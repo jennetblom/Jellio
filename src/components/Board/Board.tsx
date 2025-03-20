@@ -106,7 +106,7 @@ const Board = ({ board, setBoard }: BoardProps) => {
                     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}>
                         <SortableContext items={lists.map(list => list.id)} >
                             {lists.map((list) => (
-                                <List key={list.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
+                                <List key={list.id} boardId={board.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />
                             ))}
                         </SortableContext>
                     </DndContext>
