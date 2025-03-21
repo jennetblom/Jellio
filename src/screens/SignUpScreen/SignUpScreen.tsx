@@ -87,7 +87,7 @@ const SignUpScreen = () => {
         <div className='signUpScreen' >
             <div className='signUpCardContainer'>
                 <div className='signUpContainer'>
-                    <h3>Skapa ditt konto</h3>
+                    <h3>Create account</h3>
 
                     <div id='headingInSign'>
                         <label htmlFor='file-upload'>
@@ -103,12 +103,12 @@ const SignUpScreen = () => {
                         <p  style={{color: selectedImage ? "lime" : "white"}} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
                     </div>
                     <div className='signUpField'>
-                        <p className='helpText'>Användarnamn</p>
+                        <p className='helpText'>Username</p>
                         <input
                             id='input'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder='Ange ditt användarnamn'
+                            placeholder='Enter your username'
                         />
                     </div>
                     <div className='signUpField'>
@@ -117,32 +117,32 @@ const SignUpScreen = () => {
                             id='input'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Ange din e-postadress'
+                            placeholder='Enter your email'
                         />
                     </div>
 
                     <div className='signUpField'>
-                        <p>Lösenord</p>
+                        <p>Password</p>
                         <input
                             id='input'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Skriv in ditt lösenord'
+                            placeholder='Write your password'
                         />
                     </div>
                     <div className='signUpField'>
-                        <p>Bekräfta ditt lösenord</p>
+                        <p>Confirm your password</p>
                         <input
                             id='input'
                             type='password'
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
-                            placeholder='Skriv in ditt lösenord igen'
+                            placeholder='Write your password again'
                         />
                     </div>
                     {error && <p style={{ color: "red" }}>{error}</p>}
-                    <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Skapa ditt konto</button>
+                    <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                 </div>
             </div>
 

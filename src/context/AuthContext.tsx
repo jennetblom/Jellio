@@ -1,7 +1,7 @@
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { auth, db } from "../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { signOut, User } from "firebase/auth";
+import { createContext, ReactNode, useContext,  useState } from "react";
+import { auth } from "../firebaseConfig";
+
 
 interface UserType extends User {
     userId: string;

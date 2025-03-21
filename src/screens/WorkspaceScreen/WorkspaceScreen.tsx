@@ -15,6 +15,7 @@ const WorkspaceScreen = () => {
   const [boardTitle, setBoardTitle] = useState('');
   const [boardColor, setBoardColor] = useState('');
   const [hoveredBoard, setHoveredBoard] = useState<string | null>(null);
+  
   useEffect(() => {
     const fetchBoards = async () => {
       if (user) {
@@ -28,7 +29,11 @@ const WorkspaceScreen = () => {
     }
 
   }, [user, loading]);
-
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
   const handleBoardClick = (boardId: string) => {
     navigate(`/board/${boardId}`);
   }
@@ -50,16 +55,7 @@ const WorkspaceScreen = () => {
   return (
     <div className='workSpaceContainer'>
       <div className='workSpaceCard'>
-        {/*    <h3 className='titleGray'>Senast visade:</h3>
-        <div className='boardShowContainer'>
-          {boards.map((board) => (
-            <div key={board.id} className='boardShow' onClick={() => handleBoardClick(board.id)}>
-              <p>{board.title}</p>
-            </div>
-          ))}
-        </div> */}
-
-        <h3 className='titleGray'>Dina arbetsytor</h3>
+        <h3 className='titleGray'>Your Workspaces</h3>
         <div className='boardShowContainer'>
           {boards.map((board) => (
             <div key={board.id} className='boardShow'
@@ -76,14 +72,14 @@ const WorkspaceScreen = () => {
         </div>
 
         <div className='createBoard'>
-          <p>Skapa en ny tavla</p>
+          <p>Create a new board</p>
           <input
             className='createInput'
             value={boardTitle}
             onChange={(e) => setBoardTitle(e.target.value)}
-            placeholder='Skriv in namnet på tavlan...'
+            placeholder='Enter the name of your board...'
           />
-          <p>Välj en bakgrund</p>
+          <p>Choose a background</p>
           <div className='colorSelect'>
           {Object.keys(boardColors).map((colorKey) => (
             <div
@@ -103,8 +99,7 @@ const WorkspaceScreen = () => {
             </div>
           ))}
           </div>
-
-          <button className='createBtn' onClick={addBoard}>Skapa</button>
+          <button className='createBtn' onClick={addBoard}>Create</button>
         </div>
       </div>
     </div>
