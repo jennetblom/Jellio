@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../LoginScreen/LoginScreen.css'
 import './SignUpScreen.css'
 import choosePicture from '../../../src/assets/images/profilePic.png'
 import { uploadImageToFirebase } from '../../firebase/uploadImageToFirebase'
 import { registerUser } from '../../firebase/registerUser'
+import { useNavigate } from 'react-router-dom'
 const SignUpScreen = () => {
 
     const [email, setEmail] = useState('');
@@ -14,7 +15,8 @@ const SignUpScreen = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [error, setError] = useState("");
     const [imageUrl, setImageUrl] = useState("");
-
+    const navigate = useNavigate();
+    
     const handleSignUp = async () => {
         if (!email || !password || !passwordConfirm || !username) {
             setError("Please fill in all fields");
@@ -39,6 +41,11 @@ const SignUpScreen = () => {
         }
         setError("");
         const result = await registerUser(username, email, password, imageUrl);
+        if(!result) {
+            setError("An account with this email already exists");
+        } else {
+            navigate('/workspaces');
+        }
 
     }
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +72,16 @@ const SignUpScreen = () => {
             reader.readAsDataURL(file);
         }
     }
+    useEffect(() => {
+        if(error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
+
 
     return (
         <div className='signUpScreen' >
@@ -83,10 +100,10 @@ const SignUpScreen = () => {
                             onChange={handleImageChange}
                             style={{ display: 'none' }}
                         />
-                        <p>Choose a profile picture</p>
+                        <p  style={{color: selectedImage ? "lime" : "white"}} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
                     </div>
                     <div className='signUpField'>
-                        <p>Användarnamn</p>
+                        <p className='helpText'>Användarnamn</p>
                         <input
                             id='input'
                             value={username}

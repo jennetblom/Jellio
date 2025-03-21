@@ -1,9 +1,18 @@
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { auth } from "../firebaseConfig";
+import { auth, db } from "../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
+interface UserType extends User {
+    userId: string;
+    username: string | null;
+    email: string | null;
+    profilePic: string | null;
+    createdAt: Date;
+}
 interface AuthContextType {
-    user: User | null;
+    user: UserType | null;
+    setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
     loading: boolean;
     logout: () => Promise<void>;
 }
@@ -14,19 +23,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserType | null>(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            setLoading(false);
-        });
 
-        return () => unsubscribe();
-    }, [])
-
-    const logout = async() => {
+    const logout = async () => {
         try {
             await signOut(auth);
             setUser(null);
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
     return (
-        <AuthContext.Provider value={{user, loading, logout}}>
+        <AuthContext.Provider value={{ user, setUser, loading, logout }}>
             {children}
         </AuthContext.Provider>
     );
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
-    if(!context) {
+    if (!context) {
         throw new Error("useAuth must be used within an AuthProvider")
     }
     return context;

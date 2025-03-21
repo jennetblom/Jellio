@@ -34,7 +34,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link to="/login">
-              <button className='profileButton' onClick={() => logout()}><img src={user?.photoURL ?? JellyFish} id='jellyProfile' />
+              <button className='profileButton' onClick={() => logout()}><img src={user.profilePic ?? JellyFish} id='jellyProfile' />
               </button>
             </Link>
           )

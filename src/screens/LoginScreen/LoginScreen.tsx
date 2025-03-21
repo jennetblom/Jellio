@@ -5,23 +5,24 @@ import { auth } from '../../firebaseConfig'
 import { useAuth } from '../../context/AuthContext'
 import { FcGoogle } from "react-icons/fc";
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-
 import './LoginScreen.css'
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../firebase/loginUser';
-const LoginScreen = () => {
 
+const LoginScreen = () => {
+    const { setUser } = useAuth();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const signIn = async () => {
+    const signInWithEmail = async () => {
         if (!email || !password) {
             setError("Please fill in all fields");
             return;
         }
-        const result = await loginUser(email, password);
+        const result = await loginUser(email, password, setUser);
         if (!result) {
             setError("Invalid email or password");
         }
@@ -29,9 +30,15 @@ const LoginScreen = () => {
             navigate('/workspaces');
         }
     }
+
+    const handleSignInWithGoogle = async () => {
+        setLoading(true);
+        await signInWithGoogle(setUser);
+        setLoading(false);
+    }
     return (
         <div className='loginScreen'>
-            <div className='loginCardContainer'>   
+            <div className='loginCardContainer'>
                 <div className='heading'>
                     <h1>Jellio</h1>
                     <div>
@@ -49,21 +56,21 @@ const LoginScreen = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Ange din e-postadress'
                         />
-                           <input
+                        <input
                             id='loginInput'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder='Skriv in ditt lösenord'
                         />
-                            {error && <p style={{ color: "red" }}>{error}</p>}
-                        <button className='loginButton' onClick={signIn}>Logga in</button>
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                        <button className='loginButton' onClick={signInWithEmail}>Logga in</button>
                     </div>
                     <div className='loginGoogle'>
                         <h3>Eller fortsätt med</h3>
-                        <button onClick={signInWithGoogle} className='loginButton'>
+                        <button onClick={handleSignInWithGoogle} className='loginButton'>
                             <FcGoogle size={30} />
-                            <p>Logga in med Google</p>
+                            <p>{loading ? "Signing in..." : "Sign in with Google"}</p>
                         </button>
                         <button className='loginButton' id='signUpBtn' onClick={() => navigate('/signup')}>Skapa konto</button>
                     </div>
