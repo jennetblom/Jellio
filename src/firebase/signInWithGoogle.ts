@@ -1,10 +1,12 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth, provider, db }  from "../firebaseConfig"
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
+import { UserType } from "../types";
 
 
 
-export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAction<any>>) => {
+export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAction<UserType | null>>) => {
     try {
         const result = await signInWithPopup(auth, provider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -14,13 +16,16 @@ export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAct
         const userRef = doc(db, "users", user.uid);
         const userSnap = await getDoc(userRef);
 
+        const currentDate = new Date();
+        const timestamp = Timestamp.fromDate(currentDate);
+
         if(!userSnap.exists()) {
             await setDoc(userRef, {
                 userId: user.uid,
                 username: user.displayName || "No username",
                 email: user.email || "No email",
                 profilePic: user.photoURL || "",
-                createdAt: new Date(),
+                createdAt: timestamp,
             })
         }
 
@@ -30,7 +35,7 @@ export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAct
             username: user.displayName || "No username",
             email: user.email || "No email",
             profilePic: user.photoURL || "",
-            createdAt: new Date(),
+            createdAt: timestamp,
         });
         return user;
     } catch (error) {

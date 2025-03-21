@@ -2,13 +2,14 @@ import { signOut, User } from "firebase/auth";
 import { createContext, ReactNode, useContext,  useState } from "react";
 import { auth } from "../firebaseConfig";
 
+import { Timestamp } from "firebase/firestore";
 
 interface UserType extends User {
     userId: string;
     username: string | null;
     email: string | null;
     profilePic: string | null;
-    createdAt: Date;
+    createdAt: Timestamp;
 }
 interface AuthContextType {
     user: UserType | null;

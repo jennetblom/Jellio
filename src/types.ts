@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export type CardType = {
     id: number;
     content: string;
@@ -19,13 +21,10 @@ export type BoardType = {
     updatedAt: Date,
 }
 
-
-/* export type BoardType = {
-    id: string;
-    title: string;
-    color: string;
-    userId: string;
-    lists: ListType[];
-    createdAt: Date,
-    updatedAt: Date,
-} */
+export type UserType = {
+    userId: string; 
+    username: string;
+    email: string;
+    profilePic: string;
+    createdAt: Timestamp;
+}

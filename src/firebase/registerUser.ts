@@ -1,6 +1,7 @@
 import { db, auth } from '../firebaseConfig';
-import { setDoc, doc, getDocs, collection, query, where } from "firebase/firestore";
+import { setDoc, doc, getDocs, collection, query, where, Timestamp } from "firebase/firestore";
 import {  createUserWithEmailAndPassword} from "firebase/auth";
+
 
 export const registerUser = async (username: string, email: string, password: string, profilePic: string) => { 
     try {
@@ -18,12 +19,14 @@ export const registerUser = async (username: string, email: string, password: st
         const user = userCrediential.user;
         const userRefInFirestore = doc(db, "users", user.uid);
 
+        const currentDate = new Date();
+        const timestamp = Timestamp.fromDate(currentDate);
         await setDoc(userRefInFirestore, {
             userId: user.uid,
             username: username,
             email: email,
             profilePic: profilePic,
-            createdAt: new Date(),
+            createdAt: timestamp,
         })
 
         console.log("Account created successfully");
