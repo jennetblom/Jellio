@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../LoginScreen/LoginScreen.css'
 import './SignUpScreen.css'
 import choosePicture from '../../../src/assets/images/profilePic.png'
 import { uploadImageToFirebase } from '../../firebase/uploadImageToFirebase'
 import { registerUser } from '../../firebase/registerUser'
+import { useNavigate } from 'react-router-dom'
 const SignUpScreen = () => {
 
     const [email, setEmail] = useState('');
@@ -14,7 +15,8 @@ const SignUpScreen = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [error, setError] = useState("");
     const [imageUrl, setImageUrl] = useState("");
-
+    const navigate = useNavigate();
+    
     const handleSignUp = async () => {
         if (!email || !password || !passwordConfirm || !username) {
             setError("Please fill in all fields");
@@ -39,6 +41,11 @@ const SignUpScreen = () => {
         }
         setError("");
         const result = await registerUser(username, email, password, imageUrl);
+        if(!result) {
+            setError("An account with this email already exists");
+        } else {
+            navigate('/workspaces');
+        }
 
     }
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,12 +72,22 @@ const SignUpScreen = () => {
             reader.readAsDataURL(file);
         }
     }
+    useEffect(() => {
+        if(error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
+
 
     return (
         <div className='signUpScreen' >
             <div className='signUpCardContainer'>
                 <div className='signUpContainer'>
-                    <h3>Skapa ditt konto</h3>
+                    <h3>Create account</h3>
 
                     <div id='headingInSign'>
                         <label htmlFor='file-upload'>
@@ -83,15 +100,15 @@ const SignUpScreen = () => {
                             onChange={handleImageChange}
                             style={{ display: 'none' }}
                         />
-                        <p>Choose a profile picture</p>
+                        <p  style={{color: selectedImage ? "lime" : "white"}} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
                     </div>
                     <div className='signUpField'>
-                        <p>Användarnamn</p>
+                        <p className='helpText'>Username</p>
                         <input
                             id='input'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder='Ange ditt användarnamn'
+                            placeholder='Enter your username'
                         />
                     </div>
                     <div className='signUpField'>
@@ -100,32 +117,32 @@ const SignUpScreen = () => {
                             id='input'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Ange din e-postadress'
+                            placeholder='Enter your email'
                         />
                     </div>
 
                     <div className='signUpField'>
-                        <p>Lösenord</p>
+                        <p>Password</p>
                         <input
                             id='input'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Skriv in ditt lösenord'
+                            placeholder='Write your password'
                         />
                     </div>
                     <div className='signUpField'>
-                        <p>Bekräfta ditt lösenord</p>
+                        <p>Confirm your password</p>
                         <input
                             id='input'
                             type='password'
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
-                            placeholder='Skriv in ditt lösenord igen'
+                            placeholder='Write your password again'
                         />
                     </div>
                     {error && <p style={{ color: "red" }}>{error}</p>}
-                    <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Skapa ditt konto</button>
+                    <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                 </div>
             </div>
 

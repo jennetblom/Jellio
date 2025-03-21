@@ -1,8 +1,11 @@
 
+
 import './HomeScreen.css'
 import { Link } from 'react-router-dom';
 
 const HomeScreen = () => {
+
+    
     return (
         <div className='homebody'>
             <div className="background-container">
@@ -10,7 +13,7 @@ const HomeScreen = () => {
                     <div className='content'>
                         <h1 className='title'>Jellio brings all your tasks, teammates, and tools together</h1>
                         <p id='description'>The best way to organize your workflow in a simple and visual way</p>
-                        <Link to="/createboard" >
+                        <Link to="/login" >
                         <button className='getStartedButton'>Get Started</button>
                         </Link>
                     </div>

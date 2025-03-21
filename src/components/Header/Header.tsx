@@ -20,7 +20,7 @@ const Header = () => {
         <div className='nav-links'>
           <Link to="/" className='nav-link'>Home</Link>
           <Link to="/workspaces" className='nav-link'>Workspaces</Link>
-          <Link to="/jelliogarden" className='nav-link'>Jellio Garden</Link>
+  {/*         <Link to="/jelliogarden" className='nav-link'>Jellio Garden</Link> */}
           <Link to="/login" className='nav-link'>Login</Link>
           <Link to="/signup" className='nav-link'>Sign up</Link>
         </div>
@@ -34,7 +34,7 @@ const Header = () => {
             </Link>
           ) : (
             <Link to="/login">
-              <button className='profileButton' onClick={() => logout()}><img src={user?.photoURL ?? JellyFish} id='jellyProfile' />
+              <button className='profileButton' onClick={() => logout()}><img src={user.profilePic ?? JellyFish} id='jellyProfile' />
               </button>
             </Link>
           )
