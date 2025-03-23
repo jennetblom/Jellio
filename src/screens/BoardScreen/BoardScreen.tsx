@@ -37,6 +37,9 @@ const BoardScreen = () => {
   }
   return (
     <div className='board-background' style={{background: board?.color && boardColors[board.color] ? boardColors[board.color].default : defaultValue}}>
+      <div className='menu'  style={{background: board?.color && boardColors[board.color] ? boardColors[board.color].header : defaultValue}}>
+        <button className='menuButton'>Share</button>
+      </div>
       <Board board={board} setBoard={setBoard} />
     </div>
   )

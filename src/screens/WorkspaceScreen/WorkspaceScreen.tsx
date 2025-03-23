@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { BoardType } from "../../types";
-import Board from '../../components/Board/Board';
 import { useAuth } from "../../context/AuthContext";
 import { getUserBoards } from '../../firebase/getUserBoards';
 import { useNavigate } from 'react-router-dom';
@@ -24,16 +23,18 @@ const WorkspaceScreen = () => {
       }
 
     };
-    if (!loading) {
-      fetchBoards();
+
+    if(loading) return;
+
+    if (!user)  {
+      navigate('/login');
+      return;
     }
+    fetchBoards();
 
   }, [user, loading]);
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }, [user, navigate]);
+
+
   const handleBoardClick = (boardId: string) => {
     navigate(`/board/${boardId}`);
   }

@@ -12,7 +12,6 @@ export const createBoardInDb = async (userId: string, title: string, color: stri
             title: title,
             color: color,
             userId: userId,
-/*             lists: [], */
             createdAt: new Date(),
             updatedAt: new Date(),
         });

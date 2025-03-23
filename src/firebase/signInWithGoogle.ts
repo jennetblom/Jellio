@@ -2,11 +2,10 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { auth, provider, db }  from "../firebaseConfig"
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
-import { UserType } from "../types";
 
 
 
-export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAction<UserType | null>>) => {
+export const signInWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -29,14 +28,6 @@ export const signInWithGoogle = async (setUser: React.Dispatch<React.SetStateAct
             })
         }
 
-        setUser({
-            ...user,
-            userId: user.uid,
-            username: user.displayName || "No username",
-            email: user.email || "No email",
-            profilePic: user.photoURL || "",
-            createdAt: timestamp,
-        });
         return user;
     } catch (error) {
         console.log("Google sign in error", error);

@@ -8,8 +8,15 @@ import BoardScreen from './screens/BoardScreen/BoardScreen'
 import LoginScreen from './screens/LoginScreen/LoginScreen'
 import WorkspaceScreen from './screens/WorkspaceScreen/WorkspaceScreen'
 import SignUpScreen from './screens/SignUpScreen/SignUpScreen'
+import { useAuth } from './context/AuthContext'
+import { useEffect } from 'react'
 
 function App() {
+  const {user} = useAuth();
+
+  useEffect(() => {
+    console.log("user", user);
+  })
   return (
     <HashRouter>
       <Header />

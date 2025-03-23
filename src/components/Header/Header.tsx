@@ -1,14 +1,24 @@
 
 import './Header.css';
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import JellyFish from '../../../src/assets/images/jellyfishImage.png'
 import { useAuth } from '../../context/AuthContext';
 const Header = () => {
 
-  const { user, logout } = useAuth();
+  const { user, logout, setUser} = useAuth();
+  const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    try {
+        await logout();
+        setUser(null);
+        navigate("/login"); 
+    } catch (error) {
+        console.error("Logout failed", error);
+    }
+};
   return (
     <header className="header">
       <div className='headerLeft'>
@@ -29,14 +39,12 @@ const Header = () => {
         {
           !user ? (
             <Link to="/login">
-              <button className='profileButton'><CgProfile size={30} />
+              <button className='profileButton'><CgProfile size={35} />
               </button>
             </Link>
           ) : (
-            <Link to="/login">
-              <button className='profileButton' onClick={() => logout()}><img src={user.profilePic ?? JellyFish} id='jellyProfile' />
+              <button className='profileButton' onClick={handleLogout}><img src={user.profilePic ?? JellyFish} id='jellyProfile' />
               </button>
-            </Link>
           )
         }
       </div>

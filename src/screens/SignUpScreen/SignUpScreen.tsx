@@ -102,45 +102,45 @@ const SignUpScreen = () => {
                         />
                         <p  style={{color: selectedImage ? "lime" : "white"}} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
                     </div>
-                    <div className='signUpField'>
+                    <form className='signUpField'>
                         <p className='helpText'>Username</p>
                         <input
-                            id='input'
+                            className='input'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder='Enter your username'
                         />
-                    </div>
-                    <div className='signUpField'>
+                    </form>
+                    <form className='signUpField'>
                         <p>Email</p>
                         <input
-                            id='input'
+                            className='input'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Enter your email'
                         />
-                    </div>
+                    </form>
 
-                    <div className='signUpField'>
+                    <form className='signUpField'>
                         <p>Password</p>
                         <input
-                            id='input'
+                            className='input'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder='Write your password'
                         />
-                    </div>
-                    <div className='signUpField'>
+                    </form>
+                    <form className='signUpField'>
                         <p>Confirm your password</p>
                         <input
-                            id='input'
+                            className='input'
                             type='password'
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                             placeholder='Write your password again'
                         />
-                    </div>
+                    </form>
                     {error && <p style={{ color: "red" }}>{error}</p>}
                     <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                 </div>
