@@ -1,40 +1,46 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { signInWithGoogle } from '../../firebase/signInWithGoogle'
-import { useAuth } from '../../context/AuthContext'
 import { FcGoogle } from "react-icons/fc";
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
 import './LoginScreen.css'
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../firebase/loginUser';
+import { useAuth } from '../../context/AuthContext';
 
 const LoginScreen = () => {
-    const { setUser, user } = useAuth();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loadingLogin, setLoadingLogin] = useState(false);
+    const { user, loading } = useAuth();
 
     const signInWithEmail = async () => {
         if (!email || !password) {
             setError("Please fill in all fields");
             return;
         }
-        const result = await loginUser(email, password, setUser);
-
+        const result = await loginUser(email, password);
+        console.log('Login result:', result);
         if (result && "error" in result) {
             setError(result.error);
         } else if (!result) {
             setError("Your account doesn't exist, please create a new account");
         } else {
+            console.log('Login successful, waiting for user state...');
+        }
+    }   
+    useEffect(()=> {
+        if(!loading && user){
             navigate('/workspaces');
         }
-    }
+    },[user, loading, navigate])
 
     const handleSignInWithGoogle = async () => {
-        setLoading(true);
-        const result = await signInWithGoogle(setUser);
-        setLoading(false);
+        setLoadingLogin(true);
+        const result = await signInWithGoogle();
+        setLoadingLogin(false);
         if (result) {
             navigate('/workspaces');
         }
@@ -61,16 +67,16 @@ const LoginScreen = () => {
                     </div>
                 </div>
                 <div className='cardSection'>
-                    <div className='loginEmail'>
+                    <form className='loginEmail'>
                         <h3>Login to continue</h3>
                         <input
-                            id='loginInput'
+                            className='loginInput'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Enter your email'
                         />
                         <input
-                            id='loginInput'
+                            className='loginInput'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -78,12 +84,12 @@ const LoginScreen = () => {
                         />
                         {error && <p style={{ color: "red" }}>{error}</p>}
                         <button className='loginButton' onClick={signInWithEmail}>Sign in</button>
-                    </div>
+                    </form>
                     <div className='loginGoogle'>
                         <h3>Or continue with</h3>
                         <button onClick={handleSignInWithGoogle} className='loginButton'>
                             <FcGoogle size={30} />
-                            <p>{loading ? "Signing in..." : "Sign in with Google"}</p>
+                            <p>{loadingLogin ? "Signing in..." : "Sign in with Google"}</p>
                         </button>
                         <button className='loginButton' id='signUpBtn' onClick={() => navigate('/signup')}>Create an account</button>
                     </div>
