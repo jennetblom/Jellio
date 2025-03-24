@@ -1,24 +1,21 @@
 
 import './Header.css';
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import JellyFish from '../../../src/assets/images/jellyfishImage.png'
 import { useAuth } from '../../context/AuthContext';
+import { useState } from 'react';
+import AccountMenu from '../AccountMenu/AccountMenu';
 const Header = () => {
 
-  const { user, logout, setUser} = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
+  const [isAccountMenuVisible, setIsAccountMenuVisible] = useState(false);
 
-  const handleLogout = async () => {
-    try {
-        await logout();
-        setUser(null);
-        navigate("/login"); 
-    } catch (error) {
-        console.error("Logout failed", error);
-    }
-};
+  const toggleOverlay = () => {
+    setIsAccountMenuVisible(prevState => !prevState);
+  }
+
   return (
     <header className="header">
       <div className='headerLeft'>
@@ -32,7 +29,6 @@ const Header = () => {
           <Link to="/workspaces" className='nav-link'>Workspaces</Link>
           <Link to="/login" className='nav-link'>Login</Link>
           <Link to="/signup" className='nav-link'>Sign up</Link>
-          <Link to="/board/:boardId/invite" className='nav-link'>Board Invitation</Link>
         </div>
       </div>
       <div className='headerRight'>
@@ -43,8 +39,12 @@ const Header = () => {
               </button>
             </Link>
           ) : (
-              <button className='profileButton' onClick={handleLogout}><img src={user.profilePic ?? JellyFish} id='jellyProfile' />
+            <>
+              <button className='profileButton' onClick={toggleOverlay}>
+                <img src={user.profilePic ?? JellyFish} id='jellyProfile' />
               </button>
+              {isAccountMenuVisible && <AccountMenu closeOverlay={toggleOverlay}  /> }
+            </>
           )
         }
       </div>

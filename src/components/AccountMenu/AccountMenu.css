@@ -1,0 +1,46 @@
+.accountOverlay {
+    position: fixed;
+    top: 30;
+    right: 0;
+    height: auto;
+    width: 250px;
+    background-color: #eeeeee;
+    color: rgb(83, 83, 83);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    padding: 15px;
+    border-radius: 20px;
+  }
+
+  .accountOverlay {
+    transform: translateX(0);
+}   
+.accountMenuPic {
+    width: 60px;
+    height: 60px;
+    border-radius: 40px;
+}
+
+.placeInRightPlace {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    font-size: 16px;
+    color: rgb(116, 116, 116);
+    align-items: center;
+}
+
+.logOut {
+    color: rgb(112, 112, 112);
+    font-size: 16px;
+    border-radius: 10px;
+  
+    margin-top: 10px;
+    padding: 10px ;
+}
+.logOut:hover {
+    background-color: rgb(205, 205, 205);
+}
+
+

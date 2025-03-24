@@ -44,8 +44,7 @@ const BoardScreen = () => {
   return (
     <div className='board-background' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].default : defaultValue }}>
       <div className='menu' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].header : defaultValue }}>
-        <p className="workspace-title"> <FaTrello size={25} />  <span className="board-name">{board.title}</span> - {board.username}'s Workspace </p>
-
+        <p className="workspace-title"> <FaTrello size={25} />  {board.username}'s Workspace - {board.title} </p>
         <div>
           <button className='menuButton' onClick={() => setIsModalOpen(true)}>Share</button>
           <ShareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} board={board} />
@@ -53,7 +52,6 @@ const BoardScreen = () => {
 
       </div>
       <Board board={board} setBoard={setBoard} />
-
     </div>
   )
 }

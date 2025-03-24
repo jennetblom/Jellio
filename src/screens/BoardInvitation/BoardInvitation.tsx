@@ -66,7 +66,7 @@ const BoardInvitation = () => {
             <div className='inviteFlexContent'>
                 <h3 style={{ margin: '0' }}>Invited to board {board?.title}</h3>
                 {user ? (
-                    <p>You have been added to the board</p>
+                    <p>You have been added to the board!</p>
                 ) : (
                     <>
                         <p>Please log in to accept the invitation</p>
