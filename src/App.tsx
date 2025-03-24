@@ -10,6 +10,7 @@ import WorkspaceScreen from './screens/WorkspaceScreen/WorkspaceScreen'
 import SignUpScreen from './screens/SignUpScreen/SignUpScreen'
 import { useAuth } from './context/AuthContext'
 import { useEffect } from 'react'
+import BoardInvitation from './screens/BoardInvitation/BoardInvitation'
 
 function App() {
   const {user} = useAuth();
@@ -26,6 +27,7 @@ function App() {
         <Route path="/board/:id" element={<BoardScreen />} />
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/signup" element={<SignUpScreen />} />
+        <Route path="/board/:boardId/invite" element={<BoardInvitation />} />
       </Routes>
     </HashRouter>
   )

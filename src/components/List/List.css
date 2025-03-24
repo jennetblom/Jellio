@@ -4,7 +4,7 @@
     height: fit-content;
     font-size: 14px;
     padding-left: 10px;
-
+    padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 3px;
     margin: 5px;
@@ -29,7 +29,7 @@
 }
 
 .input {
-    width: 220px;
+    width: 260px;
     color: rgb(54, 54, 54);
     font-size: 14px;
     align-self: center;
@@ -120,7 +120,6 @@
     border-radius: 10px;
     box-shadow: 1px 1px 1px rgb(167, 167, 167);
     margin-bottom: 5px;
-
     font-size: 14px;
     height: fit-content;
     border: transparent;

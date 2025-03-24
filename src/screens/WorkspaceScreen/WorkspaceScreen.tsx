@@ -35,14 +35,15 @@ const WorkspaceScreen = () => {
   }, [user, loading]);
 
 
-  const handleBoardClick = (boardId: string) => {
-    navigate(`/board/${boardId}`);
+  const handleBoardClick = (board: BoardType) => {
+    navigate(`/board/${board.id}`), {state: {board}};
   }
   const addBoard = async () => {
     console.log(boardTitle, boardColor);
     if (boardTitle === '' || boardColor === '') return;
     if (!user) return;
-    await createBoardInDb(user.uid, boardTitle, boardColor);
+    if(!user.username) return;
+    await createBoardInDb(user.uid, user.username, boardTitle, boardColor);
     const userBoards = await getUserBoards(user);
     setBoards(userBoards);
     setBoardTitle('');
@@ -60,7 +61,7 @@ const WorkspaceScreen = () => {
         <div className='boardShowContainer'>
           {boards.map((board) => (
             <div key={board.id} className='boardShow'
-              onClick={() => handleBoardClick(board.id)}
+              onClick={() => handleBoardClick(board)}
               onMouseEnter={() => setHoveredBoard(board.id)}
               onMouseLeave={() => setHoveredBoard(null)}
               style={{ background: getBoardBackground(board.color, hoveredBoard === board.id) }}>

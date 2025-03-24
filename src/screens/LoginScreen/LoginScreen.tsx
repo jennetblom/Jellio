@@ -6,6 +6,7 @@ import './LoginScreen.css'
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../firebase/loginUser';
 import { useAuth } from '../../context/AuthContext';
+import { checkUserInDb } from '../../firebase/checkUserInDb';
 
 const LoginScreen = () => {
 
@@ -28,7 +29,13 @@ const LoginScreen = () => {
         } else if (!result) {
             setError("Your account doesn't exist, please create a new account");
         } else {
-            console.log('Login successful, waiting for user state...');
+        
+            const userExistsInDb = await checkUserInDb(result.uid);
+            if(userExistsInDb) {
+                console.log('Login successful, waiting for user state...');
+            } else {
+                setError("Your account doesn't exist, please create a account");
+            }
         }
     }   
     useEffect(()=> {

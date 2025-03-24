@@ -1,0 +1,30 @@
+.board-inviteContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    
+    background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+}
+
+.inviteFlexContent {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 1px 1px 5px 2px rgb(78, 78, 78);
+    border-radius: 10px;
+    width: 300px;
+    margin-top: 150px;
+}
+
+.goToLoginBtn {
+    background: linear-gradient(180deg, rgb(39, 171, 164), #18f0a1 );
+    border: none;
+    box-shadow: 1px 1px 1px 1px  rgb(160, 160, 160);
+    margin-top: 10px;
+}
+
+.goToLoginBtn:hover {
+    background: linear-gradient(180deg, rgb(35, 147, 141), #17de95 );
+
+}

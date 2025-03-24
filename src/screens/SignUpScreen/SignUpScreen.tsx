@@ -16,7 +16,7 @@ const SignUpScreen = () => {
     const [error, setError] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const navigate = useNavigate();
-    
+
     const handleSignUp = async () => {
         if (!email || !password || !passwordConfirm || !username) {
             setError("Please fill in all fields");
@@ -41,7 +41,7 @@ const SignUpScreen = () => {
         }
         setError("");
         const result = await registerUser(username, email, password, imageUrl);
-        if(!result) {
+        if (!result) {
             setError("An account with this email already exists");
         } else {
             navigate('/workspaces');
@@ -73,7 +73,7 @@ const SignUpScreen = () => {
         }
     }
     useEffect(() => {
-        if(error) {
+        if (error) {
             const timer = setTimeout(() => {
                 setError("");
             }, 2000);
@@ -100,12 +100,12 @@ const SignUpScreen = () => {
                             onChange={handleImageChange}
                             style={{ display: 'none' }}
                         />
-                        <p  style={{color: selectedImage ? "lime" : "white"}} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
+                        <p style={{ color: selectedImage ? "lime" : "white" }} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
                     </div>
                     <form className='signUpField'>
                         <p className='helpText'>Username</p>
                         <input
-                            className='input'
+                            className='signInput'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder='Enter your username'
@@ -114,7 +114,7 @@ const SignUpScreen = () => {
                     <form className='signUpField'>
                         <p>Email</p>
                         <input
-                            className='input'
+                            className='signInput'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Enter your email'
@@ -124,7 +124,7 @@ const SignUpScreen = () => {
                     <form className='signUpField'>
                         <p>Password</p>
                         <input
-                            className='input'
+                            className='signInput'
                             type='password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -134,7 +134,7 @@ const SignUpScreen = () => {
                     <form className='signUpField'>
                         <p>Confirm your password</p>
                         <input
-                            className='input'
+                            className='signInput'
                             type='password'
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
