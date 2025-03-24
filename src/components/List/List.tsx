@@ -118,7 +118,7 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
                 value={listTitle}
                 onChange={(e) => setListTitle(e.target.value)}
                 placeholder='Enter your listname...'
-         /*        onBlur={() => setIsTitleClicked(false)} */
+                onBlur={() => setIsTitleClicked(false)}
                 autoFocus
                 maxLength={33}
                 onKeyDown={handleTitleKeyPress}
