@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react';
 import { BoardType } from '../../types';
 import { getBoardById } from '../../firebase/getBoardById';
 import { boardColors, getBoardBackground } from '../../styles/colors';
+import ShareModal from '../../components/ShareModal/ShareModal';
 const BoardScreen = () => {
   const { id } = useParams();
   const [board, setBoard] = useState<BoardType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const defaultValue = "linear-gradient(340deg, rgb(0, 242, 255), rgba(1, 88, 89, 0.943));"
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   useEffect(() => {
     if (!id) return;
 
@@ -38,9 +41,11 @@ const BoardScreen = () => {
   return (
     <div className='board-background' style={{background: board?.color && boardColors[board.color] ? boardColors[board.color].default : defaultValue}}>
       <div className='menu'  style={{background: board?.color && boardColors[board.color] ? boardColors[board.color].header : defaultValue}}>
-        <button className='menuButton'>Share</button>
+        <button className='menuButton' onClick={() => setIsModalOpen(true)}>Share</button>
+        <ShareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} board={board}/>
       </div>
       <Board board={board} setBoard={setBoard} />
+    
     </div>
   )
 }
