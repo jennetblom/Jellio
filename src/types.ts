@@ -17,8 +17,9 @@ export type BoardType = {
     title: string;
     color: string;
     userId: string;
-    createdAt: Date,
-    updatedAt: Date,
+    username: string;
+    createdAt: Timestamp,
+    members: string[];
 }
 
 export type UserType = {

@@ -6,11 +6,11 @@ import { getBoardById } from '../../firebase/getBoardById';
 import { addUserToBoard } from '../../firebase/addUserToBoard';
 
 const BoardInvitation = () => {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const { boardId } = useParams<{ boardId: string }>();
     const navigate = useNavigate();
     const [board, setBoard] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+    const [boardLoading, setBoardLoading] = useState(true);
 
     useEffect(() => {
         if (!user) return;
@@ -18,9 +18,9 @@ const BoardInvitation = () => {
             if (boardId) {
                 const fetchedBoard = await getBoardById(boardId);
                 setBoard(fetchedBoard);
-                setLoading(false);
+                setBoardLoading(false);
             } else {
-                setLoading(false);
+                setBoardLoading(false);
             }
         };
         fetchBoard();
@@ -29,7 +29,7 @@ const BoardInvitation = () => {
     useEffect(() => {
         console.log("addUser before", board, user);
 
-        if (loading) {
+        if (loading || boardLoading) {
             console.log("still loading user data...");
             return;
         }
@@ -55,10 +55,10 @@ const BoardInvitation = () => {
             }
         }
         addUser();
-    }, [user, board, navigate, boardId, loading]);
+    }, [user, board, navigate, boardId, boardLoading, loading]);
 
 
-    if (loading) {
+    if (boardLoading) {
         return <div>Loading board...</div>;
     }
     return (

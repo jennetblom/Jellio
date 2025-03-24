@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                         username: userData.username || "No username",
                         email: userData.email || "No email",
                         profilePic: userData.profilePic || "",
-                        createdAt: userData.createdAt ? userData.createdAt : timestamp,
+                        createdAt: userData.createdAt ||timestamp,
                     });
                 } else {
                     setUser(null);
