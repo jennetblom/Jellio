@@ -92,7 +92,7 @@ const WorkspaceScreen = () => {
               )}
           </div>
         </div>
-        {memberBoards ? (
+        {memberBoards.length > 0 ? (
           <>
   <h3 className='titleGray'>Workspaces you are member in</h3>
         <div>

@@ -17,8 +17,23 @@
 }
 .workspace-title {
     display: flex;
+    align-items: center;
     gap: 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(243, 243, 243);
+
 }
+#trelloIcon {
+    color: rgb(0, 46, 83);
+}
+.usernameAndShareContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
 .menuButton {
     background-color: rgb(205, 205, 205);
     color: rgb(49, 49, 49);
