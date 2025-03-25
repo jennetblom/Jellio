@@ -41,10 +41,14 @@ const BoardScreen = () => {
   if (!board) {
     return <div>No board found</div>;
   }
+  const capitalize = (str: string) => {
+    if(!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
   return (
     <div className='board-background' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].default : defaultValue }}>
       <div className='menu' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].header : defaultValue }}>
-        <p className="workspace-title"> <FaTrello size={25} />  {board.username}'s Workspace - {board.title} </p>
+        <p className="workspace-title"> <FaTrello size={25} />  {capitalize(board.username)}'s Workspace - {capitalize(board.title)} </p>
         <div>
           <button className='menuButton' onClick={() => setIsModalOpen(true)}>Share</button>
           <ShareModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} board={board} />

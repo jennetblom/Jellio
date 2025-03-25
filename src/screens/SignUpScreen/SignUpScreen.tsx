@@ -5,6 +5,7 @@ import choosePicture from '../../../src/assets/images/profilePic.png'
 import { uploadImageToFirebase } from '../../firebase/uploadImageToFirebase'
 import { registerUser } from '../../firebase/registerUser'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 const SignUpScreen = () => {
 
     const [email, setEmail] = useState('');
@@ -15,8 +16,14 @@ const SignUpScreen = () => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [error, setError] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    const { user, loading } = useAuth();
     const navigate = useNavigate();
-
+    
+    useEffect(() => {
+        if (!loading && user) {
+            navigate('/workspaces');
+        }
+    }, [user, loading, navigate])
     const handleSignUp = async () => {
         if (!email || !password || !passwordConfirm || !username) {
             setError("Please fill in all fields");

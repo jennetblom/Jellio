@@ -10,13 +10,14 @@ import { RxCross1 } from "react-icons/rx";
 
 interface CreateMenuProps {
     closeCreateOverlay: () => void;
-    setBoards: React.Dispatch<React.SetStateAction<BoardType[]>>
+    
 }
 
 
-const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay, setBoards }) => {
+const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
     const [boardTitle, setBoardTitle] = useState('');
     const [boardColor, setBoardColor] = useState('');
+    const [boards, setBoards] = useState<BoardType[]>([]);
     const { user } = useAuth();
     const [error, setError] = useState("");
 
@@ -49,6 +50,7 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay, setBoards }
         setBoardTitle('');
         setBoardColor('');
         handleClose();
+       
     }
      useEffect(() => {
             if (error) {
