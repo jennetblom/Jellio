@@ -67,7 +67,7 @@ const WorkspaceScreen = () => {
             {isCreateMenuVisisble &&
               (
                 <div className='createMenuWrapper'>
-                  <CreateMenu closeCreateOverlay={toggleOverlay} />
+                  <CreateMenu closeCreateOverlay={toggleOverlay} setBoards={setBoards} />
                 </div>
               )}
           </div>
