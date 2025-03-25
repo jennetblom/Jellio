@@ -4,17 +4,19 @@ import { useAuth } from "../../context/AuthContext";
 import { getUserBoards } from '../../firebase/getUserBoards';
 import { useNavigate } from 'react-router-dom';
 import './WorkSpaceScreen.css'
-import { createBoardInDb } from '../../firebase/createBoardInDb';
-import { boardColors, getBoardBackground } from '../../styles/colors';
-import { IoIosCheckmark } from "react-icons/io";
+
+import { getBoardBackground } from '../../styles/colors';
+
+import CreateMenu from '../../components/CreateMenu/CreateMenu'
+import { FaTrello } from "react-icons/fa";
+
 const WorkspaceScreen = () => {
   const { user, loading } = useAuth();
   const [boards, setBoards] = useState<BoardType[]>([]);
   const navigate = useNavigate();
-  const [boardTitle, setBoardTitle] = useState('');
-  const [boardColor, setBoardColor] = useState('');
   const [hoveredBoard, setHoveredBoard] = useState<string | null>(null);
-  
+
+  const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
   useEffect(() => {
     const fetchBoards = async () => {
       if (user) {
@@ -24,35 +26,21 @@ const WorkspaceScreen = () => {
 
     };
 
-    if(loading) return;
+    if (loading) return;
 
-    if (!user)  {
+    if (!user) {
       navigate('/login');
       return;
     }
     fetchBoards();
 
-  }, [user, loading]);
+  }, [user, loading, boards]);
 
-
+  const toggleOverlay = () => {
+    setIsCreateMenuVisible(prevState => !prevState);
+  }
   const handleBoardClick = (board: BoardType) => {
-    navigate(`/board/${board.id}`), {state: {board}};
-  }
-  const addBoard = async () => {
-    console.log(boardTitle, boardColor);
-    if (boardTitle === '' || boardColor === '') return;
-    if (!user) return;
-    if(!user.username) return;
-    await createBoardInDb(user.uid, user.username, boardTitle, boardColor);
-    const userBoards = await getUserBoards(user);
-    setBoards(userBoards);
-    setBoardTitle('');
-    setBoardColor('');
-  }
-  const handleHover = (e: React.MouseEvent<HTMLDivElement>, color: string, isHovering: boolean)=> {
-    e.currentTarget.style.background = isHovering ? 
-    boardColors[color]?.hover || color :
-    boardColors[color]?.default || color;
+    navigate(`/board/${board.id}`), { state: { board } };
   }
   return (
     <div className='workSpaceContainer'>
@@ -71,40 +59,21 @@ const WorkspaceScreen = () => {
             </div>
           ))}
 
-        </div>
-
-        <div className='createBoard'>
-          <p>Create a new board</p>
-          <input
-            className='createInput'
-            value={boardTitle}
-            onChange={(e) => setBoardTitle(e.target.value)}
-            placeholder='Enter the name of your board...'
-          />
-          <p>Choose a background</p>
-          <div className='colorSelect'>
-          {Object.keys(boardColors).map((colorKey) => (
-            <div
-            className='selectColor' 
-            key={colorKey}
-            style={{background: boardColors[colorKey].default}}
-            onMouseEnter={(e) => handleHover(e, colorKey, true)}
-            onMouseLeave={(e) => handleHover(e, colorKey, false)}
-            onClick={() => setBoardColor(colorKey)}
-            >
-              {
-                boardColor === colorKey ?
-                <p className='selectedBoardColor'><IoIosCheckmark size={30}/></p> : 
-                <p></p>
-              }
-            
+          <div className='toggleCreateContainer'>
+            <div className='toggleCreate' onClick={toggleOverlay}>
+              <FaTrello size={20} />
+              <p>Create new board</p>
             </div>
-          ))}
+            {isCreateMenuVisisble &&
+              (
+                <div className='createMenuWrapper'>
+                  <CreateMenu closeCreateOverlay={toggleOverlay} />
+                </div>
+              )}
           </div>
-          <button className='createBtn' onClick={addBoard}>Create</button>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

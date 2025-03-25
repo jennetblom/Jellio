@@ -29,9 +29,9 @@ import { deleteCardInDb } from '../../firebase/deleteCardInDb';
 
 type BoardProps = {
     board: BoardType;
-    setBoard: React.Dispatch<React.SetStateAction<any>>;
+   
 }
-const Board = ({ board, setBoard }: BoardProps) => {
+const Board = ({ board}: BoardProps) => {
 
 
     const [lists, setLists] = useState<ListType[]>([]);
@@ -57,6 +57,10 @@ const Board = ({ board, setBoard }: BoardProps) => {
         if (listTitle === '') return setIsAdding(false);
 
         const newList = await addListToDb(board.id, listTitle, lists);
+        if(!newList) {
+            console.log('Error adding list');
+            return;
+        }
 
         setIsAdding(true);
         setListTitle('');
@@ -66,6 +70,10 @@ const Board = ({ board, setBoard }: BoardProps) => {
         const newCard: CardType = { id: Date.now(), content: content };
 
         const success = await addCardToDb(board.id, listId, newCard);
+        if(!success) {
+            console.log('Error adding card');
+            return;
+        }
     };
 
     const removeList = async (listId: string) => {

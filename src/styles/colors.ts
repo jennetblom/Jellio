@@ -1,28 +1,28 @@
 export const boardColors: Record<string, {default: string, hover: string, header: string}> = {
     purple: {
-        default: "linear-gradient(140deg, rgb(252, 0, 201), #66005f)",
-        hover: "linear-gradient(140deg, rgb(223, 1, 179), #4e0049)",
-        header: "#940077",
+        default: "linear-gradient(140deg, rgb(252, 0, 118),rgb(130, 0, 106))",
+        hover: "linear-gradient(140deg, rgb(232, 0, 108),rgb(113, 0, 92))",
+        header: "linear-gradient(140deg, rgb(219, 0, 102),rgb(113, 0, 92))",
     },
     blue: {
-        default: "linear-gradient(140deg, rgb(0, 239, 252), #002566)",
-        hover: "linear-gradient(140deg, rgb(1, 213, 224), #011c4a)",
-        header: "#0088A8"
+        default: "linear-gradient(140deg, rgb(0, 252, 239),rgb(2, 83, 110))",
+        hover: "linear-gradient(140deg, rgb(3, 232, 198),rgb(0, 36, 79))",
+        header: "linear-gradient(140deg, rgb(3, 212, 215),rgb(0, 95, 122))",
     },
     green: {
-        default: "linear-gradient(140deg, rgb(231, 252, 0), #01710c)",
-        hover: "linear-gradient(140deg, rgb(203, 221, 1), #005e0a)",
-        header: "#228B22", 
+        default: "linear-gradient(140deg, rgb(231, 252, 0),rgb(0, 161, 16))",
+        hover: "linear-gradient(140deg, rgb(180, 196, 0),rgb(0, 133, 13))",
+        header: "linear-gradient(140deg, rgb(174, 189, 1),rgb(0, 161, 16))",
     },
     yellow: {
-        default: "linear-gradient(140deg, rgb(250, 250, 0), #bc8a00)",
-        hover: "linear-gradient(140deg, rgb(230, 230, 1), #a67a01)",
-        header: "#D4AF37", 
+        default: "linear-gradient(140deg, rgb(250, 250, 0),rgb(211, 151, 0))",
+        hover: "linear-gradient(140deg, rgb(168, 168, 0),rgb(188, 138, 0))",
+        header: "linear-gradient(140deg, rgb(220, 220, 0),rgb(196, 141, 2))",
     },
     orange: {
-        default: "linear-gradient(140deg, rgb(250, 196, 0), #da2100)",
-        hover: "linear-gradient(140deg, rgb(220, 172, 2), #ba1d01)",
-        header: "#CC5500", 
+        default: "linear-gradient(140deg, rgb(250, 196, 0),rgb(218, 91, 0))",
+        hover: "linear-gradient(140deg, rgb(227, 178, 0),rgb(192, 80, 0))",
+        header:  "linear-gradient(140deg, rgb(227, 178, 0),rgb(192, 80, 0))",
     },
 }
 
