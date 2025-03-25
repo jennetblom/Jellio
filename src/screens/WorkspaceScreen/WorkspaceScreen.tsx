@@ -9,15 +9,22 @@ import { getBoardBackground } from '../../styles/colors';
 
 import CreateMenu from '../../components/CreateMenu/CreateMenu'
 import { FaTrello } from "react-icons/fa";
+import { getMemberBoards } from '../../firebase/getMemberBoards';
 
 const WorkspaceScreen = () => {
   const { user, loading } = useAuth();
   const [boards, setBoards] = useState<BoardType[]>([]);
   const navigate = useNavigate();
   const [hoveredBoard, setHoveredBoard] = useState<string | null>(null);
-
+  const [memberBoards, setMemberBoards] = useState<BoardType[]>([]);
   const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
   useEffect(() => {
+    if (loading) return;
+
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     const fetchBoards = async () => {
       if (user) {
         const userBoards = await getUserBoards(user);
@@ -26,16 +33,29 @@ const WorkspaceScreen = () => {
 
     };
 
+
+    fetchBoards();
+
+  }, [user, loading, boards]);
+
+  useEffect(() => {
     if (loading) return;
 
     if (!user) {
       navigate('/login');
       return;
     }
-    fetchBoards();
+    const fetchMemberBoards = async () => {
+      if (user) {
+        const userMemberBoards = await getMemberBoards(user);
+        setMemberBoards(userMemberBoards);
+      }
 
-  }, [user, loading, boards]);
+    };
 
+
+    fetchMemberBoards();
+  }, [user, loading, memberBoards]);
   const toggleOverlay = () => {
     setIsCreateMenuVisible(prevState => !prevState);
   }
@@ -67,11 +87,31 @@ const WorkspaceScreen = () => {
             {isCreateMenuVisisble &&
               (
                 <div className='createMenuWrapper'>
-                  <CreateMenu closeCreateOverlay={toggleOverlay} setBoards={setBoards} />
+                  <CreateMenu closeCreateOverlay={toggleOverlay} />
                 </div>
               )}
           </div>
         </div>
+        {memberBoards ? (
+          <>
+  <h3 className='titleGray'>Workspaces you are member in</h3>
+        <div>
+          {memberBoards.map((board) => (
+            <div key={board.id} className='boardShow'
+              onClick={() => handleBoardClick(board)}
+              onMouseEnter={() => setHoveredBoard(board.id)}
+              onMouseLeave={() => setHoveredBoard(null)}
+              style={{ background: getBoardBackground(board.color, hoveredBoard === board.id) }}>
+              <div className='boardTextOpacityContainer'>
+                <p className='boardText'>{board.title}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+          </>
+        ) : (
+          <p></p>
+        )}
       </div>
     </div >
   )

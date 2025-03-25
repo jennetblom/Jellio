@@ -1,19 +1,27 @@
 
 import './Header.css';
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import JellyFish from '../../../src/assets/images/jellyfishImage.png'
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import AccountMenu from '../AccountMenu/AccountMenu';
+import CreateMenu from '../CreateMenu/CreateMenu';
 const Header = () => {
 
   const { user } = useAuth();
   const [isAccountMenuVisible, setIsAccountMenuVisible] = useState(false);
-
+  const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
+  const navigate = useNavigate();
   const toggleOverlay = () => {
     setIsAccountMenuVisible(prevState => !prevState);
+  }
+  const toggleCreateOverlay = () => {
+    setIsCreateMenuVisible(prevState => !prevState);
+  }
+  const getStarted = () => {
+    navigate('/signup');
   }
 
   return (
@@ -27,8 +35,20 @@ const Header = () => {
         <div className='nav-links'>
           <Link to="/" className='nav-link'>Home</Link>
           <Link to="/workspaces" className='nav-link'>Workspaces</Link>
-          <Link to="/login" className='nav-link'>Login</Link>
-          <Link to="/signup" className='nav-link'>Sign up</Link>
+          {
+            user ? (
+              <div className='createHeaderContainer'>
+              <button className='createInHeader' onClick={toggleCreateOverlay}>Create</button>
+              <div className='createWrapper'>
+                {isCreateMenuVisisble && <CreateMenu closeCreateOverlay={toggleCreateOverlay} />}
+              </div>
+            </div>
+            ) : (
+              <div className='createHeaderContainer'>
+              <button className='createInHeader' onClick={getStarted}>Get started</button>
+            </div>
+            )
+          }
         </div>
       </div>
       <div className='headerRight'>
@@ -43,7 +63,7 @@ const Header = () => {
               <button className='profileButton' onClick={toggleOverlay}>
                 <img src={user.profilePic ?? JellyFish} id='jellyProfile' />
               </button>
-              {isAccountMenuVisible && <AccountMenu closeOverlay={toggleOverlay}  /> }
+              {isAccountMenuVisible && <AccountMenu closeOverlay={toggleOverlay} />}
             </>
           )
         }

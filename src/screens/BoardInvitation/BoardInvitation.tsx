@@ -13,7 +13,12 @@ const BoardInvitation = () => {
     const [boardLoading, setBoardLoading] = useState(true);
 
     useEffect(() => {
+
+        if (loading) {
+            return;
+        }
         if (!user) {
+            console.log("if !user");
             navigate("/login");
             return;
         }
@@ -27,12 +32,12 @@ const BoardInvitation = () => {
             }
         };
         fetchBoard();
-    
+
     }, [boardId, user]);
 
     useEffect(() => {
         console.log("addUser before", board, user);
-        console.log("loading", loading, boardLoading,"boardLoading");
+        console.log("loading", loading, boardLoading, "boardLoading");
         if (loading || boardLoading) {
             console.log("still loading user data...");
             return;
