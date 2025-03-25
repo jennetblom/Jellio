@@ -58,56 +58,44 @@
   font-weight: bold;
 
 }
-.createBoard {
-    width: 300px;
-    background-color: rgb(245, 245, 245);
-    height: auto;
-    padding: 10px;
+
+.toggleCreateContainer {
+    width: calc(20% - 10px);
+    height: 100px;
     display: flex;
-    align-items: center;
+    align-items:flex-end;
     justify-content: center;
-    flex-direction: column;
-    gap: 10px;
+    margin: 10px;
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px rgb(204, 204, 204);
-}
-
-.createInput {
-    width: 90%;
-    padding: 4px;
-    font-size: 14px;
-    font-family: sans-serif;
-}
-
-.createBtn {
-    background: linear-gradient(180deg, rgb(3, 98, 117), #04c6b6);
-    padding: 4px;
-    outline: none;
-    border: 1px solid rgb(132, 132, 132);
-    box-shadow: 1px 1px 3px 1px rgb(134, 134, 134);
-}
-
-.createBtn:hover {
-    background: linear-gradient(180deg, rgb(3, 84, 101), #02ab9d);
-
-}
-
-.colorSelect {
+    background-color: rgb(222, 222, 222);
+    color: rgb(89, 89, 89);
     display: flex;
-    width: 90%;
-    gap: 5px;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap:5px;
+    position: relative;
 }
-
-.colorSelect > * {
-    border-radius: 3px;
-    width: calc(20% - 5px);
-    height: 40px;
-
-}
-.selectColor {
+.toggleCreate {
+    width: 100%;
+    height: 100%;
     display: flex;
-    color: white;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    border-radius: 10px;
 }
+.toggleCreate:hover {
+    background-color: rgb(198, 198, 198);
+}
+
+.createMenuWrapper {
+    bottom: 10px;
+    left: calc(20% + 150px);
+    position: absolute;
+}
+
+
+
+

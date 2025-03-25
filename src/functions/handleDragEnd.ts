@@ -1,7 +1,7 @@
 import { arrayMove } from "@dnd-kit/sortable";
-import { List } from "../types";
+import { ListType } from "../types";
 
-export const handleDragEnd = (event: any, lists: List[], setLists: (lists: List[]) => void) => {
+export const handleDragEnd = (event: any, lists: ListType[], setLists: (lists: ListType[]) => void) => {
   const { active, over } = event;
   if (!over) return;
 

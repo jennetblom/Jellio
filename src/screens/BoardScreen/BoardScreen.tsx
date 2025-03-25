@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BoardType } from '../../types';
 import { getBoardById } from '../../firebase/getBoardById';
-import { boardColors, getBoardBackground } from '../../styles/colors';
+import { boardColors} from '../../styles/colors';
 import ShareModal from '../../components/ShareModal/ShareModal';
 import { useLocation } from "react-router-dom";
 import { FaTrello } from "react-icons/fa";
@@ -51,7 +51,7 @@ const BoardScreen = () => {
         </div>
 
       </div>
-      <Board board={board} setBoard={setBoard} />
+      <Board board={board}  />
     </div>
   )
 }

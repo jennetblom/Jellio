@@ -1,4 +1,4 @@
-import { collection, doc, documentId, setDoc, Timestamp } from "firebase/firestore";
+import { collection, doc,  setDoc, Timestamp } from "firebase/firestore";
 import { db } from '../firebaseConfig';
 
 

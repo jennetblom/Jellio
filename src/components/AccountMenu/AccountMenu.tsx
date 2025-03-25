@@ -33,7 +33,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ closeOverlay }) => {
 
             <div className='accountContent'>
                 <p>Account</p>
-            
                 <div className='placeInRightPlace'>
                     <img src={user?.profilePic ?? JellyFish} className='accountMenuPic' />
                     <div>

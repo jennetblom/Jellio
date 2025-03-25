@@ -1,0 +1,80 @@
+import React, { useState } from 'react'
+import './CreateMenu.css'
+import { boardColors } from '../../styles/colors';
+import { IoIosCheckmark } from "react-icons/io";
+import { useAuth } from '../../context/AuthContext';
+import { createBoardInDb } from '../../firebase/createBoardInDb';
+import { getUserBoards } from '../../firebase/getUserBoards';
+import { BoardType } from '../../types';
+import { RxCross1 } from "react-icons/rx";
+
+interface CreateMenuProps {
+    closeCreateOverlay: () => void;
+}
+
+
+const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
+    const [boardTitle, setBoardTitle] = useState('');
+    const [boardColor, setBoardColor] = useState('');
+    const [boards, setBoards] = useState<BoardType[]>([]);
+    const { user } = useAuth();
+    /*     const [hoveredBoard, setHoveredBoard] = useState<string | null>(null); */
+
+    const handleClose = () => {
+        closeCreateOverlay();
+    }
+    const handleHover = (e: React.MouseEvent<HTMLDivElement>, color: string, isHovering: boolean) => {
+        e.currentTarget.style.background = isHovering ?
+            boardColors[color]?.hover || color :
+            boardColors[color]?.default || color;
+    }
+    const addBoard = async () => {
+        console.log(boardTitle, boardColor);
+        if (boardTitle === '' || boardColor === '') return;
+        if (!user) return;
+        if (!user.username) return;
+        await createBoardInDb(user.uid, user.username, boardTitle, boardColor);
+        const userBoards = await getUserBoards(user);
+        setBoards(userBoards);
+        setBoardTitle('');
+        setBoardColor('');
+        handleClose();
+    }
+    return (
+        <div className='createBoard' >
+            <div className='createMenuHeader'>
+                <p id='createTitle'>Create a new board</p>
+                <button onClick={handleClose} id='closeCreate'><RxCross1 /></button>
+
+            </div>
+            <input
+                className='createInput'
+                value={boardTitle}
+                onChange={(e) => setBoardTitle(e.target.value)}
+                placeholder='Enter the name of your board...'
+            />
+            <p>Choose a background</p>
+            <div className='colorSelect'>
+                {Object.keys(boardColors).map((colorKey) => (
+                    <div
+                        className='selectColor'
+                        key={colorKey}
+                        style={{ background: boardColors[colorKey].default }}
+                        onMouseEnter={(e) => handleHover(e, colorKey, true)}
+                        onMouseLeave={(e) => handleHover(e, colorKey, false)}
+                        onClick={() => setBoardColor(colorKey)}
+                    >
+                        {
+                            boardColor === colorKey ?
+                                <p className='selectedBoardColor'><IoIosCheckmark size={30} /></p> :
+                                <p></p>
+                        }
+                    </div>
+                ))}
+            </div>
+            <button className='createBtn' onClick={addBoard}>Create</button>
+        </div>
+    )
+}
+
+export default CreateMenu;
