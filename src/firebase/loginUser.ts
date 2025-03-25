@@ -9,9 +9,10 @@ export const loginUser = async (
      password: string, 
     ) : Promise<User | {error: string} | null> => {
     try {
+        console.log("Attempting to sign in...");
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-
+        console.log("sucess getting user?", user);
         return user;
       
        
