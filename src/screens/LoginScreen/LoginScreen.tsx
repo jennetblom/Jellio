@@ -18,31 +18,46 @@ const LoginScreen = () => {
     const { user, loading } = useAuth();
 
     const signInWithEmail = async () => {
-        if (!email || !password) {
-            setError("Please fill in all fields");
-            return;
-        }
-        const result = await loginUser(email, password);
-        console.log('Login result:', result);
-        if (result && "error" in result) {
-            setError(result.error);
-        } else if (!result) {
-            setError("Your account doesn't exist, please create a new account");
-        } else {
-        
+        try {
+            console.log("signInWithEmail");
+            if (!email || !password) {
+                setError("Please fill in all fields");
+                return;
+            }
+            console.log("signInWithEmail");
+            const result = await loginUser(email, password);
+            console.log('Login result:', result);
+
+            if (!result) {
+                setError("Your account doesn't exist, please create a new account");
+                return;
+            }
+            if ("error" in result) {
+                console.log("Login failed with error:", result.error);
+                setError(result.error);
+                return;
+            }
+
+
+            console.log("Checking user in DB...");
             const userExistsInDb = await checkUserInDb(result.uid);
-            if(userExistsInDb) {
+
+            if (userExistsInDb) {
                 console.log('Login successful, waiting for user state...');
             } else {
-                setError("Your account doesn't exist, please create a account");
+                setError("Your account doesn't exist in the database, please create an account");
             }
+        } catch (error) {
+            console.log("Unexpected error in signInWithEmail:", error);
+            setError("Something went wrong. Please try again.");
         }
-    }   
-    useEffect(()=> {
-        if(!loading && user){
+
+    }
+    useEffect(() => {
+        if (!loading && user) {
             navigate('/workspaces');
         }
-    },[user, loading, navigate])
+    }, [user, loading, navigate])
 
     const handleSignInWithGoogle = async () => {
         setLoadingLogin(true);
@@ -74,13 +89,14 @@ const LoginScreen = () => {
                     </div>
                 </div>
                 <div className='cardSection'>
-                    <form className='loginEmail'>
+                    <form className='loginEmail' onSubmit={(e) => e.preventDefault()}>
                         <h3>Login to continue</h3>
                         <input
                             className='loginInput'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Enter your email'
+                            autoComplete="email" 
                         />
                         <input
                             className='loginInput'
@@ -88,6 +104,7 @@ const LoginScreen = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder='Write your password'
+                            autoComplete='current-password'
                         />
                         {error && <p style={{ color: "red" }}>{error}</p>}
                         <button className='loginButton' onClick={signInWithEmail}>Sign in</button>

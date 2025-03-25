@@ -1,11 +1,11 @@
 .accountOverlay {
     position: fixed;
-    top: 30;
-    right: 0;
+    top: 102px;
+    right: 18px;
     height: auto;
-    width: 250px;
+    width: 280px;
     background-color: #eeeeee;
-    color: rgb(83, 83, 83);
+    color: rgb(73, 73, 73);
     transform: translateX(100%);
     transition: transform 0.3s ease;
     z-index: 1000;
@@ -27,12 +27,12 @@
     display: flex;
     gap: 10px;
     font-size: 16px;
-    color: rgb(116, 116, 116);
+    color: rgb(86, 86, 86);
     align-items: center;
 }
 
 .logOut {
-    color: rgb(112, 112, 112);
+    color: rgb(97, 97, 97);
     font-size: 16px;
     border-radius: 10px;
   

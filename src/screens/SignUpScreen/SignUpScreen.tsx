@@ -109,6 +109,7 @@ const SignUpScreen = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder='Enter your username'
+                            autoComplete='username'
                         />
                     </form>
                     <form className='signUpField'>
@@ -118,6 +119,7 @@ const SignUpScreen = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder='Enter your email'
+                            autoComplete='email'
                         />
                     </form>
 
@@ -129,6 +131,7 @@ const SignUpScreen = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder='Write your password'
+                            autoComplete='new-password'
                         />
                     </form>
                     <form className='signUpField'>
@@ -139,6 +142,7 @@ const SignUpScreen = () => {
                             value={passwordConfirm}
                             onChange={(e) => setPasswordConfirm(e.target.value)}
                             placeholder='Write your password again'
+                            autoComplete='new-password'
                         />
                     </form>
                     {error && <p style={{ color: "red" }}>{error}</p>}
