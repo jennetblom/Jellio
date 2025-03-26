@@ -93,17 +93,15 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
     }
   }
 
-
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
 
 
-
   return (
     <div className={`listContainer ${isDragging ? "isDragging" : ""}`} style={style} >
-      <div className='listTitleContainer' /* ref={setNodeRef} {...attributes}  {...listeners} */ >
+      <div className='listTitleContainer' ref={setNodeRef} {...attributes}  {...listeners} >
         {
           !isTitleClicked ? (
             //default value

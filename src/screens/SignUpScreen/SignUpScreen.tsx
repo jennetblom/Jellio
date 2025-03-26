@@ -6,6 +6,7 @@ import { uploadImageToFirebase } from '../../firebase/uploadImageToFirebase'
 import { registerUser } from '../../firebase/registerUser'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import Header from '../../components/Header/Header'
 const SignUpScreen = () => {
 
     const [email, setEmail] = useState('');
@@ -18,12 +19,23 @@ const SignUpScreen = () => {
     const [imageUrl, setImageUrl] = useState("");
     const { user, loading } = useAuth();
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         if (!loading && user) {
             navigate('/workspaces');
         }
     }, [user, loading, navigate])
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
+
     const handleSignUp = async () => {
         if (!email || !password || !passwordConfirm || !username) {
             setError("Please fill in all fields");
@@ -79,85 +91,76 @@ const SignUpScreen = () => {
             reader.readAsDataURL(file);
         }
     }
-    useEffect(() => {
-        if (error) {
-            const timer = setTimeout(() => {
-                setError("");
-            }, 2000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [error]);
 
 
     return (
-        <div className='signUpScreen' >
-            <div className='signUpCardContainer'>
-                <div className='signUpContainer'>
-                    <h3>Create account</h3>
-
-                    <div id='headingInSign'>
-                        <label htmlFor='file-upload'>
-                            <img src={imagePreview || choosePicture} id='profilePic' />
-                        </label>
-                        <input
-                            type='file'
-                            id='file-upload'
-                            accept='image/*'
-                            onChange={handleImageChange}
-                            style={{ display: 'none' }}
-                        />
-                        <p style={{ color: selectedImage ? "lime" : "white" }} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
+        <>
+            <Header />
+            <div className='signUpScreen' >
+                <div className='signUpCardContainer'>
+                    <div className='signUpContainer'>
+                        <h3>Create account</h3>
+                        <div id='headingInSign'>
+                            <label htmlFor='file-upload'>
+                                <img src={imagePreview || choosePicture} id='profilePic' />
+                            </label>
+                            <input
+                                type='file'
+                                id='file-upload'
+                                accept='image/*'
+                                onChange={handleImageChange}
+                                style={{ display: 'none' }}
+                            />
+                            <p style={{ color: selectedImage ? "lime" : "white" }} >{selectedImage ? "Image selected" : "Click to choose an profile picture"}</p>
+                        </div>
+                        <form className='signUpField'>
+                            <p className='helpText'>Username</p>
+                            <input
+                                className='signInput'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder='Enter your username'
+                                autoComplete='username'
+                            />
+                        </form>
+                        <form className='signUpField'>
+                            <p>Email</p>
+                            <input
+                                className='signInput'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder='Enter your email'
+                                autoComplete='email'
+                            />
+                        </form>
+                        <form className='signUpField'>
+                            <p>Password</p>
+                            <input
+                                className='signInput'
+                                type='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder='Write your password'
+                                autoComplete='new-password'
+                            />
+                        </form>
+                        <form className='signUpField'>
+                            <p>Confirm your password</p>
+                            <input
+                                className='signInput'
+                                type='password'
+                                value={passwordConfirm}
+                                onChange={(e) => setPasswordConfirm(e.target.value)}
+                                placeholder='Write your password again'
+                                autoComplete='new-password'
+                            />
+                        </form>
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                        <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                     </div>
-                    <form className='signUpField'>
-                        <p className='helpText'>Username</p>
-                        <input
-                            className='signInput'
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder='Enter your username'
-                            autoComplete='username'
-                        />
-                    </form>
-                    <form className='signUpField'>
-                        <p>Email</p>
-                        <input
-                            className='signInput'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Enter your email'
-                            autoComplete='email'
-                        />
-                    </form>
-
-                    <form className='signUpField'>
-                        <p>Password</p>
-                        <input
-                            className='signInput'
-                            type='password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Write your password'
-                            autoComplete='new-password'
-                        />
-                    </form>
-                    <form className='signUpField'>
-                        <p>Confirm your password</p>
-                        <input
-                            className='signInput'
-                            type='password'
-                            value={passwordConfirm}
-                            onChange={(e) => setPasswordConfirm(e.target.value)}
-                            placeholder='Write your password again'
-                            autoComplete='new-password'
-                        />
-                    </form>
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-                    <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                 </div>
             </div>
-
-        </div>
+        </>
     )
 }
 

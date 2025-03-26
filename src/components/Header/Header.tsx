@@ -1,19 +1,29 @@
 
 import './Header.css';
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import JellyFish from '../../../src/assets/images/jellyfishImage.png'
 import { useAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import AccountMenu from '../AccountMenu/AccountMenu';
 import CreateMenu from '../CreateMenu/CreateMenu';
-const Header = () => {
+import { boardColors } from '../../styles/colors';
+
+interface HeaderProps {
+  backgroundColor?: string;
+}
+const Header: React.FC<HeaderProps> = ({backgroundColor="default"}) => {
+
+  const headerStyle = {
+    background: boardColors[backgroundColor]?.header || "linear-gradient(180deg, #018f94, #00335a)"
+  };
 
   const { user } = useAuth();
   const [isAccountMenuVisible, setIsAccountMenuVisible] = useState(false);
   const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
   const navigate = useNavigate();
+
   const toggleOverlay = () => {
     setIsAccountMenuVisible(prevState => !prevState);
   }
@@ -25,7 +35,7 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <header className="header" style={headerStyle}>
       <div className='headerLeft'>
         <img id='jellyicon' src={JellyIcon} style={{ width: 110, height: 'auto' }} />
         <Link to="/" className='nav-link'>

@@ -11,9 +11,18 @@ interface ShareModalProps {
 
 const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, board }) => {
 
-    if (!isOpen) return null;
     const [copySuccessText, setCopySuccessText] = useState("");
     const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+        if (copySuccessText !== "") {
+            const timer = setTimeout(() => {
+                setCopySuccessText("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [copySuccessText]);
 
     const generateInviteLink = () => {
         return `${window.location.origin}/#/board/${board.id}/invite`;
@@ -31,16 +40,8 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, board }) => {
             setSuccess(false);
         });
     };
-    useEffect(() => {
-        if (copySuccessText!=="") {
-            const timer = setTimeout(() => {
-                setCopySuccessText("");
-            }, 2000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [copySuccessText]);
-
+    
+    if (!isOpen) return null;
 
     return (
         <div className="modal-overlay">
@@ -50,8 +51,8 @@ const ShareModal: React.FC<ShareModalProps> = ({ isOpen, onClose, board }) => {
                     <RxCross2 onClick={onClose} size={25} className='close' />
                 </div>
                 <p>Anyone with the link can join as an member</p>
-                <input type='text' value={inviteLink} readOnly className='linkShow'/>
-                <p style={{ color: success ? "lime" : "red", fontSize: '14px'}}>{copySuccessText}</p>
+                <input type='text' value={inviteLink} readOnly className='linkShow' />
+                <p style={{ color: success ? "lime" : "red", fontSize: '14px' }}>{copySuccessText}</p>
                 <button className='copyLink' onClick={copyInviteLinkToClipboard}>Copy link</button>
             </div>
         </div>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../firebase/loginUser';
 import { useAuth } from '../../context/AuthContext';
 import { checkUserInDb } from '../../firebase/checkUserInDb';
+import Header from '../../components/Header/Header';
 
 const LoginScreen = () => {
 
@@ -16,6 +17,23 @@ const LoginScreen = () => {
     const [error, setError] = useState("");
     const [loadingLogin, setLoadingLogin] = useState(false);
     const { user, loading } = useAuth();
+
+
+    useEffect(() => {
+        if (!loading && user) {
+            navigate('/workspaces');
+        }
+    }, [user, loading, navigate])
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
 
     const signInWithEmail = async () => {
         try {
@@ -53,11 +71,7 @@ const LoginScreen = () => {
         }
 
     }
-    useEffect(() => {
-        if (!loading && user) {
-            navigate('/workspaces');
-        }
-    }, [user, loading, navigate])
+
 
     const handleSignInWithGoogle = async () => {
         setLoadingLogin(true);
@@ -67,60 +81,54 @@ const LoginScreen = () => {
             navigate('/workspaces');
         }
     }
-    useEffect(() => {
-        if (error) {
-            const timer = setTimeout(() => {
-                setError("");
-            }, 2000);
-
-            return () => clearTimeout(timer);
-        }
-    }, [error]);
 
     return (
-        <div className='loginScreen'>
-            <div className='loginCardContainer'>
-                <div className='heading'>
-                    <h1>Jellio</h1>
-                    <div>
-                        <img id='jellyicon' src={JellyIcon} />
-                        <img id='jellyiconMiddle' src={JellyIcon} />
-                        <img id='jellyicon' src={JellyIcon} />
+        <>
+            <Header />
+            <div className='loginScreen'>
+                <div className='loginCardContainer'>
+                    <div className='heading'>
+                        <h1>Jellio</h1>
+                        <div>
+                            <img id='jellyicon' src={JellyIcon} />
+                            <img id='jellyiconMiddle' src={JellyIcon} />
+                            <img id='jellyicon' src={JellyIcon} />
+                        </div>
                     </div>
-                </div>
-                <div className='cardSection'>
-                    <form className='loginEmail' onSubmit={(e) => e.preventDefault()}>
-                        <h3>Login to continue</h3>
-                        <input
-                            className='loginInput'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Enter your email'
-                            autoComplete="email" 
-                        />
-                        <input
-                            className='loginInput'
-                            type='password'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Write your password'
-                            autoComplete='current-password'
-                        />
-                        {error && <p style={{ color: "red" }}>{error}</p>}
-                        <button className='loginButton' onClick={signInWithEmail}>Sign in</button>
-                    </form>
-                    <div className='loginGoogle'>
-                        <h3>Or continue with</h3>
-                        <button onClick={handleSignInWithGoogle} className='loginButton'>
-                            <FcGoogle size={30} />
-                            <p>{loadingLogin ? "Signing in..." : "Sign in with Google"}</p>
-                        </button>
-                        <button className='loginButton' id='signUpBtn' onClick={() => navigate('/signup')}>Create an account</button>
+                    <div className='cardSection'>
+                        <form className='loginEmail' onSubmit={(e) => e.preventDefault()}>
+                            <h3>Login to continue</h3>
+                            <input
+                                className='loginInput'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder='Enter your email'
+                                autoComplete="email"
+                            />
+                            <input
+                                className='loginInput'
+                                type='password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder='Write your password'
+                                autoComplete='current-password'
+                            />
+                            {error && <p style={{ color: "red" }}>{error}</p>}
+                            <button className='loginButton' onClick={signInWithEmail}>Sign in</button>
+                        </form>
+                        <div className='loginGoogle'>
+                            <h3>Or continue with</h3>
+                            <button onClick={handleSignInWithGoogle} className='loginButton'>
+                                <FcGoogle size={30} />
+                                <p>{loadingLogin ? "Signing in..." : "Sign in with Google"}</p>
+                            </button>
+                            <button className='loginButton' id='signUpBtn' onClick={() => navigate('/signup')}>Create an account</button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 

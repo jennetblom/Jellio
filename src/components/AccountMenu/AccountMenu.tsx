@@ -30,7 +30,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ closeOverlay }) => {
       };
     return (
         <div className="accountOverlay" onClick={handleClose}>
-
             <div className='accountContent'>
                 <p>Account</p>
                 <div className='placeInRightPlace'>
@@ -44,7 +43,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({ closeOverlay }) => {
                 <div className='logOut' onClick={handleLogout}>
                     <p>Log out</p>
                 </div>
-
             </div>
         </div>
     )

@@ -16,6 +16,7 @@
 }
 #createTitle {
     margin: auto;
+    text-align: center;
 }
 .createBoard {
     width: 300px;
@@ -29,8 +30,9 @@
     gap: 10px;
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px rgb(204, 204, 204);
-    color: rgb(161, 161, 161);
+    color: rgb(130, 130, 130);
     font-size: 16px;
+    font-weight: bold;
     
 }
 

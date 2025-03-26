@@ -15,12 +15,14 @@ import BoardInvitation from './screens/BoardInvitation/BoardInvitation'
 function App() {
   const {user} = useAuth();
 
+  
   useEffect(() => {
     console.log("user", user);
   })
+
   return (
     <HashRouter>
-      <Header />
+  {/*     <Header /> */}
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path='/workspaces' element={<WorkspaceScreen />} />
