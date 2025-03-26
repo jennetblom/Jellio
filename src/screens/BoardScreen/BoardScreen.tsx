@@ -11,6 +11,7 @@ import ShareModal from '../../components/ShareModal/ShareModal';
 import { useLocation } from "react-router-dom";
 import { FaTrello } from "react-icons/fa";
 import Header from '../../components/Header/Header';
+import { capitalize } from '../../functions/capitalizeFirstLetter';
 const BoardScreen = () => {
   const { id } = useParams();
   const location = useLocation();
@@ -42,10 +43,7 @@ const BoardScreen = () => {
   if (!board) {
     return <div>No board found</div>;
   }
-  const capitalize = (str: string) => {
-    if (!str) return "";
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
+
   return (
     <>
       <Header backgroundColor={board.color}/>

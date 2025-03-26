@@ -11,7 +11,9 @@ import CreateMenu from '../../components/CreateMenu/CreateMenu'
 import { FaTrello } from "react-icons/fa";
 import { getMemberBoards } from '../../firebase/getMemberBoards';
 import Header from '../../components/Header/Header';
+import { capitalize
 
+ } from '../../functions/capitalizeFirstLetter';
 const WorkspaceScreen = () => {
   const { user, loading } = useAuth();
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -78,7 +80,7 @@ const WorkspaceScreen = () => {
                 onMouseLeave={() => setHoveredBoard(null)}
                 style={{ background: getBoardBackground(board.color, hoveredBoard === board.id) }}>
                 <div className='boardTextOpacityContainer'>
-                  <p className='boardText'>{board.title}</p>
+                  <p className='boardText'>{capitalize(board.title)}</p>
                 </div>
               </div>
             ))}
@@ -108,7 +110,7 @@ const WorkspaceScreen = () => {
                     onMouseLeave={() => setHoveredBoard(null)}
                     style={{ background: getBoardBackground(board.color, hoveredBoard === board.id) }}>
                     <div className='boardTextOpacityContainer'>
-                      <p className='boardText'>{board.title}</p>
+                      <p className='boardText'>{capitalize(board.title)}</p>
                     </div>
                   </div>
                 ))}

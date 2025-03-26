@@ -9,11 +9,9 @@ export const swapCardsBetweenLists = async (
     listId2: string,
     cards1: CardType[],
     cards2: CardType[],
-    cardId1: number,
-    cardId2: number,
 ) => {
     try {
-        const card1Index = cards1.findIndex(card => card.id === cardId1);
+    /*     const card1Index = cards1.findIndex(card => card.id === cardId1);
         const card2Index = cards2.findIndex(card => card.id === cardId2);
 
 
@@ -26,14 +24,14 @@ export const swapCardsBetweenLists = async (
 
         const tempCard = updatedCards1[card1Index];
         updatedCards1[card1Index] = updatedCards2[card2Index];
-        updatedCards2[card2Index] = tempCard;
+        updatedCards2[card2Index] = tempCard; */
 
         const listRef1 = doc(db, "boards", boardId, "lists", listId1);
         const listRef2 = doc(db, "boards", boardId, "lists", listId2);
 
         await Promise.all([
-            updateDoc(listRef1, { cards: updatedCards1 }),
-            updateDoc(listRef2, { cards: updatedCards2 }),
+            updateDoc(listRef1, { cards: cards1}),
+            updateDoc(listRef2, { cards: cards2 }),
         ]);
 
         console.log("Cards swapped between lists.");
