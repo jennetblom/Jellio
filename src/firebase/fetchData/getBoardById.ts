@@ -1,6 +1,6 @@
 import { doc, getDoc, Timestamp } from "firebase/firestore";
-import { db } from "../firebaseConfig";
-import { BoardType } from "../types";
+import { db } from "../../firebaseConfig";
+import { BoardType } from "../../types";
 
 export const getBoardById = async (boardId: string): Promise<BoardType | null> => {
     const boardRef = doc(db, 'boards', boardId);
@@ -10,7 +10,7 @@ export const getBoardById = async (boardId: string): Promise<BoardType | null> =
     const timestamp = Timestamp.fromDate(currentDate);
     if (docSnapshot.exists()) {
         const data = docSnapshot.data();
-
+        console.log("fetchedBoardById");
         return {
             id: docSnapshot.id,
             title: data.title || "Unnamed board",
@@ -20,6 +20,7 @@ export const getBoardById = async (boardId: string): Promise<BoardType | null> =
             createdAt: data.createdAt || timestamp,
             members: data.members || [],
         }
+     
     } else {
         console.log("Board not found");
         return null;

@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
-import { ListType } from "../types";
-import { db } from "../firebaseConfig";
+import { ListType } from "../../types";
+import { db } from "../../firebaseConfig";
 
 export const updateListInDb = async( boardId: string, listId: string, updatedFields: Partial<ListType>) => {
 

@@ -1,19 +1,16 @@
 import { useEffect, useState } from 'react'
 import { BoardType } from "../../types";
 import { useAuth } from "../../context/AuthContext";
-import { getUserBoards } from '../../firebase/getUserBoards';
 import { useNavigate } from 'react-router-dom';
 import './WorkSpaceScreen.css'
-
 import { getBoardBackground } from '../../styles/colors';
-
 import CreateMenu from '../../components/CreateMenu/CreateMenu'
 import { FaTrello } from "react-icons/fa";
-import { getMemberBoards } from '../../firebase/getMemberBoards';
+import { getMemberBoards } from '../../firebase/fetchData/getMemberBoards';
 import Header from '../../components/Header/Header';
-import { capitalize
+import { capitalize } from '../../functions/capitalizeFirstLetter';
+import { listenToBoards } from '../../firebase/fetchData/listenToBoards';
 
- } from '../../functions/capitalizeFirstLetter';
 const WorkspaceScreen = () => {
   const { user, loading } = useAuth();
   const [boards, setBoards] = useState<BoardType[]>([]);
@@ -22,23 +19,36 @@ const WorkspaceScreen = () => {
   const [memberBoards, setMemberBoards] = useState<BoardType[]>([]);
   const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
 
-  useEffect(() => {
-    if (loading) return;
-
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    const fetchBoards = async () => {
-      if (user) {
-        const userBoards = await getUserBoards(user);
-        setBoards(userBoards);
+  /*   useEffect(() => {
+      if (loading) return;
+  
+      if (!user) {
+        navigate('/login');
+        return;
       }
+      console.log("workspace takes care");
+  
+      const fetchBoards = async () => {
+        if (user) {
+          const userBoards = await getUserBoards(user);
+          setBoards(userBoards);
+        }
+      };
+      fetchBoards();
+  
+    }, [user, loading]); */
+
+  useEffect(() => {
+    if (!user?.userId) { return; }
+    const unsubscribe = listenToBoards(user.userId, setBoards);
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+
     };
-    fetchBoards();
-
-  }, [user, loading, boards]);
-
+  }, [user]);
 
   useEffect(() => {
     if (loading) return;
@@ -56,7 +66,7 @@ const WorkspaceScreen = () => {
 
     };
     fetchMemberBoards();
-  }, [user, loading, memberBoards]);
+  }, [user, loading]);
 
 
   const toggleOverlay = () => {
@@ -93,7 +103,7 @@ const WorkspaceScreen = () => {
               {isCreateMenuVisisble &&
                 (
                   <div className='createMenuWrapper'>
-                    <CreateMenu closeCreateOverlay={toggleOverlay} 
+                    <CreateMenu closeCreateOverlay={toggleOverlay}
                     />
                   </div>
                 )}

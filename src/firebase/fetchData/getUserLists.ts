@@ -1,6 +1,6 @@
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 import { collection, query, orderBy, onSnapshot } from "firebase/firestore";
-import { ListType } from "../types";
+import { ListType } from "../../types";
 
 export const getUserLists = (boardId: string, setLists: React.Dispatch<React.SetStateAction<ListType[]>>) => {
 

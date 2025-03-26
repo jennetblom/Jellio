@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { signInWithGoogle } from '../../firebase/signInWithGoogle'
+import { signInWithGoogle } from '../../firebase/authentication/signInWithGoogle'
 import { FcGoogle } from "react-icons/fc";
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
 import './LoginScreen.css'
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../firebase/loginUser';
+import { loginUser } from '../../firebase/authentication/loginUser';
 import { useAuth } from '../../context/AuthContext';
-import { checkUserInDb } from '../../firebase/checkUserInDb';
+import { checkUserInDb } from '../../firebase/authentication/checkUserInDb';
 import Header from '../../components/Header/Header';
 
 const LoginScreen = () => {

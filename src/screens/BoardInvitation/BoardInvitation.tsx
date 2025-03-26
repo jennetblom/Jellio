@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import './BoardInvitation.css'
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getBoardById } from '../../firebase/getBoardById';
-import { addUserToBoard } from '../../firebase/addUserToBoard';
+import { getBoardById } from '../../firebase/fetchData/getBoardById';
+import { addUserToBoard } from '../../firebase/addData/addUserToBoard';
 import Header from '../../components/Header/Header';
 
 const BoardInvitation = () => {

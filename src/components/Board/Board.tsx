@@ -13,25 +13,24 @@ import {
     KeyboardSensor,
 } from "@dnd-kit/core";
 import {
-    rectSortingStrategy,
     SortableContext,
 
 } from "@dnd-kit/sortable";
 import { handleDragEnd } from "../../functions/handleDragEnd";
 import { BoardType } from '../../types';
-import { addListToDb } from '../../firebase/addListToDb';
-import { addCardToDb } from '../../firebase/addCardToDb';
-import { deleteListInDb } from '../../firebase/deleteListInDb';
+import { addListToDb } from '../../firebase/addData/addListToDb';
+import { addCardToDb } from '../../firebase/addData/addCardToDb';
+import { deleteListInDb } from '../../firebase/delete/deleteListInDb';
 import { CardType, ListType } from '../../types';
-import { getUserLists } from '../../firebase/getUserLists';
-import { deleteCardInDb } from '../../firebase/deleteCardInDb';
+import { getUserLists } from '../../firebase/fetchData/getUserLists';
+import { deleteCardInDb } from '../../firebase/delete/deleteCardInDb';
 
 
 type BoardProps = {
     board: BoardType;
-   
+
 }
-const Board = ({ board}: BoardProps) => {
+const Board = ({ board }: BoardProps) => {
 
     const [lists, setLists] = useState<ListType[]>([]);
     const [isAdding, setIsAdding] = useState(false);
@@ -44,7 +43,7 @@ const Board = ({ board}: BoardProps) => {
         return () => unsubscribe();
     }, [board.id]);
 
-    
+
     const handleAddList = () => setIsAdding(true);
     //When user clicks the handleAdd button, setisAdding is true and the input for listTitle 
     // and another button for adding a new list shows up
@@ -56,7 +55,7 @@ const Board = ({ board}: BoardProps) => {
         if (listTitle === '') return setIsAdding(false);
 
         const newList = await addListToDb(board.id, listTitle, lists);
-        if(!newList) {
+        if (!newList) {
             console.log('Error adding list');
             return;
         }
@@ -69,22 +68,22 @@ const Board = ({ board}: BoardProps) => {
         const newCard: CardType = { id: Date.now(), content: content };
 
         const success = await addCardToDb(board.id, listId, newCard);
-        if(!success) {
+        if (!success) {
             console.log('Error adding card');
             return;
         }
     };
 
     const removeList = async (listId: string) => {
-            const success = await deleteListInDb(board.id, listId);
-            if(!success) {
-                console.log('Error deleting list');
-                return;
-            }
+        const success = await deleteListInDb(board.id, listId);
+        if (!success) {
+            console.log('Error deleting list');
+            return;
+        }
     }
     const removeCard = (listId: string, cardId: number) => {
         const success = deleteCardInDb(board.id, listId, lists, cardId);
-        if(!success) {
+        if (!success) {
             console.log('Error deleting card');
             return;
         }

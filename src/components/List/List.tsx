@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './List.css'
 import { IoAdd } from "react-icons/io5";
-/* import { BsThreeDots } from "react-icons/bs"; */
 import Card from '../Card/Card';
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateListInDb } from '../../firebase/updateListInDb';
+import { updateListInDb } from '../../firebase/updateData/updateListInDb';
 
 
 type Card = {

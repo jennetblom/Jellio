@@ -1,5 +1,5 @@
 import { collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { db } from '../../firebaseConfig';
 import { User } from 'firebase/auth';
 
 export const getUserBoards = async (user: User) => {

@@ -1,8 +1,8 @@
 import { arrayMove } from "@dnd-kit/sortable";
 import { ListType } from "../types";
-import { updateListOrder } from "../firebase/updateOrder/updateListOrder";
-import { swapCardsInSameList } from "../firebase/updateOrder/swapCardsInSameList";
-import { swapCardsBetweenLists } from "../firebase/updateOrder/swapCardsBetweenLists";
+import { updateListOrder } from "../firebase/swapOrder/updateListOrder";
+import { swapCardsInSameList } from "../firebase/swapOrder/swapCardsInSameList";
+import { swapCardsBetweenLists } from "../firebase/swapOrder/swapCardsBetweenLists";
 
 export const handleDragEnd = async (
   event: any,
