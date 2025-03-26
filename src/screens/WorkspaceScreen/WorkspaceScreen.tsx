@@ -10,10 +10,12 @@ import { getMemberBoards } from '../../firebase/fetchData/getMemberBoards';
 import Header from '../../components/Header/Header';
 import { capitalize } from '../../functions/capitalizeFirstLetter';
 import { listenToBoards } from '../../firebase/fetchData/listenToBoards';
+import { useBoards } from '../../context/BoardContext';
 
 const WorkspaceScreen = () => {
   const { user, loading } = useAuth();
-  const [boards, setBoards] = useState<BoardType[]>([]);
+  const { boards, boardsLoading } = useBoards();
+
   const navigate = useNavigate();
   const [hoveredBoard, setHoveredBoard] = useState<string | null>(null);
   const [memberBoards, setMemberBoards] = useState<BoardType[]>([]);
@@ -38,7 +40,7 @@ const WorkspaceScreen = () => {
   
     }, [user, loading]); */
 
-  useEffect(() => {
+/*   useEffect(() => {
     if (!user?.userId) { return; }
     const unsubscribe = listenToBoards(user.userId, setBoards);
 
@@ -48,8 +50,8 @@ const WorkspaceScreen = () => {
       }
 
     };
-  }, [user]);
-
+  }, [user]); */
+  if (boardsLoading) return <p>Loading boards...</p>;
   useEffect(() => {
     if (loading) return;
 
