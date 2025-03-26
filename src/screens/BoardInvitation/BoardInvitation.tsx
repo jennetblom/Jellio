@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getBoardById } from '../../firebase/getBoardById';
 import { addUserToBoard } from '../../firebase/addUserToBoard';
+import Header from '../../components/Header/Header';
 
 const BoardInvitation = () => {
     const { user, loading } = useAuth();
@@ -13,7 +14,7 @@ const BoardInvitation = () => {
     const [boardLoading, setBoardLoading] = useState(true);
 
     useEffect(() => {
-
+        console.log("useEffect fetching board");
         if (loading) {
             return;
         }
@@ -33,7 +34,7 @@ const BoardInvitation = () => {
         };
         fetchBoard();
 
-    }, [boardId, user]);
+    }, [boardId, user, loading]);
 
     useEffect(() => {
         console.log("addUser before", board, user);
@@ -72,21 +73,24 @@ const BoardInvitation = () => {
         return <div>Loading board...</div>;
     }
     return (
-        <div className='board-inviteContainer'>
-            <div className='inviteFlexContent'>
-                <h3 style={{ margin: '0' }}>Invited to board {board?.title}</h3>
-                {user ? (
-                    <p>You have been added to the board!</p>
-                ) : (
-                    <>
-                        <p>Please log in to accept the invitation</p>
-                        <button className='goToLoginBtn' onClick={() => navigate("/login")}>Go to login</button>
-                    </>
+        <>
+            <Header />
+            <div className='board-inviteContainer'>
+                <div className='inviteFlexContent'>
+                    <h3 style={{ margin: '0' }}>Invited to board {board?.title}</h3>
+                    {user ? (
+                        <p>You have been added to the board!</p>
+                    ) : (
+                        <>
+                            <p>Please log in to accept the invitation</p>
+                            <button className='goToLoginBtn' onClick={() => navigate("/login")}>Go to login</button>
+                        </>
 
-                )}
+                    )}
+                </div>
+
             </div>
-
-        </div>
+        </>
     )
 }
 

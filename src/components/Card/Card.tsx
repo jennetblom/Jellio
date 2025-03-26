@@ -11,16 +11,23 @@ type CardProps = {
   boardId: string;
   listId: string;
 }
-const Card = ({ card, removeCard, boardId, listId}: CardProps) => {
+const Card = ({ card, removeCard, boardId, listId }: CardProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: card.id });
   const [isCardClicked, setIsCardClicked] = useState(false);
   const [cardContent, setCardContent] = useState(card.content);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [cardContent, isCardClicked]);
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
 
   const handleCardClicked = () => {
     setCardContent(card.content);
@@ -33,8 +40,8 @@ const Card = ({ card, removeCard, boardId, listId}: CardProps) => {
     setIsCardClicked(false);
     if (cardContent.length > 0) {
       card.content = cardContent;
-      updateCardInDb(boardId, listId, {id: card.id, content: cardContent});
-      
+      updateCardInDb(boardId, listId, { id: card.id, content: cardContent });
+
     }
   }
   const handleCardKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -43,13 +50,6 @@ const Card = ({ card, removeCard, boardId, listId}: CardProps) => {
       handleCardContent(event)
     }
   }
-  useEffect(() => {
-    console.log("useEffect", textareaRef.current?.scrollHeight);
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, [cardContent, isCardClicked]);
 
 
   return (
@@ -61,7 +61,6 @@ const Card = ({ card, removeCard, boardId, listId}: CardProps) => {
             <RiDeleteBin6Line id='trashIcon' onClick={removeCard} size={12} />
           </div>
         </div>
-
       ) : (
         <form onSubmit={handleCardContent}>
           <textarea

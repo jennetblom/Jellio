@@ -33,10 +33,8 @@ type BoardProps = {
 }
 const Board = ({ board}: BoardProps) => {
 
-
     const [lists, setLists] = useState<ListType[]>([]);
     const [isAdding, setIsAdding] = useState(false);
-
     const [listTitle, setListTitle] = useState<string>('');
 
     useEffect(() => {
@@ -46,6 +44,7 @@ const Board = ({ board}: BoardProps) => {
         return () => unsubscribe();
     }, [board.id]);
 
+    
     const handleAddList = () => setIsAdding(true);
     //When user clicks the handleAdd button, setisAdding is true and the input for listTitle 
     // and another button for adding a new list shows up
@@ -111,7 +110,7 @@ const Board = ({ board}: BoardProps) => {
         <div className='boardContainer'>
             <div className='boardColumn'>
                 <div className='boardFlex'>
-                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists)}>
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={(event) => handleDragEnd(event, lists, setLists, board.id)}>
                         <SortableContext items={lists.map(list => list.id)} >
                             {lists.map((list) => (
                                 <List key={list.id} boardId={board.id} list={list} addCardToList={addCard} onRemove={removeList} removeCard={removeCard} />

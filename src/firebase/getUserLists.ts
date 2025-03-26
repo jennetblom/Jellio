@@ -7,11 +7,11 @@ export const getUserLists = (boardId: string, setLists: React.Dispatch<React.Set
     const listsRef = collection(db, "boards", boardId, "lists");
     const q = query(listsRef, orderBy("index"));
 
-    const unsubsribe = onSnapshot(q, (snapshot) => {
+    const unsubscribe = onSnapshot(q, (snapshot) => {
         const listsData = snapshot.docs.map((doc) => ({
             ...(doc.data() as ListType)
         }));
         setLists(listsData);
     })
-    return unsubsribe;
+    return unsubscribe;
 }

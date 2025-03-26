@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './CreateMenu.css'
 import { boardColors } from '../../styles/colors';
 import { IoIosCheckmark } from "react-icons/io";
@@ -10,7 +10,7 @@ import { RxCross1 } from "react-icons/rx";
 
 interface CreateMenuProps {
     closeCreateOverlay: () => void;
-    
+
 }
 
 
@@ -21,9 +21,35 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
     const { user } = useAuth();
     const [error, setError] = useState("");
 
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                closeCreateOverlay();
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    })
+
+    useEffect(() => {
+        if (error) {
+            const timer = setTimeout(() => {
+                setError("");
+            }, 2000);
+
+            return () => clearTimeout(timer);
+        }
+    }, [error]);
+
     const handleClose = () => {
         closeCreateOverlay();
     }
+
     const handleHover = (e: React.MouseEvent<HTMLDivElement>, color: string, isHovering: boolean) => {
         e.currentTarget.style.background = isHovering ?
             boardColors[color]?.hover || color :
@@ -50,19 +76,11 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
         setBoardTitle('');
         setBoardColor('');
         handleClose();
-       
+
     }
-     useEffect(() => {
-            if (error) {
-                const timer = setTimeout(() => {
-                    setError("");
-                }, 2000);
-    
-                return () => clearTimeout(timer);
-            }
-        }, [error]);
+
     return (
-        <div className='createBoard' >
+        <div className='createBoard' ref={menuRef} >
             <div className='createMenuHeader'>
                 <p id='createTitle'>Create a new board</p>
                 <button onClick={handleClose} id='closeCreate'><RxCross1 /></button>
@@ -73,7 +91,7 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
                 onChange={(e) => setBoardTitle(e.target.value)}
                 placeholder='Enter the title of your board...'
             />
-               {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <p>Choose a background</p>
             <div className='colorSelect'>
                 {Object.keys(boardColors).map((colorKey) => (
@@ -94,7 +112,7 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
                 ))}
             </div>
             <button className='createBtn' onClick={addBoard}>Create</button>
-         
+
         </div>
     )
 }
