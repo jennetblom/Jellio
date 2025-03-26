@@ -3,29 +3,27 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-
-    
-    background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+    background: linear-gradient(180deg, #00d9d2, #077293, #004a72);
+    overflow: hidden;
 }
 
 .signUpCardContainer {
-    margin-top: 30px;
-   width: 500px;
-   height: fit-content;
+    margin-top: 20px;
+    width: 500px;
+    height: fit-content;
     padding-bottom: 20px;
+    box-shadow: 2px 1px 15px 1px rgb(18, 0, 0);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid rgb(8, 0, 0);
 
-   box-shadow: 2px 1px 15px 1px rgb(18, 0, 0);
-   display: flex;
-   align-items: center;
-   flex-direction: column;
-   gap: 5px;
-   border: 1px solid rgb(8, 0, 0);
-    
-   background: linear-gradient(180deg,  #055e79, #043a57);
-   background-color: #011c3a;
-   color: rgb(219, 226, 226);
-   border-radius: 20px;
-   
+    background: linear-gradient(180deg, #055e79, #043a57);
+    background-color: #011c3a;
+    color: rgb(219, 226, 226);
+    border-radius: 20px;
+
 }
 
 .signUpContainer {
@@ -44,8 +42,8 @@
 
 
 #headingInSign {
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     font-size: 13px;
     text-align: center;
 }
@@ -60,14 +58,14 @@
 }
 
 .signInput {
-    height:30px;
+    height: 30px;
     width: 90%;
     border: 1px solid rgb(2, 182, 214);
     border-radius: 5px;
     margin-top: 0px;
     margin-bottom: 10px;
     font-size: 13px;
-    padding:4px;
+    padding: 4px;
 }
 
 #profilePic {
@@ -82,5 +80,3 @@
     height: 155px;
 
 }
-
-

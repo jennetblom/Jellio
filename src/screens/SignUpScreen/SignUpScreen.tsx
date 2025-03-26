@@ -155,7 +155,7 @@ const SignUpScreen = () => {
                                 autoComplete='new-password'
                             />
                         </form>
-                        {error && <p style={{ color: "red" }}>{error}</p>}
+                        {error && <p className='errorMessage'>{error}</p>}
                         <button className='loginButton' id='signUpBtn' onClick={handleSignUp}>Create your account</button>
                     </div>
                 </div>

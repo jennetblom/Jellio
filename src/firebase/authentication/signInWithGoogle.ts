@@ -1,16 +1,12 @@
-import { getRedirectResult, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth"
+import { signInWithPopup, } from "firebase/auth"
 import { auth, provider, db } from "../../firebaseConfig"
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 
 
-
-
 export const signInWithGoogle = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
         const user = result.user;
 
         const userRef = doc(db, "users", user.uid);
@@ -19,7 +15,7 @@ export const signInWithGoogle = async () => {
         const currentDate = new Date();
         const timestamp = Timestamp.fromDate(currentDate);
 
-        if(!userSnap.exists()) {
+        if (!userSnap.exists()) {
             await setDoc(userRef, {
                 userId: user.uid,
                 username: user.displayName || "No username",

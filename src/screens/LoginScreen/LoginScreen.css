@@ -3,13 +3,12 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-
-    
     background: linear-gradient(180deg, #00d9d2,  #077293, #004a72);
+    overflow: hidden;
 }
 
 .loginCardContainer {
-    margin-top: 30px;
+    margin-top: 10px;
    width: 500px;
    height: fit-content;
     padding-bottom: 20px;

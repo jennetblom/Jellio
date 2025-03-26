@@ -88,8 +88,9 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
                 value={boardTitle}
                 onChange={(e) => setBoardTitle(e.target.value)}
                 placeholder='Enter the title of your board...'
+                maxLength={25}
             />
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            {error && <p className='errorMessage'>{error}</p>}
             <p>Choose a background</p>
             <div className='colorSelect'>
                 {Object.keys(boardColors).map((colorKey) => (

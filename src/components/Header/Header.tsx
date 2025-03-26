@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({backgroundColor="default"}) => {
   return (
     <header className="header" style={headerStyle}>
       <div className='headerLeft'>
-        <img id='jellyicon' src={JellyIcon} style={{ width: 110, height: 'auto' }} />
+        <img id='jellyicon' src={JellyIcon} style={{ width: 90, height: 'auto' }} />
         <Link to="/" className='nav-link'>
           <h1 id='appname'>Jellio</h1>
         </Link>
