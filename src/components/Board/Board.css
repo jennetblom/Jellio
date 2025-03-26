@@ -34,30 +34,19 @@
     flex-direction: row;
     padding: 10px;
     border-radius: 8px;
-    background-color: rgba(96, 207, 201, 0.834);
+    background-color: rgba(241, 255, 254, 0.5);
     border: 0;
     font-weight: 600;
 }
 
 #handleAddBtn:hover {
-    font-size: 14px;
-    margin: 5px;
-    display: flex;
-    align-items: center;
-    width: 250px;
-    flex-direction: row;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgba(84, 198, 193, 0.834);
-    border: 0;
-    font-weight: 600;
+    background-color: rgba(212, 212, 212, 0.5);
+
 }
 
 .boardFlex {
     display: flex;
     flex-direction: row;
-    
-    
 }
 
 .boardColumn {

@@ -113,7 +113,7 @@ const LoginScreen = () => {
                                 placeholder='Write your password'
                                 autoComplete='current-password'
                             />
-                            {error && <p style={{ color: "red" }}>{error}</p>}
+                            {error && <p className='errorMessage'>{error}</p>}
                             <button className='loginButton' onClick={signInWithEmail}>Sign in</button>
                         </form>
                         <div className='loginGoogle'>

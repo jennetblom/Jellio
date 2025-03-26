@@ -35,6 +35,7 @@ const Board = ({ board }: BoardProps) => {
     const [lists, setLists] = useState<ListType[]>([]);
     const [isAdding, setIsAdding] = useState(false);
     const [listTitle, setListTitle] = useState<string>('');
+    const [isEditingListTitle, setIsEditingListTitle] = useState(false);
 
     useEffect(() => {
         if (!board.id) return;
@@ -103,6 +104,7 @@ const Board = ({ board }: BoardProps) => {
         },
     })
     const keyboardSensor = useSensor(KeyboardSensor)
+    
     const sensors = useSensors(mouseSensor, keyboardSensor);
 
     return (

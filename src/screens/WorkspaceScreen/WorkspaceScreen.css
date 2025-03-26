@@ -93,7 +93,7 @@
 .createMenuWrapper {
     top: 0px;
     bottom: 10px;
-    left: calc(23% + 220px);
+    left: calc(20% - 0px);
     position: absolute;
     z-index: 1000;
 }

@@ -65,3 +65,8 @@ h3 {
   font-family: 'BlockCraft';
   src: url('/fonts/BlockCraft.otf') format('truetype');
 }
+
+.errorMessage {
+  color: red;
+  font-size: 14px;
+}

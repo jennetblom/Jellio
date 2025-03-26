@@ -14,8 +14,8 @@ export const boardColors: Record<string, { default: string, hover: string, menu:
     sunrise: {
         default: "linear-gradient(140deg, rgb(255, 0, 157), rgb(250, 242, 0))",
         hover: "linear-gradient(140deg, rgb(226, 0, 139), rgb(208, 201, 0))",
-        menu: "linear-gradient(140deg, rgb(226, 0, 139), rgb(200, 0, 100))",
-        header: "linear-gradient(360deg, rgb(212, 0, 96), rgb(176, 170, 0))",
+        menu: "linear-gradient(140deg, rgb(226, 0, 139), rgb(183, 164, 0))",
+        header: "linear-gradient(360deg,  rgb(147, 0, 91),  rgb(202, 0, 125))",
     },
     orange: {
         default: "linear-gradient(140deg, rgb(250, 196, 0),rgb(218, 91, 0))",
@@ -43,7 +43,7 @@ export const boardColors: Record<string, { default: string, hover: string, menu:
         menu: "linear-gradient(140deg, rgb(0, 193, 222), rgb(162, 216, 0))",
         header: "linear-gradient(140deg, rgb(0, 193, 222), rgb(162, 216, 0))",
     },
-    yellow: {
+        yellow: {
         default: "linear-gradient(140deg, rgb(250, 250, 0),rgb(211, 151, 0))",
         hover: "linear-gradient(140deg, rgb(168, 168, 0),rgb(188, 138, 0))",
         menu: "linear-gradient(140deg, rgb(220, 220, 0),rgb(196, 141, 2))",

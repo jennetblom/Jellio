@@ -4,7 +4,7 @@ import { IoAdd } from "react-icons/io5";
 import Card from '../Card/Card';
 import { RxCross2 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useSortable, verticalListSortingStrategy,  SortableContext } from "@dnd-kit/sortable";
+import { useSortable, verticalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { updateListInDb } from '../../firebase/updateData/updateListInDb';
 
@@ -51,6 +51,7 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
       event.preventDefault();
       handleSubmit(event)
     }
+
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,6 +87,7 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
     setCardContent('');
   }
   const handleKeyPress = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    
     if (event.key === "Enter") {
       event.preventDefault();
       addCard(event);
@@ -118,7 +120,12 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
                 onBlur={() => setIsTitleClicked(false)}
                 autoFocus
                 maxLength={33}
-                onKeyDown={handleTitleKeyPress}
+                onKeyDown={(event) => {
+                  if (event.key === " ") {
+                    event.stopPropagation();
+                  }
+                  handleTitleKeyPress(event);
+                }}
               />
             </form>
           )
@@ -130,7 +137,7 @@ const List = ({ boardId, list, addCardToList, onRemove, removeCard }: ListProps)
       <div className='listsFlex'>
         <SortableContext items={list.cards.map(card => card.id)} strategy={verticalListSortingStrategy} >
           {list.cards.map((card) => (
-            <Card key={card.id} card={card} removeCard={() => removeCard(list.id, card.id)} boardId={boardId} listId={list.id}/>
+            <Card key={card.id} card={card} removeCard={() => removeCard(list.id, card.id)} boardId={boardId} listId={list.id} />
           ))}
         </SortableContext>
       </div>
