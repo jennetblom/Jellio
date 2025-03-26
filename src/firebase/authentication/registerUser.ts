@@ -1,4 +1,4 @@
-import { db, auth } from '../firebaseConfig';
+import { db, auth } from '../../firebaseConfig';
 import { setDoc, doc,  Timestamp } from "firebase/firestore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 

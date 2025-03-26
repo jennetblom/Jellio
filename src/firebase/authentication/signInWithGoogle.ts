@@ -1,5 +1,5 @@
 import { getRedirectResult, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth"
-import { auth, provider, db } from "../firebaseConfig"
+import { auth, provider, db } from "../../firebaseConfig"
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore";
 

@@ -1,7 +1,7 @@
 
 import './Header.css';
 import JellyIcon from '../../../src/assets/images/jelly96-right.png';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CgProfile } from "react-icons/cg";
 import JellyFish from '../../../src/assets/images/jellyfishImage.png'
 import { useAuth } from '../../context/AuthContext';
@@ -40,7 +40,6 @@ const Header: React.FC<HeaderProps> = ({backgroundColor="default"}) => {
         <img id='jellyicon' src={JellyIcon} style={{ width: 110, height: 'auto' }} />
         <Link to="/" className='nav-link'>
           <h1 id='appname'>Jellio</h1>
-
         </Link>
         <div className='nav-links'>
           <Link to="/" className='nav-link'>Home</Link>

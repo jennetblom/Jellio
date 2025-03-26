@@ -1,5 +1,5 @@
 import { collection, doc,  setDoc, Timestamp } from "firebase/firestore";
-import { db } from '../firebaseConfig';
+import { db } from '../../firebaseConfig';
 
 
 export const createBoardInDb = async (userId: string, username: string, title: string, color: string) => {

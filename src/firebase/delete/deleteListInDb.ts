@@ -1,6 +1,6 @@
 
 import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { db } from "../../firebaseConfig";
 
 export const deleteListInDb = async (boardId: string, listId: string) => {
     try {

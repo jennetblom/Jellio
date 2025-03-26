@@ -5,7 +5,7 @@ import Board from '../../components/Board/Board'
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BoardType } from '../../types';
-import { getBoardById } from '../../firebase/getBoardById';
+import { getBoardById } from '../../firebase/fetchData/getBoardById';
 import { boardColors } from '../../styles/colors';
 import ShareModal from '../../components/ShareModal/ShareModal';
 import { useLocation } from "react-router-dom";
@@ -23,8 +23,11 @@ const BoardScreen = () => {
   useEffect(() => {
     if (board || !id) return;
 
+
     const fetchBoard = async () => {
+    
       try {
+        console.log("Hej");
         const boardData = await getBoardById(id);
         setBoard(boardData);
       } catch (error) {

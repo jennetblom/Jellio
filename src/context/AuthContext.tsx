@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             setLoading(false);
         });
 
-        return () => unsubscribe(); // Avslutar lyssnaren vid unmount
+        return () => unsubscribe(); 
     }, []);
     const logout = async () => {
         try {

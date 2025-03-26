@@ -5,7 +5,6 @@ import './HomeScreen.css'
 import { Link } from 'react-router-dom';
 
 const HomeScreen = () => {
-
     return (
         <>
             <Header />

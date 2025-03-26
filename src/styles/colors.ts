@@ -25,7 +25,6 @@ export const boardColors: Record<string, { default: string, hover: string, menu:
         
     },
    
-
     tropical: {
         default: "linear-gradient(140deg, rgb(117, 250, 0),rgb(218, 0, 164))",
         hover: "linear-gradient(140deg, rgb(101, 217, 0),rgb(192, 0, 144))",

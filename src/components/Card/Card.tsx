@@ -3,7 +3,7 @@ import './Card.css'
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { updateCardInDb } from '../../firebase/updateCardInDb';
+import { updateCardInDb } from '../../firebase/updateData/updateCardInDb';
 
 type CardProps = {
   card: { id: number, content: string };

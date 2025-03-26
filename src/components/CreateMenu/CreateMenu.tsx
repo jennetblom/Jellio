@@ -3,9 +3,7 @@ import './CreateMenu.css'
 import { boardColors } from '../../styles/colors';
 import { IoIosCheckmark } from "react-icons/io";
 import { useAuth } from '../../context/AuthContext';
-import { createBoardInDb } from '../../firebase/createBoardInDb';
-import { getUserBoards } from '../../firebase/getUserBoards';
-import { BoardType } from '../../types';
+import { createBoardInDb } from '../../firebase/addData/createBoardInDb';
 import { RxCross1 } from "react-icons/rx";
 
 interface CreateMenuProps {
@@ -17,7 +15,7 @@ interface CreateMenuProps {
 const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
     const [boardTitle, setBoardTitle] = useState('');
     const [boardColor, setBoardColor] = useState('');
-    const [boards, setBoards] = useState<BoardType[]>([]);
+/*     const [boards, setBoards] = useState<BoardType[]>([]); */
     const { user } = useAuth();
     const [error, setError] = useState("");
 
@@ -71,8 +69,8 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
         if (!user.username) return;
 
         await createBoardInDb(user.uid, user.username, boardTitle, boardColor);
-        const userBoards = await getUserBoards(user);
-        setBoards(userBoards);
+/*         const userBoards = await getUserBoards(user);
+        setBoards(userBoards); */
         setBoardTitle('');
         setBoardColor('');
         handleClose();
@@ -112,7 +110,6 @@ const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
                 ))}
             </div>
             <button className='createBtn' onClick={addBoard}>Create</button>
-
         </div>
     )
 }

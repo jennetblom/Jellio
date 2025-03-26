@@ -1,6 +1,6 @@
 import { arrayUnion, doc,  updateDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
-import { CardType} from "../types";
+import { db } from "../../firebaseConfig";
+import { CardType} from "../../types";
 
 export const addCardToDb = async (boardId: string, listId: string, newCard: CardType) => {
     try {

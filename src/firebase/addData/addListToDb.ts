@@ -1,5 +1,5 @@
-import { ListType } from "../types";
-import { db } from "../firebaseConfig";
+import { ListType } from "../../types";
+import { db } from "../../firebaseConfig";
 import { collection, doc, setDoc } from "firebase/firestore";
 
 export const addListToDb = async (boardId: string, listTitle: string, lists: ListType[]) => {
