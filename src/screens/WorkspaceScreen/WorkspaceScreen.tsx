@@ -9,7 +9,6 @@ import { FaTrello } from "react-icons/fa";
 import { getMemberBoards } from '../../firebase/fetchData/getMemberBoards';
 import Header from '../../components/Header/Header';
 import { capitalize } from '../../functions/capitalizeFirstLetter';
-import { listenToBoards } from '../../firebase/fetchData/listenToBoards';
 import { useBoards } from '../../context/BoardContext';
 
 const WorkspaceScreen = () => {
@@ -21,37 +20,8 @@ const WorkspaceScreen = () => {
   const [memberBoards, setMemberBoards] = useState<BoardType[]>([]);
   const [isCreateMenuVisisble, setIsCreateMenuVisible] = useState(false);
 
-  /*   useEffect(() => {
-      if (loading) return;
-  
-      if (!user) {
-        navigate('/login');
-        return;
-      }
-      console.log("workspace takes care");
-  
-      const fetchBoards = async () => {
-        if (user) {
-          const userBoards = await getUserBoards(user);
-          setBoards(userBoards);
-        }
-      };
-      fetchBoards();
-  
-    }, [user, loading]); */
-
-/*   useEffect(() => {
-    if (!user?.userId) { return; }
-    const unsubscribe = listenToBoards(user.userId, setBoards);
-
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-
-    };
-  }, [user]); */
   if (boardsLoading) return <p>Loading boards...</p>;
+  
   useEffect(() => {
     if (loading) return;
 

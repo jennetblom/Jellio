@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
-    background-color: #0f9692;
+/*     background-color: #0f9692; */
     
 }
 
@@ -54,7 +54,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    background-color: #15bbb5;
+/*     background-color: #15bbb5; */
 }
 
 
@@ -76,7 +76,7 @@
 
 
 .sidebar-item:hover {
-    background-color: #0f9692;
+    background-color: rgb(79, 79, 79, 0.3);
 }
 
 

@@ -56,7 +56,7 @@ const BoardScreen = () => {
 
   return (
     <div className='boardPage'>
-      <Sidebar />
+      <Sidebar boardColor={board.color} />
       <Header backgroundColor={board.color}/>
       <div className='board-background' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].default : defaultValue }}>
         <div className='menu' style={{ background: board?.color && boardColors[board.color] ? boardColors[board.color].menu : defaultValue }}>

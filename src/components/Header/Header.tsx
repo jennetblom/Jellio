@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({backgroundColor="default"}) => {
     setIsCreateMenuVisible(prevState => !prevState);
   }
   const getStarted = () => {
-    navigate('/signup');
+    navigate('/login');
   }
 
   return (

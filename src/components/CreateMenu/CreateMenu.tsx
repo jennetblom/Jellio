@@ -15,7 +15,6 @@ interface CreateMenuProps {
 const CreateMenu: React.FC<CreateMenuProps> = ({ closeCreateOverlay }) => {
     const [boardTitle, setBoardTitle] = useState('');
     const [boardColor, setBoardColor] = useState('');
-/*     const [boards, setBoards] = useState<BoardType[]>([]); */
     const { user } = useAuth();
     const [error, setError] = useState("");
 
