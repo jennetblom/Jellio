@@ -15,7 +15,7 @@ type SidebarProps = {
 const Sidebar = ({boardColor} : SidebarProps) => {
 
     const { boards, boardsLoading } = useBoards();
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(true);
     const { user, loading } = useAuth();
     const navigate = useNavigate();
     const [memberBoards, setMemberBoards] = useState<BoardType[]>([]);

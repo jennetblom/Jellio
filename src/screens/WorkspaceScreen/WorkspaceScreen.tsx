@@ -84,7 +84,7 @@ const WorkspaceScreen = () => {
           {memberBoards.length > 0 ? (
             <>
               <h3 className='titleGray'>Workspaces you are member in</h3>
-              <div>
+              <div className='boardShowContainer'>
                 {memberBoards.map((board) => (
                   <div key={board.id} className='boardShow'
                     onClick={() => handleBoardClick(board)}
